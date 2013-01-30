@@ -7,9 +7,11 @@
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake');
+		echo $this->Html->css( Configure::read('debug')>0 ? 'jquery-ui/jquery-ui-1.10.0' : 'jquery-ui/jquery-ui-1.10.0.min');
 		echo $this->Html->css( Configure::read('debug')>0 ? 'foundation' : 'foundation.min');
 
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-1.9.0' : 'jquery-1.9.0.min');
+		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script('foundation/modernizr.foundation.js');
 		echo $this->Html->script('foundation/foundation.min.js');
 		echo $this->Html->script('foundation/app.js');
