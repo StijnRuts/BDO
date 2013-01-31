@@ -1,97 +1,47 @@
 <?php
-App::uses('AppController', 'Controller');
-/**
- * Divisions Controller
- *
- * @property Division $Division
- */
 class DivisionsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
 	public function index() {
 		$this->Division->recursive = 0;
-		$this->set('divisions', $this->paginate());
+		$this->set('divisions', $this->Division->find('all'));
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Division->exists($id)) {
-			throw new NotFoundException(__('Invalid division'));
-		}
-		$options = array('conditions' => array('Division.' . $this->Division->primaryKey => $id));
-		$this->set('division', $this->Division->find('first', $options));
-	}
-
-/**
- * add method
- *
- * @return void
- */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Division->create();
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash(__('The division has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('De divisie is opgeslaan');
+				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The division could not be saved. Please, try again.'));
+				$this->Session->setFlash('De divisie kon niet worden opgeslaan');
 			}
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function edit($id = null) {
-		if (!$this->Division->exists($id)) {
-			throw new NotFoundException(__('Invalid division'));
-		}
+		if (!$this->Division->exists($id)) throw new NotFoundException('De opgegeven divisie kan niet worden gevonden');
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash(__('The division has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('De divisie is opgeslaan');
+				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The division could not be saved. Please, try again.'));
+				$this->Session->setFlash('De divisie kon niet worden opgeslaan');
 			}
 		} else {
-			$options = array('conditions' => array('Division.' . $this->Division->primaryKey => $id));
-			$this->request->data = $this->Division->find('first', $options);
+			$this->Division->id = $id;
+			$this->request->data = $this->Division->read();
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @throws MethodNotAllowedException
- * @param string $id
- * @return void
- */
 	public function delete($id = null) {
-		$this->Division->id = $id;
-		if (!$this->Division->exists()) {
-			throw new NotFoundException(__('Invalid division'));
-		}
+		if (!$this->Division->exists($id)) throw new NotFoundException('De opgegeven divisie kan niet worden gevonden');
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Division->delete()) {
-			$this->Session->setFlash(__('Division deleted'));
-			$this->redirect(array('action' => 'index'));
+		if ($this->Division->delete($id)) {
+			$this->Session->setFlash('De divisie is verwijderd');
+		} else {
+			$this->Session->setFlash('De divisie kon niet worden verwijderd');
 		}
-		$this->Session->setFlash(__('Division was not deleted'));
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('action'=>'index'));
 	}
 }
+?>
