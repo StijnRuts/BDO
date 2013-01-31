@@ -1,20 +1,19 @@
 <div class="disciplines form">
 <?php echo $this->Form->create('Discipline'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Discipline'); ?></legend>
-	<?php
-		echo $this->Form->input('order');
-		echo $this->Form->input('name');
-	?>
+		<legend>Discipline toevoegen</legend>
+		<?php
+			echo $this->Form->input('order');
+			echo $this->Form->input('name');
+		?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end('Opslaan'); ?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
 
-		<li><?php echo $this->Html->link(__('List Disciplines'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Contestants'), array('controller' => 'contestants', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Contestant'), array('controller' => 'contestants', 'action' => 'add')); ?> </li>
+<div class="actions">
+	<h3>Actions</h3>
+	<ul>
+		<li><?php echo $this->Html->link('<- Terug', array('action'=>'index')); ?></li>
 	</ul>
 </div>
+
