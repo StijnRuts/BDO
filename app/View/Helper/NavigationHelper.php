@@ -24,6 +24,12 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'clubs' ),
 									'subitems' => array()
 								),
+							)
+						),
+						array(
+							'name' => 'Opties',
+							'location' => array( 'controller'=>'admin', 'action'=>'opties' ),
+							'subitems' => array(
 								array(
 									'name' => 'Categoriëen',
 									'location' => array( 'controller'=>'categories' ),
@@ -89,7 +95,7 @@ class NavigationHelper extends AppHelper
 
 		// MENU
 		$returnObj['menu'] = "";
-		$subitems = count($navigation)>1 ? $navigation[1]['subitems'] : $navigation[0]['subitems'];
+		$subitems = count($navigation[0]['subitems'])>0 ? $navigation[0]['subitems'] : $navigation[1]['subitems'];
 		foreach($subitems as $subitem){
 			if(!isset($subitem['location']['action'])) $subitem['location']['action']='index';
 			$returnObj['menu'] .= $this->Html->tag('li',
@@ -100,9 +106,12 @@ class NavigationHelper extends AppHelper
 		$returnObj['menu'] = $this->Html->tag('ul', $returnObj['menu'], array('class'=>'nav-bar'));
 
 		// BREADCRUMBS
-		$crumbs = count($navigation)>1 ? array_reverse(array_slice($navigation,1)) : $navigation;
-		foreach($crumbs as $crumb){
-			$this->Html->addCrumb($crumb['name'], $crumb['location']);
+		foreach(array_reverse($navigation) as $crumb){
+			if($crumb['name']==$returnObj['title']){
+				$this->Html->addCrumb( $this->Html->tag('span', $crumb['name'], array('class'=>'current')) , null );
+			} else {
+				$this->Html->addCrumb( $crumb['name'],	$crumb['location'] );
+			}
 		}
 		$returnObj['breadcrumbs'] = $this->Html->getCrumbList(array('class'=>'breadcrumbs'), false);
 

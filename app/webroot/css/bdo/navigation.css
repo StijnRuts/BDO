@@ -4,7 +4,7 @@ ul.breadcrumbs {
 	border-radius: 0;
 	margin-bottom: 0;
 }
-ul.breadcrumbs li a {
+ul.breadcrumbs li a, ul.breadcrumbs li span {
 	color: white;
 	font-size: 15px;
 	line-height: 30px;
@@ -12,6 +12,9 @@ ul.breadcrumbs li a {
 ul.breadcrumbs li:hover a, ul.breadcrumbs li a:focus {
 	color: #D9D9D9;
 	text-decoration: none;
+}
+ul.breadcrumbs li span.current {
+	color: #2BA6CB;
 }
 ul.breadcrumbs li:before {
 	content: ">";
