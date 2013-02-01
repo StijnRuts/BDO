@@ -6,7 +6,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake');
+		echo $this->Html->css('cake.specific');
 		echo $this->Html->css( Configure::read('debug')>0 ? 'jquery-ui/jquery-ui-1.10.0' : 'jquery-ui/jquery-ui-1.10.0.min');
 		echo $this->Html->css( Configure::read('debug')>0 ? 'foundation' : 'foundation.min');
 		echo $this->Html->css('foundation_icons');
