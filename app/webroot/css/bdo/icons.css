@@ -1,0 +1,17 @@
+[class*="icon-"] {
+	font-size: 1.4em;
+	color: #AAA;
+	padding-left: 3px;
+	vertical-align: middle;
+
+	-webkit-transition:	color 0.2s ease-in;
+	-moz-transition:		color 0.2s ease-in;
+	-o-transition:			color 0.2s ease-in;
+	transition:				color 0.2s ease-in;
+}
+[class*="icon-"]:hover {
+	color: #222;
+}
+[class*="icon-remove"]:hover {
+	color: #E61919;
+}

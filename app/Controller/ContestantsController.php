@@ -10,10 +10,10 @@ class ContestantsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Contestant->create();
 			if ($this->Contestant->save($this->request->data)) {
-				$this->Session->setFlash('De deelnemer is opgeslaan');
+				$this->Session->setFlash('Lid opgeslaan');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De deelnemer kon niet worden opgeslaan');
+				$this->Session->setFlash('Lid kon niet worden opgeslaan');
 			}
 		}
 		$clubs = $this->Contestant->Club->find('list');
@@ -24,13 +24,13 @@ class ContestantsController extends AppController {
 	}
 
 	public function edit($id = null) {
-		if (!$this->Contestant->exists($id)) throw new NotFoundException('De opgegeven deelnemer kan niet worden gevonden');
+		if (!$this->Contestant->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Contestant->save($this->request->data)) {
-				$this->Session->setFlash('De deelnemer is opgeslaan');
+				$this->Session->setFlash('Lid opgeslaan');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De deelnemer kon niet worden opgeslaan');
+				$this->Session->setFlash('Lid kon niet worden opgeslaan');
 			}
 		} else {
 			$this->Contestant->id = $id;
@@ -44,12 +44,12 @@ class ContestantsController extends AppController {
 	}
 
 	public function delete($id = null) {
-		if (!$this->Contestant->exists($id)) throw new NotFoundException('De opgegeven deelnemer kan niet worden gevonden');
+		if (!$this->Contestant->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Contestant->delete($id)) {
-			$this->Session->setFlash('De deelnemer is verwijderd');
+			$this->Session->setFlash('Lid verwijderd');
 		} else {
-			$this->Session->setFlash('De deelnemer kon niet worden verwijderd');
+			$this->Session->setFlash('Lid kon niet worden verwijderd');
 		}
 		$this->redirect(array('action'=>'index'));
 	}
