@@ -24,10 +24,12 @@
 			</td>
 		</tr>
 		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
 		<tr>
 			<td colspan="2" class="add">
 				<?= $this->Html->link('Club toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>
-	</tbody>
+	</tfoot>
 </table>

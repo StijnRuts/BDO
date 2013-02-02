@@ -1,4 +1,4 @@
-<table>
+<table class="tablesorter">
 	<thead>
 		<tr>
 			<th>Startnr</th>
@@ -34,10 +34,29 @@
 			</td>
 		</tr>
 		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
 		<tr>
 			<td colspan="7" class="add">
 				<?= $this->Html->link('Lid toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>
-	</tbody>
+	</tfoot>
 </table>
+
+<script>
+	$(document).ready(function(){
+		$.tablesorter.addParser({
+			id: 'startnr',
+			is: function(s){ return false; },
+			format: function(s){ return s.toUpperCase(); },
+			type: 'text'
+		});
+		$(".tablesorter").tablesorter({
+			headers: {
+				0: {sorter: 'startnr'},
+				6: {sorter: false}
+			}
+		});
+	});
+</script>

@@ -26,12 +26,14 @@
 			</td>
 		</tr>
 		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
 		<tr>
 			<td colspan="3" class="add">
 				<?= $this->Html->link('Discipline toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>
-	</tbody>
+	</tfoot>
 </table>
 
 <?php $this->Sortable->init(); ?>

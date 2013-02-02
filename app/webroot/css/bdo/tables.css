@@ -1,18 +1,18 @@
 table {
-    margin-left: auto;
-    margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-table thead, table tfoot {
-    background-color: #EBEBEB;
+table thead {
+	background-color: #EBEBEB;
 }
 
 td.startnr {
 	text-align: right;
 }
 
-.add {
-	padding: 5px 0 0;
+table tfoot tr td {
+	padding: 0;
 }
 .add .button {
 	width: 100%;
