@@ -16,10 +16,10 @@ class ContestantsController extends AppController {
 				$this->Session->setFlash($this->request->data['Contestant']['name'].' kon niet worden opgeslaan');
 			}
 		}
-		$clubs = $this->Contestant->Club->find('list');
-		$disciplines = $this->Contestant->Discipline->find('list');
-		$categories = $this->Contestant->Category->find('list');
-		$divisions = $this->Contestant->Division->find('list');
+		$clubs = $this->Contestant->Club->find('list', array('order'=>array('Club.name'=>'asc')) );
+		$disciplines = $this->Contestant->Discipline->find('list', array('order'=>array('Discipline.order'=>'asc')) );
+		$categories = $this->Contestant->Category->find('list', array('order'=>array('Category.order'=>'asc')) );
+		$divisions = $this->Contestant->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
 		$this->set(compact('clubs', 'disciplines', 'categories', 'divisions'));
 	}
 
@@ -36,10 +36,10 @@ class ContestantsController extends AppController {
 			$this->Contestant->id = $id;
 			$this->request->data = $this->Contestant->read();
 		}
-		$clubs = $this->Contestant->Club->find('list');
-		$disciplines = $this->Contestant->Discipline->find('list');
-		$categories = $this->Contestant->Category->find('list');
-		$divisions = $this->Contestant->Division->find('list');
+		$clubs = $this->Contestant->Club->find('list', array('order'=>array('Club.name'=>'asc')) );
+		$disciplines = $this->Contestant->Discipline->find('list', array('order'=>array('Discipline.order'=>'asc')) );
+		$categories = $this->Contestant->Category->find('list', array('order'=>array('Category.order'=>'asc')) );
+		$divisions = $this->Contestant->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
 		$this->set(compact('clubs', 'disciplines', 'categories', 'divisions'));
 	}
 
