@@ -1,12 +1,12 @@
 <table>
 	<thead>
 		<tr>
-			<th>startnr</th>
-			<th>naam</th>
-			<th>club</th>
-			<th>discipline</th>
-			<th>categorie</th>
-			<th>divisie</th>
+			<th>Startnr</th>
+			<th>Naam</th>
+			<th>Club</th>
+			<th>Discipline</th>
+			<th>Categorie</th>
+			<th>Divisie</th>
 			<th></th>
 		</tr>
 	</thead>
