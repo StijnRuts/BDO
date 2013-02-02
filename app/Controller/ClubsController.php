@@ -3,7 +3,10 @@ class ClubsController extends AppController {
 
 	public function index() {
 		$this->Club->recursive = 0;
-		$this->set('clubs', $this->Club->find('all'));
+		$this->set('clubs', $this->Club->find('all', array(
+			'order' => array('Club.name' => 'asc'),
+			'conditions' => array('Club.id >' => 0)
+		)));
 	}
 
 	public function add() {
