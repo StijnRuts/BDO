@@ -16,7 +16,7 @@ class CategoriesController extends AppController {
 			$this->Category->create();
 			$this->request->data['Category']['order'] = $this->Category->find('count');
 			if ($this->Category->save($this->request->data)) {
-				$this->Session->setFlash('De categorie is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De categorie is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De categorie kon niet worden opgeslaan', 'flash_error');
@@ -28,7 +28,7 @@ class CategoriesController extends AppController {
 		if (!$this->Category->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Category->save($this->request->data)) {
-				$this->Session->setFlash('De categorie is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De categorie is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De categorie kon niet worden opgeslaan', 'flash_error');

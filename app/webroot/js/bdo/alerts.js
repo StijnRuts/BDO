@@ -1,5 +1,6 @@
 $(function(){
-	$(".alert-box").on("click", function(){
-		$(this).slideUp(function(){ $(this).remove(); });
-	});
+	function hidemessage(){ $(this).slideUp(function(){ $(this).remove(); }); };
+	$(".flash_info").on("click", hidemessage);
+	$(".flash_success").on("click", hidemessage);
+	$(".flash_error").on("click", hidemessage);
 });

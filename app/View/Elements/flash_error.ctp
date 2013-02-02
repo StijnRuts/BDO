@@ -1,1 +1,1 @@
-<div class="alert-box alert"><?= $message; ?></div>
+<div class="flash_error"><?= $message; ?></div>

@@ -1,0 +1,31 @@
+div.flash_info, div.flash_success, div.flash_error {
+	padding: 10px;
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-size: 16px;
+	color: white;
+	background-color: #777;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
+div.flash_info { background-color: #2ba6cb; }
+div.flash_success { background-color: #5da423; }
+div.flash_error { background-color: #c60f13; }
+
+div.flash_info:after, div.flash_success:after, div.flash_error:after {
+	font-family: "Generalicons";
+	content: "\f006";
+	float: right;
+	color: #333;
+	opacity: 0.2;
+	font-size: 0.9em;
+}
+div.flash_info:hover:after, div.flash_success:hover:after, div.flash_error:hover:after {
+	opacity: 0.4;
+}

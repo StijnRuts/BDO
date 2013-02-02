@@ -15,7 +15,7 @@ class DisciplinesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Discipline->create();
 			if ($this->Discipline->save($this->request->data)) {
-				$this->Session->setFlash('De discipline is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De discipline is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De discipline kon niet worden opgeslaan', 'flash_error');
@@ -27,7 +27,7 @@ class DisciplinesController extends AppController {
 		if (!$this->Discipline->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Discipline->save($this->request->data)) {
-				$this->Session->setFlash('De discipline is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De discipline is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De discipline kon niet worden opgeslaan', 'flash_error');

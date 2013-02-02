@@ -10,7 +10,7 @@ class ContestantsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Contestant->create();
 			if ($this->Contestant->save($this->request->data)) {
-				$this->Session->setFlash($this->request->data['Contestant']['name'].' opgeslaan', 'flash_succes');
+				$this->Session->setFlash($this->request->data['Contestant']['name'].' opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'add'));
 			} else {
 				$this->Session->setFlash($this->request->data['Contestant']['name'].' kon niet worden opgeslaan', 'flash_error');
@@ -27,7 +27,7 @@ class ContestantsController extends AppController {
 		if (!$this->Contestant->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Contestant->save($this->request->data)) {
-				$this->Session->setFlash($this->request->data['Contestant']['name'].' opgeslaan', 'flash_succes');
+				$this->Session->setFlash($this->request->data['Contestant']['name'].' opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash($this->request->data['Contestant']['name'].' kon niet worden opgeslaan', 'flash_error');

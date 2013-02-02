@@ -15,7 +15,7 @@ class DivisionsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Division->create();
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash('De divisie is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De divisie is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De divisie kon niet worden opgeslaan', 'flash_error');
@@ -27,7 +27,7 @@ class DivisionsController extends AppController {
 		if (!$this->Division->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash('De divisie is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De divisie is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De divisie kon niet worden opgeslaan', 'flash_error');

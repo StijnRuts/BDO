@@ -13,7 +13,7 @@ class ClubsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Club->create();
 			if ($this->Club->save($this->request->data)) {
-				$this->Session->setFlash('De club is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De club is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De club kon niet worden opgeslaan', 'flash_error');
@@ -25,7 +25,7 @@ class ClubsController extends AppController {
 		if (!$this->Club->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Club->save($this->request->data)) {
-				$this->Session->setFlash('De club is opgeslaan', 'flash_succes');
+				$this->Session->setFlash('De club is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De club kon niet worden opgeslaan', 'flash_error');
