@@ -1,4 +1,4 @@
-[class*="icon-"] {
+[class*="f-icon-"] {
 	font-size: 1.4em;
 	color: #AAA;
 	padding-left: 3px;
@@ -9,9 +9,9 @@
 	-o-transition:			color 0.2s ease-in;
 	transition:				color 0.2s ease-in;
 }
-[class*="icon-"]:hover {
+[class*="f-icon-"]:hover {
 	color: #222;
 }
-[class*="icon-remove"]:hover {
+[class*="f-icon-remove"]:hover {
 	color: #E61919;
 }

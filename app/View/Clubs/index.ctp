@@ -11,12 +11,12 @@
 			<td><?= h($club['Club']['name']); ?></td>
 			<td>
 				<?= $this->Html->link(
-					'<i class="icon-tools"></i>',
+					'<i class="f-icon-tools"></i>',
 					array('action'=>'edit', $club['Club']['id']),
 					array('escape'=>false, 'title'=>'Bewerk '.h($club['Club']['name']))
 				); ?>
 				<?= $this->Form->postLink(
-					'<i class="icon-remove"></i>',
+					'<i class="f-icon-remove"></i>',
 					array('action'=>'delete', $club['Club']['id']),
 					array('escape'=>false, 'title'=>'Verwijder '.h($club['Club']['name'])),
 					'Weet u zeker dat u '.h($club['Club']['name']).' wilt verwijderen?'

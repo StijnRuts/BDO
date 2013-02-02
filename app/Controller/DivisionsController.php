@@ -1,6 +1,8 @@
 <?php
 class DivisionsController extends AppController {
 
+	public $helpers = array('Sortable');
+
 	public function index() {
 		$this->Division->recursive = 0;
 		$this->set('divisions', $this->Division->find('all', array(
@@ -45,6 +47,15 @@ class DivisionsController extends AppController {
 			$this->Session->setFlash('De divisie kon niet worden verwijderd');
 		}
 		$this->redirect(array('action'=>'index'));
+	}
+
+	public function reorder(){
+		$this->request->onlyAllow('post');
+		foreach ($this->data['Division'] as $key => $value) {
+			$this->Division->id = $value;
+			$this->Division->saveField("order", $key+1);
+		}
+		exit();
 	}
 }
 ?>

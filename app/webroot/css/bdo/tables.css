@@ -17,3 +17,7 @@ td.startnr {
 .add .button {
 	width: 100%;
 }
+
+#sortable .sorthandle {
+	cursor: move;
+}

@@ -21,12 +21,12 @@
 			<td><?= h($contestant['Division']['name']); ?></td>
 			<td>
 				<?= $this->Html->link(
-					'<i class="icon-tools"></i>',
+					'<i class="f-icon-tools"></i>',
 					array('action'=>'edit', $contestant['Contestant']['id']),
 					array('escape'=>false, 'title'=>'Bewerk '.h($contestant['Contestant']['name']))
 				); ?>
 				<?= $this->Form->postLink(
-					'<i class="icon-remove"></i>',
+					'<i class="f-icon-remove"></i>',
 					array('action'=>'delete', $contestant['Contestant']['id']),
 					array('escape'=>false, 'title'=>'Verwijder '.h($contestant['Contestant']['name'])),
 					'Weet u zeker dat u '.h($contestant['Contestant']['name']).' wilt verwijderen?'

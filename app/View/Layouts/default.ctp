@@ -13,11 +13,12 @@
 		echo $this->Html->css('bdo/all');
 
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-1.9.0' : 'jquery-1.9.0.min');
-		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script('foundation/modernizr.foundation.js');
 		echo $this->Html->script('foundation/foundation.min.js');
 		echo $this->Html->script('foundation/app.js');
+		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-tablesorter' : 'jquery-tablesorter.min');
+		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

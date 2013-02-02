@@ -1,6 +1,8 @@
 <?php
 class CategoriesController extends AppController {
 
+	public $helpers = array('Sortable');
+
 	public function index() {
 		$this->Category->recursive = 0;
 		$this->set('categories', $this->Category->find('all', array(
@@ -46,6 +48,15 @@ class CategoriesController extends AppController {
 			$this->Session->setFlash('De categorie kon niet worden verwijderd');
 		}
 		$this->redirect(array('action'=>'index'));
+	}
+
+	public function reorder(){
+		$this->request->onlyAllow('post');
+		foreach ($this->data['Category'] as $key => $value) {
+			$this->Category->id = $value;
+			$this->Category->saveField("order", $key+1);
+		}
+		exit();
 	}
 }
 ?>

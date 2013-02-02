@@ -1,22 +1,24 @@
-<table>
+<table id="sortable">
 	<thead>
 		<tr>
+			<th></th>
 			<th>Disciplinenaam</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($disciplines as $discipline): ?>
-		<tr>
-			<td><?= h($discipline['Discipline']['name']); ?></td>
+		<tr id="Discipline_<?= $discipline['Discipline']['id']; ?>">
+			<td class="sorthandle"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></td>
+			<td class="sorthandle"><?= h($discipline['Discipline']['name']); ?></td>
 			<td>
 				<?= $this->Html->link(
-					'<i class="icon-tools"></i>',
+					'<i class="f-icon-tools"></i>',
 					array('action'=>'edit', $discipline['Discipline']['id']),
 					array('escape'=>false, 'title'=>'Bewerk '.h($discipline['Discipline']['name']))
 				); ?>
 				<?= $this->Form->postLink(
-					'<i class="icon-remove"></i>',
+					'<i class="f-icon-remove"></i>',
 					array('action'=>'delete', $discipline['Discipline']['id']),
 					array('escape'=>false, 'title'=>'Verwijder '.h($discipline['Discipline']['name'])),
 					'Weet u zeker dat u '.h($discipline['Discipline']['name']).' wilt verwijderen?'
@@ -25,9 +27,11 @@
 		</tr>
 		<?php endforeach; ?>
 		<tr>
-			<td colspan="2" class="add">
+			<td colspan="3" class="add">
 				<?= $this->Html->link('Discipline toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>
 	</tbody>
 </table>
+
+<?php $this->Sortable->init(); ?>

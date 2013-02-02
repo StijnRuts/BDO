@@ -1,6 +1,8 @@
 <?php
 class DisciplinesController extends AppController {
 
+	public $helpers = array('Sortable');
+
 	public function index() {
 		$this->Discipline->recursive = 0;
 		$this->set('disciplines', $this->Discipline->find('all', array(
@@ -45,6 +47,15 @@ class DisciplinesController extends AppController {
 			$this->Session->setFlash('De discipline kon niet worden verwijderd');
 		}
 		$this->redirect(array('action'=>'index'));
+	}
+
+	public function reorder(){
+		$this->request->onlyAllow('post');
+		foreach ($this->data['Discipline'] as $key => $value) {
+			$this->Discipline->id = $value;
+			$this->Discipline->saveField("order", $key+1);
+		}
+		exit();
 	}
 }
 ?>
