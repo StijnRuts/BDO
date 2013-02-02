@@ -3,12 +3,16 @@ class CategoriesController extends AppController {
 
 	public function index() {
 		$this->Category->recursive = 0;
-		$this->set('categories', $this->Category->find('all'));
+		$this->set('categories', $this->Category->find('all', array(
+			'order' => array('Category.order' => 'asc'),
+			'conditions' => array('Category.id >' => 0)
+		)));
 	}
 
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Category->create();
+			$this->request->data['Category']['order'] = $this->Category->find('count');
 			if ($this->Category->save($this->request->data)) {
 				$this->Session->setFlash('De categorie is opgeslaan');
 				$this->redirect(array('action'=>'index'));

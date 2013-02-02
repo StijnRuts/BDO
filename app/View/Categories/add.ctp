@@ -1,9 +1,16 @@
-<?php echo $this->Form->create('Category'); ?>
-	<fieldset>
-		<legend>Categorie toevoegen</legend>
-		<?php
-			echo $this->Form->input('order');
-			echo $this->Form->input('name');
-		?>
-	</fieldset>
-<?php echo $this->Form->end('Opslaan'); ?>
+<div class="row">
+	<div class="ten columns centered">
+		<?php echo $this->Form->create('Category'); ?>
+			<fieldset>
+				<legend>Categorie toevoegen</legend>
+				<div class="row">
+					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Categorienaam') ); ?></div>
+				</div>
+			</fieldset>
+			<div class="row">
+				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+				<div class="six columns"><?= $this->Html->link('Anuleren', array('action'=>'index'), array('class'=>'radius secondary button')); ?></div>
+			</div>
+		<?php echo $this->Form->end(); ?>
+	</div>
+</div>

@@ -1,24 +1,33 @@
 <table>
-	<tr>
-		<th>id</th>
-		<th>order</th>
-		<th>name</th>
-		<th class="actions">Actions</th>
-	</tr>
-	<?php foreach ($divisions as $division): ?>
-	<tr>
-		<td><?php echo h($division['Division']['id']); ?></td>
-		<td><?php echo h($division['Division']['order']); ?></td>
-		<td><?php echo h($division['Division']['name']); ?></td>
-		<td class="actions">
-			<?php echo $this->Html->link('Edit', array('action'=>'edit', $division['Division']['id'])); ?>
-			<?php echo $this->Form->postLink(
-				'Delete', array('action'=>'delete', $division['Division']['id']),
-				null, 'Weet u zeker dat u deze divisie wilt verwijderen?'
-			); ?>
-		</td>
-	</tr>
-	<?php endforeach; ?>
+	<thead>
+		<tr>
+			<th>Divisienaam</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($divisions as $division): ?>
+		<tr>
+			<td><?= h($division['Division']['name']); ?></td>
+			<td>
+				<?= $this->Html->link(
+					'<i class="icon-tools"></i>',
+					array('action'=>'edit', $division['Division']['id']),
+					array('escape'=>false, 'title'=>'Bewerk '.h($division['Division']['name']))
+				); ?>
+				<?= $this->Form->postLink(
+					'<i class="icon-remove"></i>',
+					array('action'=>'delete', $division['Division']['id']),
+					array('escape'=>false, 'title'=>'Verwijder '.h($division['Division']['name'])),
+					'Weet u zeker dat u '.h($division['Division']['name']).' wilt verwijderen?'
+				); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+		<tr>
+			<td colspan="2" class="add">
+				<?= $this->Html->link('Divisie toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
+			</td>
+		</tr>
+	</tbody>
 </table>
-
-<?= $this->Html->link('Divisie toevoegen', array('action'=>'add')); ?>

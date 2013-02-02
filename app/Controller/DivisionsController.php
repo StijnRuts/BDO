@@ -3,7 +3,10 @@ class DivisionsController extends AppController {
 
 	public function index() {
 		$this->Division->recursive = 0;
-		$this->set('divisions', $this->Division->find('all'));
+		$this->set('divisions', $this->Division->find('all', array(
+			'order' => array('Division.order' => 'asc'),
+			'conditions' => array('Division.id >' => 0)
+		)));
 	}
 
 	public function add() {

@@ -48,8 +48,8 @@ INSERT INTO `categories` (`id`, `order`, `name`) VALUES
 (0, 0, ''),
 (1, 1, 'Miniklasse'),
 (2, 2, 'Juniorenklasse'),
-(3, 3, 'JeugdKlasse'),
-(4, 4, 'HoofdKlasse');
+(3, 3, 'Jeugdklasse'),
+(4, 4, 'Hoofdklasse');
 
 CREATE TABLE IF NOT EXISTS `divisions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

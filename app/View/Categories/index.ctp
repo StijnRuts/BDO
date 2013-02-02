@@ -1,24 +1,33 @@
 <table>
-	<tr>
-		<th>id</th>
-		<th>order</th>
-		<th>name</th>
-		<th class="actions">Actions</th>
-	</tr>
-	<?php foreach ($categories as $category): ?>
-	<tr>
-		<td><?php echo h($category['Category']['id']); ?></td>
-		<td><?php echo h($category['Category']['order']); ?></td>
-		<td><?php echo h($category['Category']['name']); ?></td>
-		<td class="actions">
-			<?php echo $this->Html->link('Edit', array('action'=>'edit', $category['Category']['id'])); ?>
-			<?php echo $this->Form->postLink(
-				'Delete', array('action'=>'delete', $category['Category']['id']),
-				null, 'Weet u zeker dat u deze categorie wilt verwijderen?'
-			); ?>
-		</td>
-	</tr>
-	<?php endforeach; ?>
+	<thead>
+		<tr>
+			<th>Categorienaam</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($categories as $category): ?>
+		<tr>
+			<td><?= h($category['Category']['name']); ?></td>
+			<td>
+				<?= $this->Html->link(
+					'<i class="icon-tools"></i>',
+					array('action'=>'edit', $category['Category']['id']),
+					array('escape'=>false, 'title'=>'Bewerk '.h($category['Category']['name']))
+				); ?>
+				<?= $this->Form->postLink(
+					'<i class="icon-remove"></i>',
+					array('action'=>'delete', $category['Category']['id']),
+					array('escape'=>false, 'title'=>'Verwijder '.h($category['Category']['name'])),
+					'Weet u zeker dat u '.h($category['Category']['name']).' wilt verwijderen?'
+				); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+		<tr>
+			<td colspan="2" class="add">
+				<?= $this->Html->link('Categorie toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
+			</td>
+		</tr>
+	</tbody>
 </table>
-
-<?= $this->Html->link('Categorie toevoegen', array('action'=>'add')); ?>

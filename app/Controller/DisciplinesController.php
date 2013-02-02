@@ -3,7 +3,10 @@ class DisciplinesController extends AppController {
 
 	public function index() {
 		$this->Discipline->recursive = 0;
-		$this->set('disciplines', $this->Discipline->find('all'));
+		$this->set('disciplines', $this->Discipline->find('all', array(
+			'order' => array('Discipline.order' => 'asc'),
+			'conditions' => array('Discipline.id >' => 0)
+		)));
 	}
 
 	public function add() {
