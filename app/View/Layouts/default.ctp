@@ -28,6 +28,12 @@
 	?>
 </head>
 <body>
+	<div id="nojs" class="alert-box alert">
+		Om deze site correct te kunnen gebruiken moet u javascript aanzetten.
+		(<a href="http://www.enable-javascript.com/nl/" target="_blank">Hoe doe ik dat?</a>)
+	</div>
+	<script>$("#nojs").remove();</script>
+
 	<div id="header">
 		<?php $navigation = $this->Navigation->get() ?>
 		<nav><?= $navigation['breadcrumbs'] ?></nav>

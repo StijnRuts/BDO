@@ -2,6 +2,15 @@
     width: auto;
 }
 
+#nojs {
+	margin: 0;
+	border-radius: 0;
+}
+#nojs a {
+	color: inherit;
+	text-decoration: underline;
+}
+
 .alert-box {
 	cursor: pointer;
 }
