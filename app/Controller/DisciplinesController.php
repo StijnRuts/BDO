@@ -15,22 +15,22 @@ class DisciplinesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Discipline->create();
 			if ($this->Discipline->save($this->request->data)) {
-				$this->Session->setFlash('De discipline is opgeslaan');
+				$this->Session->setFlash('De discipline is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De discipline kon niet worden opgeslaan');
+				$this->Session->setFlash('De discipline kon niet worden opgeslaan', 'flash_error');
 			}
 		}
 	}
 
 	public function edit($id = null) {
-		if (!$this->Discipline->exists($id)) throw new NotFoundException('De opgegeven discipline kan niet worden gevonden');
+		if (!$this->Discipline->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Discipline->save($this->request->data)) {
-				$this->Session->setFlash('De discipline is opgeslaan');
+				$this->Session->setFlash('De discipline is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De discipline kon niet worden opgeslaan');
+				$this->Session->setFlash('De discipline kon niet worden opgeslaan', 'flash_error');
 			}
 		} else {
 			$this->Discipline->id = $id;
@@ -39,12 +39,12 @@ class DisciplinesController extends AppController {
 	}
 
 	public function delete($id = null) {
-		if (!$this->Discipline->exists($id)) throw new NotFoundException('De opgegeven discipline kan niet worden gevonden');
+		if (!$this->Discipline->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Discipline->delete($id)) {
-			$this->Session->setFlash('De discipline is verwijderd');
+			$this->Session->setFlash('De discipline is verwijderd', 'flash_info');
 		} else {
-			$this->Session->setFlash('De discipline kon niet worden verwijderd');
+			$this->Session->setFlash('De discipline kon niet worden verwijderd', 'flash_error');
 		}
 		$this->redirect(array('action'=>'index'));
 	}

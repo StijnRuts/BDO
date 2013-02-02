@@ -19,6 +19,7 @@
 		echo $this->Html->script('foundation/app.js');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-tablesorter' : 'jquery-tablesorter.min');
+		echo $this->Html->script('bdo/alerts');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');
@@ -33,7 +34,7 @@
 		<nav><?= $navigation['menu'] ?></nav>
 	</div>
 	<div id="content">
-		<?= $this->Session->flash(); ?>
+		<div class="row"><div class="twelve columns"><?= $this->Session->flash(); ?></div></div>
 		<?= $this->fetch('content'); ?>
 	</div>
 	<div id="footer">

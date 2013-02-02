@@ -15,22 +15,22 @@ class DivisionsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Division->create();
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash('De divisie is opgeslaan');
+				$this->Session->setFlash('De divisie is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De divisie kon niet worden opgeslaan');
+				$this->Session->setFlash('De divisie kon niet worden opgeslaan', 'flash_error');
 			}
 		}
 	}
 
 	public function edit($id = null) {
-		if (!$this->Division->exists($id)) throw new NotFoundException('De opgegeven divisie kan niet worden gevonden');
+		if (!$this->Division->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash('De divisie is opgeslaan');
+				$this->Session->setFlash('De divisie is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De divisie kon niet worden opgeslaan');
+				$this->Session->setFlash('De divisie kon niet worden opgeslaan', 'flash_error');
 			}
 		} else {
 			$this->Division->id = $id;
@@ -39,12 +39,12 @@ class DivisionsController extends AppController {
 	}
 
 	public function delete($id = null) {
-		if (!$this->Division->exists($id)) throw new NotFoundException('De opgegeven divisie kan niet worden gevonden');
+		if (!$this->Division->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Division->delete($id)) {
-			$this->Session->setFlash('De divisie is verwijderd');
+			$this->Session->setFlash('De divisie is verwijderd', 'flash_info');
 		} else {
-			$this->Session->setFlash('De divisie kon niet worden verwijderd');
+			$this->Session->setFlash('De divisie kon niet worden verwijderd', 'flash_error');
 		}
 		$this->redirect(array('action'=>'index'));
 	}

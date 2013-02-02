@@ -13,22 +13,22 @@ class ClubsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Club->create();
 			if ($this->Club->save($this->request->data)) {
-				$this->Session->setFlash('De club is opgeslaan');
+				$this->Session->setFlash('De club is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De club kon niet worden opgeslaan');
+				$this->Session->setFlash('De club kon niet worden opgeslaan', 'flash_error');
 			}
 		}
 	}
 
 	public function edit($id = null) {
-		if (!$this->Club->exists($id)) throw new NotFoundException('De opgegeven club kan niet worden gevonden');
+		if (!$this->Club->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Club->save($this->request->data)) {
-				$this->Session->setFlash('De club is opgeslaan');
+				$this->Session->setFlash('De club is opgeslaan', 'flash_succes');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('De club kon niet worden opgeslaan');
+				$this->Session->setFlash('De club kon niet worden opgeslaan', 'flash_error');
 			}
 		} else {
 			$this->Club->id = $id;
@@ -37,12 +37,12 @@ class ClubsController extends AppController {
 	}
 
 	public function delete($id = null) {
-		if (!$this->Club->exists($id)) throw new NotFoundException('De opgegeven club kan niet worden gevonden');
+		if (!$this->Club->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Club->delete($id)) {
-			$this->Session->setFlash('De club is verwijderd');
+			$this->Session->setFlash('De club is verwijderd', 'flash_info');
 		} else {
-			$this->Session->setFlash('De club kon niet worden verwijderd');
+			$this->Session->setFlash('De club kon niet worden verwijderd', 'flash_error');
 		}
 		$this->redirect(array('action'=>'index'));
 	}
