@@ -1,0 +1,23 @@
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table thead {
+	background-color: #EBEBEB;
+}
+
+td.startnr {
+	text-align: right;
+}
+
+table tfoot tr td {
+	padding: 0;
+}
+.add .button {
+	width: 100%;
+}
+
+#sortable .sorthandle {
+	cursor: move;
+}

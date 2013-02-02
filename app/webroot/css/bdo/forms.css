@@ -1,0 +1,33 @@
+.row form .row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.row form .row:last-child {
+	margin-bottom: 0;
+}
+.row form .row .column, .row form .row .columns {
+	padding: 0 12px;
+}
+
+input.button[type="submit"] {
+	float: right;
+}
+
+select {
+	border: 1px solid #CCCCCC;
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+	color: rgba(0, 0, 0, 0.75);
+	font-size: 14px;
+	height: 32px;
+	margin: 0 0 12px;
+	padding: 6px;
+	cursor: pointer;
+}
+option {
+	padding: 5px;
+}
+
+fieldset {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
