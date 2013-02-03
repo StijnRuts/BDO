@@ -18,6 +18,6 @@ class Division extends AppModel {
 		),
 	);
 
-	public $hasMany = array('Contestant');
+	public $hasMany = array('Contestant', 'Round');
 }
 ?>
