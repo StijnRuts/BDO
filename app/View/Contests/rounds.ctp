@@ -1,4 +1,4 @@
-<h2><?= h($contest['Contest']['name']); ?> <small>(<?= h($contest['Contest']['date']); ?>)</small></h2>
+<h2>Rondes voor <?= h($contest['Contest']['name']); ?> <small>(<?= h($contest['Contest']['date']); ?>)</small></h2>
 <table id="sortable">
 	<thead>
 		<tr>
@@ -37,7 +37,10 @@
 	<tfoot>
 		<tr>
 			<td colspan="6" class="add">
-				<?= $this->Html->link('Ronde toevoegen', array('controller'=>'rounds','action'=>'add'), array('class'=>'small secondary radius  button')); ?>
+				<?= $this->Html->link('Ronde toevoegen',
+					array('controller'=>'rounds','action'=>'add', $contest['Contest']['id']),
+					array('class'=>'small secondary radius  button')
+				); ?>
 			</td>
 		</tr>
 	</tfoot>

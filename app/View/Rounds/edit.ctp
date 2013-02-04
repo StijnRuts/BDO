@@ -4,11 +4,10 @@
 			<fieldset>
 				<legend>Ronde bewerken</legend>
 				<?= $this->Form->input('id'); ?>
-					<?= $this->Form->input('contest_id'); ?>
+				<?= $this->Form->input('contest_id', array('type'=>'hidden')); ?>
 					<?= $this->Form->input('discipline_id'); ?>
 					<?= $this->Form->input('category_id'); ?>
 					<?= $this->Form->input('division_id'); ?>
-					<?= $this->Form->input('Contestant'); ?>
 			</fieldset>
 			<div class="row">
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>

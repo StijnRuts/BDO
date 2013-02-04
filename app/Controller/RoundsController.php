@@ -7,7 +7,8 @@ class RoundsController extends AppController {
 		$this->set('round', $this->Round->read());
 	}
 
-	public function add() {
+	public function add($contest_id = null) {
+		if(false) throw new NotFoundException();
 		if ($this->request->is('post')) {
 			$this->Round->create();
 			$this->request->data['Round']['order'] = 1 + $this->Round->find('count', array(
@@ -26,6 +27,7 @@ class RoundsController extends AppController {
 		$divisions = $this->Round->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
 		$contestants = $this->Round->Contestant->find('list');
 		$this->set(compact('contests', 'disciplines', 'categories', 'divisions', 'contestants'));
+		$this->set('contest_id', $contest_id);
 	}
 
 	public function edit($id = null) {
