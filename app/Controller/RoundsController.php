@@ -1,10 +1,26 @@
 <?php
 class RoundsController extends AppController {
 
-	public function view($id = null) {
+	public function contestants($id = null) {
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->Round->id = $id;
 		$this->set('round', $this->Round->read());
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			debug($this->request->data);
+			if ($this->Round->save($this->request->data)) {
+				$this->Session->setFlash('De ronde is opgeslaan', 'flash_success');
+				//$this->redirect(array('controller'=>'contests', 'action'=>'rounds', $this->request->data['Round']['contest_id']));
+			} else {
+				$this->Session->setFlash('De ronde kon niet worden opgeslaan', 'flash_error');
+			}
+		} else {
+			$this->Round->id = $id;
+			$this->request->data = $this->Round->read();
+		}
+
+		$contestants = $this->Round->Contestant->find('list');
+		$this->set(compact('contestants'));
 	}
 
 	public function add($contest_id = null) {

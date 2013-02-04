@@ -24,7 +24,7 @@
 					); ?>
 					<?= $this->Html->link(
 						'<i class="f-icon-settings"></i>',
-						array('controller'=>'rounds', 'action'=>'view', $round['id']),
+						array('controller'=>'rounds', 'action'=>'contestants', $round['id']),
 						array('escape'=>false, 'title'=>'Beheer deelnemers voor deze ronde')
 					); ?>
 					<?= $this->Form->postLink(

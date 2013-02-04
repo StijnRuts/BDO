@@ -24,6 +24,9 @@ select {
 	padding: 6px;
 	cursor: pointer;
 }
+select.contestants {
+	height: auto;
+}
 option {
 	padding: 5px;
 }
