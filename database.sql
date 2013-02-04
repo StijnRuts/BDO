@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `rounds` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `rounds_contestants` (
+CREATE TABLE IF NOT EXISTS `contestants_rounds` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `round_id` int(10) unsigned NOT NULL,
   `contestant_id` int(10) unsigned NOT NULL,

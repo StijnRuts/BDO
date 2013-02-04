@@ -18,6 +18,17 @@ table tfoot tr td {
 	width: 100%;
 }
 
+table .linkbutton {
+	padding: 0;
+}
+table .linkbutton a {
+	display: block;
+	padding: 9px 10px;
+}
+table td.linkbutton a:hover {
+	background-color: #F0F3F5;
+}
+
 #sortable .sorthandle {
 	cursor: move;
 }

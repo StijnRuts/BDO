@@ -1,97 +1,58 @@
 <?php
-App::uses('AppController', 'Controller');
-/**
- * Contests Controller
- *
- * @property Contest $Contest
- */
 class ContestsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
+	public $helpers = array('Sortable');
+
 	public function index() {
 		$this->Contest->recursive = 0;
-		$this->set('contests', $this->paginate());
+		$this->set('contests', $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc'),
+		)));
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Contest->exists($id)) {
-			throw new NotFoundException(__('Invalid contest'));
-		}
-		$options = array('conditions' => array('Contest.' . $this->Contest->primaryKey => $id));
-		$this->set('contest', $this->Contest->find('first', $options));
+	public function rounds($id = null) {
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
+		$this->set('contest', $this->Contest->find('first', array(
+			'conditions' => array('Contest.id'=>$id),
+			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
+		)));
 	}
 
-/**
- * add method
- *
- * @return void
- */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Contest->create();
 			if ($this->Contest->save($this->request->data)) {
-				$this->Session->setFlash(__('The contest has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
+				$this->redirect(array('action'=>'rounds', $this->Contest->id));
 			} else {
-				$this->Session->setFlash(__('The contest could not be saved. Please, try again.'));
+				$this->Session->setFlash('De wedstrijd kon niet worden opgeslaan', 'flash_error');
 			}
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function edit($id = null) {
-		if (!$this->Contest->exists($id)) {
-			throw new NotFoundException(__('Invalid contest'));
-		}
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Contest->save($this->request->data)) {
-				$this->Session->setFlash(__('The contest has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
+				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The contest could not be saved. Please, try again.'));
+				$this->Session->setFlash('De wedstrijd kon niet worden opgeslaan', 'flash_error');
 			}
 		} else {
-			$options = array('conditions' => array('Contest.' . $this->Contest->primaryKey => $id));
-			$this->request->data = $this->Contest->find('first', $options);
+			$this->Contest->id = $id;
+			$this->request->data = $this->Contest->read();
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @throws MethodNotAllowedException
- * @param string $id
- * @return void
- */
 	public function delete($id = null) {
-		$this->Contest->id = $id;
-		if (!$this->Contest->exists()) {
-			throw new NotFoundException(__('Invalid contest'));
-		}
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Contest->delete()) {
-			$this->Session->setFlash(__('Contest deleted'));
-			$this->redirect(array('action' => 'index'));
+		if ($this->Contest->delete($id)) {
+			$this->Session->setFlash('De wedstrijd is verwijderd', 'flash_info');
+		} else {
+			$this->Session->setFlash('De wedstrijd kon niet worden verwijderd', 'flash_error');
 		}
-		$this->Session->setFlash(__('Contest was not deleted'));
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('action'=>'index'));
 	}
 }

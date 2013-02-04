@@ -1,44 +1,41 @@
-<div class="contests index">
-	<h2><?php echo __('Contests'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('date'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($contests as $contest): ?>
-	<tr>
-		<td><?php echo h($contest['Contest']['id']); ?>&nbsp;</td>
-		<td><?php echo h($contest['Contest']['name']); ?>&nbsp;</td>
-		<td><?php echo h($contest['Contest']['date']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $contest['Contest']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contest['Contest']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contest['Contest']['id']), null, __('Are you sure you want to delete # %s?', $contest['Contest']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Contest'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Rounds'), array('controller' => 'rounds', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Round'), array('controller' => 'rounds', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<table>
+	<thead>
+		<tr>
+			<th>Wedstrijdnaam</th>
+			<th>Datum</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($contests as $contest): ?>
+		<tr>
+			<td class="linkbutton"><?= $this->Html->link(
+				h($contest['Contest']['name']),
+				array('action'=>'rounds', $contest['Contest']['id']),
+				array('escape'=>false, 'title'=>'Beheer rondes voor '.h($contest['Contest']['name']))
+			); ?></td>
+			<td><?= h($contest['Contest']['date']); ?></td>
+			<td>
+				<?= $this->Html->link(
+					'<i class="f-icon-tools"></i>',
+					array('action'=>'edit', $contest['Contest']['id']),
+					array('escape'=>false, 'title'=>'Bewerk '.h($contest['Contest']['name']))
+				); ?>
+				<?= $this->Form->postLink(
+					'<i class="f-icon-remove"></i>',
+					array('action'=>'delete', $contest['Contest']['id']),
+					array('escape'=>false, 'title'=>'Verwijder '.h($contest['Contest']['name'])),
+					'Weet u zeker dat u '.h($contest['Contest']['name']).' wilt verwijderen?'
+				); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3" class="add">
+				<?= $this->Html->link('Wedstrijd toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
+			</td>
+		</tr>
+	</tfoot>
+</table>
