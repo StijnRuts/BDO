@@ -3,28 +3,30 @@ class RoundsController extends AppController {
 
 	public function contestants($id = null) {
 		if (!$this->Round->exists($id)) throw new NotFoundException();
-		$this->Round->id = $id;
-		$this->set('round', $this->Round->read());
 
 		if ($this->request->is('post') || $this->request->is('put')) {
-			debug($this->request->data);
+			$this->request->data['Round'] = array('id'=>$id);
 			if ($this->Round->save($this->request->data)) {
-				$this->Session->setFlash('De ronde is opgeslaan', 'flash_success');
-				//$this->redirect(array('controller'=>'contests', 'action'=>'rounds', $this->request->data['Round']['contest_id']));
+				$this->Session->setFlash('De deelnemerlijst is opgeslaan');
 			} else {
-				$this->Session->setFlash('De ronde kon niet worden opgeslaan', 'flash_error');
+				$this->Session->setFlash('De deelnemerlijst kon niet worden opgeslaan');
 			}
-		} else {
-			$this->Round->id = $id;
-			$this->request->data = $this->Round->read();
 		}
 
-		$contestants = $this->Round->Contestant->find('list');
-		$this->set(compact('contestants'));
+		$this->loadModel('Contestant');
+		$this->Contestant->recursive = 0;
+		$this->set('contestants', $this->Contestant->find('all'));
+
+		$selected = array();
+		$this->Round->id = $id;
+		$rounds = $this->Round->read();
+		foreach($rounds['Contestant'] as $contestant) $selected[] = $contestant['id'];
+		$this->set('selected', $selected);
 	}
 
 	public function add($contest_id = null) {
-		if(false) throw new NotFoundException();
+		$this->loadModel('Contest');
+		if(!$this->Contest->exists($contest_id)) throw new NotFoundException();
 		if ($this->request->is('post')) {
 			$this->Round->create();
 			$this->request->data['Round']['order'] = 1 + $this->Round->find('count', array(

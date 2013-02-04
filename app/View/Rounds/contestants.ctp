@@ -1,33 +1,51 @@
-<h2>Deelnemers voor: <?= $round['Discipline']['name']; ?>, <?= $round['Category']['name']; ?>, <?= $round['Division']['name']; ?></h2>
-<table>
+<?= $this->Form->create('Round'); ?>
+<table class="tablesorter">
 	<thead>
 		<tr>
-			<th>Club Id</th>
-			<th>Discipline Id</th>
-			<th>Category Id</th>
-			<th>Division Id</th>
+			<th></th>
 			<th>Startnr</th>
-			<th>Name</th>
+			<th>Naam</th>
+			<th>Club</th>
+			<th>Discipline</th>
+			<th>Categorie</th>
+			<th>Divisie</th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($round['Contestant'] as $contestant): ?>
+		<?php foreach ($contestants as $contestant): ?>
 		<tr>
-			<td><?= $contestant['club_id']; ?></td>
-			<td><?= $contestant['discipline_id']; ?></td>
-			<td><?= $contestant['category_id']; ?></td>
-			<td><?= $contestant['division_id']; ?></td>
-			<td><?= $contestant['startnr']; ?></td>
-			<td><?= $contestant['name']; ?></td>
+			<td><?= $this->Form->checkbox('', array(
+				'checked' => in_array($contestant['Contestant']['id'], $selected),
+				'name' => 'Contestant['.$contestant['Contestant']['id'].']',
+				'value' => $contestant['Contestant']['id'],
+				'hiddenField' => false,
+				'id' => null
+			)); ?></td>
+			<td class="startnr"><?= h($contestant['Contestant']['startnr']); ?></td>
+			<td><?= h($contestant['Contestant']['name']); ?></td>
+			<td><?= h($contestant['Club']['name']); ?></td>
+			<td><?= h($contestant['Discipline']['name']); ?></td>
+			<td><?= h($contestant['Category']['name']); ?></td>
+			<td><?= h($contestant['Division']['name']); ?></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
+<?= $this->Form->end('OK'); ?>
 
-<div class="row"><div class="ten columns centered">
-<?= $this->Form->create('Round'); ?>
-	<?= $this->Form->input('Contestant', array('class'=>'contestants')); ?>
-<?= $this->Form->end('Submit'); ?>
-</div></div>
-
-<?= $this->Html->link(__('New Contestant'), array('controller' => 'contestants', 'action' => 'add')); ?> </li>
+<script>
+	$(document).ready(function(){
+		$.tablesorter.addParser({
+			id: 'startnr',
+			is: function(s){ return false; },
+			format: function(s){ return s.toUpperCase(); },
+			type: 'text'
+		});
+		$(".tablesorter").tablesorter({
+			headers: {
+				0: {sorter: false},
+				1: {sorter: 'startnr'}
+			}
+		});
+	});
+</script>
