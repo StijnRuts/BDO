@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="ten columns centered">
-		<?php echo $this->Form->create('Round'); ?>
+		<?= $this->Form->create('Round'); ?>
 			<fieldset>
 				<legend>Ronde toevoegen</legend>
 					<?= $this->Form->input('contest_id', array('type'=>'hidden', 'value'=>$contest_id)); ?>
@@ -12,6 +12,6 @@
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
 				<div class="six columns"><?= $this->Html->link('Anuleren', array('action'=>'index'), array('class'=>'radius secondary button')); ?></div>
 			</div>
-		<?php echo $this->Form->end(); ?>
+		<?= $this->Form->end(); ?>
 	</div>
 </div>
