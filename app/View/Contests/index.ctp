@@ -9,17 +9,18 @@
 	<tbody>
 		<?php foreach ($contests as $contest): ?>
 		<tr>
-			<td class="linkbutton"><?= $this->Html->link(
-				h($contest['Contest']['name']),
-				array('action'=>'rounds', $contest['Contest']['id']),
-				array('escape'=>false, 'title'=>'Beheer rondes voor '.h($contest['Contest']['name']))
-			); ?></td>
+			<td><?= h($contest['Contest']['name']); ?></td>
 			<td><?= h($contest['Contest']['date']); ?></td>
 			<td>
 				<?= $this->Html->link(
 					'<i class="f-icon-tools"></i>',
 					array('action'=>'edit', $contest['Contest']['id']),
 					array('escape'=>false, 'title'=>'Bewerk '.h($contest['Contest']['name']))
+				); ?>
+				<?= $this->Html->link(
+					'<i class="f-icon-settings"></i>',
+					array('action'=>'rounds', $contest['Contest']['id']),
+					array('escape'=>false, 'title'=>'Beheer rondes voor '.h($contest['Contest']['name']))
 				); ?>
 				<?= $this->Form->postLink(
 					'<i class="f-icon-remove"></i>',

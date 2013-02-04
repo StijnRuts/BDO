@@ -17,12 +17,15 @@
 				<td class="sorthandle"><?= $round['Category']['name']; ?></td>
 				<td class="sorthandle"><?= $round['Division']['name']; ?></td>
 				<td>
-					<?= $this->Html->link(__('View'), array('controller'=>'rounds', 'action'=>'view', $round['id'])); ?>
-
 					<?= $this->Html->link(
 						'<i class="f-icon-tools"></i>',
 						array('controller'=>'rounds', 'action'=>'edit', $round['id']),
 						array('escape'=>false, 'title'=>'Bewerk ronde')
+					); ?>
+					<?= $this->Html->link(
+						'<i class="f-icon-settings"></i>',
+						array('controller'=>'rounds', 'action'=>'view', $round['id']),
+						array('escape'=>false, 'title'=>'Beheer deelnemers voor deze ronde')
 					); ?>
 					<?= $this->Form->postLink(
 						'<i class="f-icon-remove"></i>',
