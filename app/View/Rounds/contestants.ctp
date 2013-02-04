@@ -1,3 +1,7 @@
+<h2>
+	Deelnemers voor ronde <?= $round['Round']['order']; ?>
+	<small>(<?= $round['Discipline']['name']; ?>, <?= $round['Category']['name']; ?>, <?= $round['Division']['name']; ?>)</small>
+</h2>
 <?= $this->Form->create('Round'); ?>
 <table class="tablesorter">
 	<thead>
@@ -31,7 +35,14 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-<?= $this->Form->end('OK'); ?>
+<div class="row">
+	<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+	<div class="six columns"><?= $this->Html->link('Anuleren',
+		array('controller'=>'contests', 'action'=>'rounds', $round['Round']['contest_id']),
+		array('class'=>'radius secondary button')
+	); ?></div>
+</div>
+<?= $this->Form->end(); ?>
 
 <script>
 	$(document).ready(function(){
