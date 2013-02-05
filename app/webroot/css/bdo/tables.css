@@ -21,3 +21,10 @@ table tfoot tr td {
 #sortable .sorthandle {
 	cursor: move;
 }
+
+table.selectable tbody tr {
+	cursor: pointer;
+}
+table.selectable tbody tr:hover td {
+	background-color: #F0F3F5;
+}

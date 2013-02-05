@@ -3,7 +3,7 @@
 	<small>(<?= $round['Discipline']['name']; ?>, <?= $round['Category']['name']; ?>, <?= $round['Division']['name']; ?>)</small>
 </h2>
 <?= $this->Form->create('Round'); ?>
-<table class="tablesorter">
+<table class="tablesorter selectable">
 	<thead>
 		<tr>
 			<th></th>
@@ -57,6 +57,11 @@
 				0: {sorter: false},
 				1: {sorter: 'startnr'}
 			}
+		});
+
+		$('tbody tr').on('click', function(){
+			var checkbox = $(this).find('input[type=checkbox]');
+			checkbox.prop("checked", !checkbox.prop("checked"));
 		});
 	});
 </script>
