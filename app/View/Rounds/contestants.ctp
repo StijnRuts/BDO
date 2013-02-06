@@ -59,9 +59,10 @@
 			}
 		});
 
-		$('tbody tr').on('click', function(){
+		$('tbody tr').click(function(){
 			var checkbox = $(this).find('input[type=checkbox]');
 			checkbox.prop("checked", !checkbox.prop("checked"));
 		});
+		$('tbody tr input[type=checkbox]').click(function(event){ event.stopPropagation(); });
 	});
 </script>

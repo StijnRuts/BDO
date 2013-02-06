@@ -22,7 +22,7 @@ table tfoot tr td {
 	cursor: move;
 }
 
-table.selectable tbody tr {
+table.selectable tbody tr, .selectable input[type=checkbox] {
 	cursor: pointer;
 }
 table.selectable tbody tr:hover td {
