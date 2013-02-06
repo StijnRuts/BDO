@@ -8,6 +8,8 @@ class RoundsController extends AppController {
 
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->request->data['Round'] = array('id'=>$id);
+			if(!isset($this->request->data['Contestant'])) $this->request->data['Contestant'] = array('Contestant'=>'');
+
 			if ($this->Round->save($this->request->data)) {
 				$this->Session->setFlash('De deelnemerlijst is opgeslaan');
 				$this->redirect(array('controller'=>'contests', 'action'=>'rounds', $round['Round']['contest_id']));
