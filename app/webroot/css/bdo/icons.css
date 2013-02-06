@@ -15,3 +15,17 @@
 [class*="f-icon-remove"]:hover {
 	color: #E61919;
 }
+
+a.showmore:before, a.showless:before, a.showmore:after, a.showless:after {
+	font-family: "Generalicons";
+	color: #BBB;
+	transition: color 0.15s ease-in-out 0s;
+}
+a.showmore:hover:before, a.showless:hover:before, a.showmore:hover:after, a.showless:hover:after,
+a.showmore:focus:before, a.showless:focus:before, a.showmore:focus:after, a.showless:focus:after {
+	color: #888;
+}
+a.showmore:before, a.showless:before {	float: left; }
+a.showmore:after, a.showless:after { float: right; }
+a.showmore:before, a.showmore:after { content: "\f017"; }
+a.showless:before, a.showless:after { content: "\f016"; }

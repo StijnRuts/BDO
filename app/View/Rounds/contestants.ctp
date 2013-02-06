@@ -1,7 +1,4 @@
-<h2>
-	Deelnemers voor ronde <?= $round['Round']['order']; ?>
-	<small>(<?= $round['Discipline']['name']; ?>, <?= $round['Category']['name']; ?>, <?= $round['Division']['name']; ?>)</small>
-</h2>
+<h3>Deelnemers voor: <?= $round['Discipline']['name']; ?>, <?= $round['Category']['name']; ?>, <?= $round['Division']['name']; ?></h3>
 <?= $this->Form->create('Round'); ?>
 <table class="tablesorter selectable">
 	<thead>
@@ -17,7 +14,11 @@
 	</thead>
 	<tbody>
 		<?php foreach ($contestants as $contestant): ?>
-		<tr>
+		<tr class="<?= (
+			$round['Discipline']['id'] == $contestant['Discipline']['id'] &&
+			$round['Category']['id']   == $contestant['Category']['id'] &&
+			$round['Division']['id']   == $contestant['Division']['id']
+		) ? 'match' : 'nomatch' ?>">
 			<td><?= $this->Form->checkbox('', array(
 				'checked' => in_array($contestant['Contestant']['id'], $selected),
 				'name' => 'Contestant['.$contestant['Contestant']['id'].']',
@@ -34,6 +35,13 @@
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
+	<tfoot style="display:none">
+		<tr>
+			<td colspan="7" class="tablebutton">
+				<?= $this->Html->link('', '#', array('class'=>'small secondary radius  button')); ?>
+			</td>
+		</tr>
+	</tfoot>
 </table>
 <div class="row">
 	<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
@@ -46,6 +54,7 @@
 
 <script>
 	$(document).ready(function(){
+		//table sorting
 		$.tablesorter.addParser({
 			id: 'startnr',
 			is: function(s){ return false; },
@@ -59,10 +68,30 @@
 			}
 		});
 
+		//rows control checkboxes
 		$('tbody tr').click(function(){
 			var checkbox = $(this).find('input[type=checkbox]');
 			checkbox.prop("checked", !checkbox.prop("checked"));
 		});
 		$('tbody tr input[type=checkbox]').click(function(event){ event.stopPropagation(); });
+
+		//show more/less button
+		var state = '';
+		$('tfoot a').click(function(e){ e.preventDefault(); });
+		if( $('.match').length > 0 ){
+			showless();
+			$('tfoot').show();
+			$('tfoot a').click(function(e){ if(state=='more') showless(); else showmore(); e.preventDefault(); });
+		}
+		function showmore(){
+			$('.nomatch').show();
+			$('tfoot a').text('Minder weergeven').addClass('showless').removeClass('showmore');
+			state = 'more';
+		}
+		function showless(){
+			$('.nomatch:not(:has(:checked))').hide();
+			$('tfoot a').text('Meer weergeven').addClass('showmore').removeClass('showless');
+			state = 'less';
+		}
 	});
 </script>

@@ -39,7 +39,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="6" class="add">
+			<td colspan="6" class="tablebutton">
 				<?= $this->Html->link('Ronde toevoegen',
 					array('controller'=>'rounds','action'=>'add', $contest['Contest']['id']),
 					array('class'=>'small secondary radius  button')
