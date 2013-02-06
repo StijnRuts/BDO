@@ -11,10 +11,10 @@ class RoundsController extends AppController {
 			if(!isset($this->request->data['Contestant'])) $this->request->data['Contestant'] = array('Contestant'=>'');
 
 			if ($this->Round->save($this->request->data)) {
-				$this->Session->setFlash('De deelnemerlijst is opgeslaan');
+				$this->Session->setFlash('De deelnemerlijst is opgeslaan', 'flash_success');
 				$this->redirect(array('controller'=>'contests', 'action'=>'rounds', $round['Round']['contest_id']));
 			} else {
-				$this->Session->setFlash('De deelnemerlijst kon niet worden opgeslaan');
+				$this->Session->setFlash('De deelnemerlijst kon niet worden opgeslaan', 'flash_error');
 			}
 		}
 
@@ -50,8 +50,7 @@ class RoundsController extends AppController {
 		$disciplines = $this->Round->Discipline->find('list', array('order'=>array('Discipline.order'=>'asc')) );
 		$categories = $this->Round->Category->find('list', array('order'=>array('Category.order'=>'asc')) );
 		$divisions = $this->Round->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
-		$contestants = $this->Round->Contestant->find('list');
-		$this->set(compact('contests', 'disciplines', 'categories', 'divisions', 'contestants'));
+		$this->set(compact('contests', 'disciplines', 'categories', 'divisions'));
 		$this->set('contest_id', $contest_id);
 	}
 
@@ -72,8 +71,7 @@ class RoundsController extends AppController {
 		$disciplines = $this->Round->Discipline->find('list', array('order'=>array('Discipline.order'=>'asc')) );
 		$categories = $this->Round->Category->find('list', array('order'=>array('Category.order'=>'asc')) );
 		$divisions = $this->Round->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
-		$contestants = $this->Round->Contestant->find('list');
-		$this->set(compact('contests', 'disciplines', 'categories', 'divisions', 'contestants'));
+		$this->set(compact('contests', 'disciplines', 'categories', 'divisions'));
 	}
 
 	public function delete($id = null) {
