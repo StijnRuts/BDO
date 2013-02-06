@@ -10,14 +10,6 @@ class ContestsController extends AppController {
 		)));
 	}
 
-	public function rounds($id = null) {
-		if (!$this->Contest->exists($id)) throw new NotFoundException();
-		$this->set('contest', $this->Contest->find('first', array(
-			'conditions' => array('Contest.id'=>$id),
-			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
-		)));
-	}
-
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Contest->create();

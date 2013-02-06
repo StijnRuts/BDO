@@ -19,7 +19,7 @@
 				); ?>
 				<?= $this->Html->link(
 					'<i class="f-icon-settings"></i>',
-					array('action'=>'rounds', $contest['Contest']['id']),
+					array('controller'=>'rounds', 'action'=>'view', $contest['Contest']['id']),
 					array('escape'=>false, 'title'=>'Beheer rondes voor '.h($contest['Contest']['name']))
 				); ?>
 				<?= $this->Form->postLink(
