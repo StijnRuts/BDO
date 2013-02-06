@@ -13,8 +13,10 @@ class CategoriesController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
+			$maxorder = $this->Category->find('first', array('order'=>'order DESC'));
+			$this->request->data['Category']['order'] = $maxorder['Category']['order']+1;
+
 			$this->Category->create();
-			$this->request->data['Category']['order'] = $this->Category->find('count');
 			if ($this->Category->save($this->request->data)) {
 				$this->Session->setFlash('De categorie is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'index'));

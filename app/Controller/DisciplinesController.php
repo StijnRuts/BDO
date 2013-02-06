@@ -13,6 +13,9 @@ class DisciplinesController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
+			$maxorder = $this->Discipline->find('first', array('order'=>'order DESC'));
+			$this->request->data['Discipline']['order'] = $maxorder['Discipline']['order']+1;
+
 			$this->Discipline->create();
 			if ($this->Discipline->save($this->request->data)) {
 				$this->Session->setFlash('De discipline is opgeslaan', 'flash_success');

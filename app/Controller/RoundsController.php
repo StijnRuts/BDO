@@ -30,10 +30,13 @@ class RoundsController extends AppController {
 		$this->loadModel('Contest');
 		if(!$this->Contest->exists($contest_id)) throw new NotFoundException();
 		if ($this->request->is('post')) {
-			$this->Round->create();
-			$this->request->data['Round']['order'] = 1 + $this->Round->find('count', array(
+			$maxorder = $this->Round->find('first', array(
+				'order'=>'Round.order DESC',
 				'conditions' => array('Contest.id' => $this->request->data['Round']['contest_id'])
 			));
+			$this->request->data['Round']['order'] = $maxorder['Round']['order']+1;
+
+			$this->Round->create();
 			if ($this->Round->save($this->request->data)) {
 				$this->Session->setFlash('De ronde is opgeslaan', 'flash_success');
 				$this->redirect(array('controller'=>'contests', 'action'=>'rounds', $this->request->data['Round']['contest_id']));

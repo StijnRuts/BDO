@@ -13,6 +13,9 @@ class DivisionsController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
+			$maxorder = $this->Division->find('first', array('order'=>'order DESC'));
+			$this->request->data['Division']['order'] = $maxorder['Division']['order']+1;
+
 			$this->Division->create();
 			if ($this->Division->save($this->request->data)) {
 				$this->Session->setFlash('De divisie is opgeslaan', 'flash_success');
