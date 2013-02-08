@@ -11,6 +11,22 @@ class NavigationHelper extends AppHelper
 					'location' => array( 'controller'=>'admin', 'action'=>'index' ),
 					'subitems' => array(
 						array(
+							'name' => 'Wedstrijdbeheer',
+							'location' => array( 'controller'=>'admin', 'action'=>'wedstrijdbeheer' ),
+							'subitems' => array(
+								array(
+									'name' => 'Wedstrijden',
+									'location' => array( 'controller'=>'contests' ),
+									'subitems' => array()
+								),
+								array(
+									'name' => 'Rondes',
+									'location' => array( 'controller'=>'rounds' ),
+									'subitems' => array()
+								),
+							)
+						),
+						array(
 							'name' => 'Ledenbeheer',
 							'location' => array( 'controller'=>'admin', 'action'=>'ledenbeheer' ),
 							'subitems' => array(
@@ -27,8 +43,8 @@ class NavigationHelper extends AppHelper
 							)
 						),
 						array(
-							'name' => 'Opties',
-							'location' => array( 'controller'=>'admin', 'action'=>'opties' ),
+							'name' => 'Instellingen',
+							'location' => array( 'controller'=>'admin', 'action'=>'instellingen' ),
 							'subitems' => array(
 								array(
 									'name' => 'Categoriëen',

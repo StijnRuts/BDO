@@ -10,3 +10,7 @@
 	color: inherit;
 	text-decoration: underline;
 }
+
+h2, h3 {
+	text-align: center;
+}

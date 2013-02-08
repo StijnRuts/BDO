@@ -14,10 +14,17 @@ td.startnr {
 table tfoot tr td {
 	padding: 0;
 }
-.add .button {
+.tablebutton .button {
 	width: 100%;
 }
 
 #sortable .sorthandle {
 	cursor: move;
+}
+
+table.selectable tbody tr, .selectable input[type=checkbox] {
+	cursor: pointer;
+}
+table.selectable tbody tr:hover td {
+	background-color: #F0F3F5;
 }

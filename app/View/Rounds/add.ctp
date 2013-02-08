@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="ten columns centered">
-		<?= $this->Form->create('Club'); ?>
+		<?= $this->Form->create('Round'); ?>
 			<fieldset>
-				<legend>Club bewerken</legend>
-				<?= $this->Form->input('id'); ?>
-				<div class="row">
-					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Clubnaam') ); ?></div>
-				</div>
+				<legend>Ronde toevoegen</legend>
+					<?= $this->Form->input('contest_id', array('type'=>'hidden', 'value'=>$contest_id)); ?>
+					<?= $this->Form->input('discipline_id'); ?>
+					<?= $this->Form->input('category_id'); ?>
+					<?= $this->Form->input('division_id'); ?>
 			</fieldset>
 			<div class="row">
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>

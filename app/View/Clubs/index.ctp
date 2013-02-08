@@ -27,7 +27,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2" class="add">
+			<td colspan="2" class="tablebutton">
 				<?= $this->Html->link('Club toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>

@@ -1,11 +1,7 @@
 <?php
-class Category extends AppModel {
+class Contest extends AppModel {
 
 	public $validate = array(
-		'order' => array(
-			'notempty' => array('rule'=>array('notempty')),
-			'numeric' => array('rule'=>array('numeric')),
-		),
 		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -16,8 +12,12 @@ class Category extends AppModel {
 				'message' => 'Deze naam is te lang',
 			),
 		),
+		'date' => array(
+			'date' => array(
+				'rule' => array('date'),
+			),
+		),
 	);
 
-	public $hasMany = array('Contestant', 'Round');
+	public $hasMany = array('Round');
 }
-?>

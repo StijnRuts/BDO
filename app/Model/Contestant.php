@@ -31,5 +31,6 @@ class Contestant extends AppModel {
 		'Category',
 		'Division'
 	);
+	public $hasAndBelongsToMany = array('Round');
 }
 ?>

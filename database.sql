@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `clubs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -62,3 +61,29 @@ INSERT INTO `divisions` (`id`, `order`, `name`) VALUES
 (1, 1, '1e divisie'),
 (2, 2, '2e divisie'),
 (3, 3, 'Eredivisie');
+
+
+
+CREATE TABLE IF NOT EXISTS `contests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `rounds` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order` int(10) unsigned NOT NULL,
+  `contest_id` int(10) unsigned NOT NULL,
+  `discipline_id` int(10) unsigned NOT NULL,
+  `category_id` int(10) unsigned NOT NULL,
+  `division_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `contestants_rounds` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `round_id` int(10) unsigned NOT NULL,
+  `contestant_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+);

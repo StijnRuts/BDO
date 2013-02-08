@@ -1,12 +1,14 @@
 <div class="row">
 	<div class="ten columns centered">
-		<?= $this->Form->create('Club'); ?>
+		<?= $this->Form->create('Contest'); ?>
 			<fieldset>
-				<legend>Club bewerken</legend>
-				<?= $this->Form->input('id'); ?>
-				<div class="row">
-					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Clubnaam') ); ?></div>
-				</div>
+				<legend>Wedstrijd toevoegen</legend>
+					<div class="row">
+						<div class="twelve columns"><?= $this->Form->input('date', array('label'=>'Datum') ); ?></div>
+					</div>
+					<div class="row">
+						<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Wedstrijdnaam') ); ?></div>
+					</div>
 			</fieldset>
 			<div class="row">
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>

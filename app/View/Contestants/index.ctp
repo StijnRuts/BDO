@@ -37,7 +37,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="7" class="add">
+			<td colspan="7" class="tablebutton">
 				<?= $this->Html->link('Lid toevoegen', array('action'=>'add'), array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>
