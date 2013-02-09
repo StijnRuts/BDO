@@ -11,6 +11,10 @@ class User extends AppModel {
 				'rule' => array('maxlength', 100),
 				'message' => 'Deze naam is te lang',
 			),
+			'unique' => array(
+            'rule' => 'isUnique',
+            'message' => 'Deze naam is al in gebruik'
+          )
 		),
 		'password' => array(
 			'notempty' => array(
@@ -26,4 +30,11 @@ class User extends AppModel {
 			),
 		),
 	);
+
+	public function beforeSave($options = array()) {
+		if (isset($this->data['User']['password'])) {
+			$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+		}
+		return true;
+	}
 }

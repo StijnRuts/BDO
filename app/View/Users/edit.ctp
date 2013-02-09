@@ -6,7 +6,7 @@
 				<?= $this->Form->input('id'); ?>
 				<div class="row">
 					<div class="twelve columns"><?= $this->Form->input('username', array('label'=>'Gebruikersnaam')); ?></div>
-					<div class="twelve columns"><?= $this->Form->input('password', array('label'=>'Paswoord')); ?></div>
+					<div class="twelve columns"><?= $this->Form->input('password', array('label'=>'Paswoord', 'value'=>'', 'required'=>false)); ?></div>
 					<div class="twelve columns"><?= $this->Form->input('role', array(
 						'label'=>'Gebruikersrol',
 						'options' => array('jury'=>'Jurylid', 'admin'=>'Beheerder')
