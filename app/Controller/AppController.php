@@ -32,6 +32,22 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	public $components = array('DebugKit.Toolbar', 'Session');
+	public $components = array('DebugKit.Toolbar', 'Session',
+			'Auth' => array(
+				'loginRedirect' => array('controller'=>'home', 'action'=>'index'),
+				'logoutRedirect' => array('controller'=>'home', 'action'=>'index'),
+				'authError' => 'U bent niet gemachtigd deze pagina te bekijken',
+				'authorize' => array('Controller')
+			) );
 	public $helpers = array('Navigation');
+
+	public function isAuthorized($user) {
+		if (isset($user['role']) && $user['role']=='admin') return true;
+		return false;
+	}
+
+	public function beforeFilter() {
+		$this->set('logged_in', $this->Auth->LoggedIn());
+		$this->set('current_user', $this->Auth->user());
+	}
 }

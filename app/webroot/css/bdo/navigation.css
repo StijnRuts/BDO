@@ -1,7 +1,10 @@
-ul.breadcrumbs {
+#breadcrumbbar {
 	background-color: #111111;
+}
+ul.breadcrumbs {
+	display: inline-block;
+	background-color: transparent;
 	border: none;
-	border-radius: 0;
 	margin-bottom: 0;
 }
 ul.breadcrumbs li a, ul.breadcrumbs li span {
@@ -18,6 +21,11 @@ ul.breadcrumbs li span.current {
 }
 ul.breadcrumbs li:before {
 	content: ">";
+}
+
+#login {
+	float: right;
+	margin: 9px 15px;
 }
 
 ul.nav-bar {

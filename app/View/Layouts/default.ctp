@@ -20,6 +20,7 @@
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-tablesorter' : 'jquery-tablesorter.min');
 		echo $this->Html->script('bdo/alerts');
+		echo $this->Html->script('bdo/input_focus');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');
@@ -35,11 +36,22 @@
 
 	<div id="header">
 		<?php $navigation = $this->Navigation->get() ?>
-		<nav><?= $navigation['breadcrumbs'] ?></nav>
-		<nav><?= $navigation['menu'] ?></nav>
+		<nav id="breadcrumbbar">
+			<?= $navigation['breadcrumbs'] ?>
+			<?= $logged_in ?
+				$this->Html->Link('Log uit '.$current_user['username'],
+											array('controller'=>'users', 'action'=>'logout'),
+											array('class'=>'small button', 'id'=>'login')
+										) :
+				$this->Html->Link('Log in', array('controller'=>'users', 'action'=>'login'),
+													 array('class'=>'small button', 'id'=>'login'))
+			; ?>
+		</nav>
+		<nav id="menubar"><?= $navigation['menu'] ?></nav>
 	</div>
 	<div id="content">
 		<div class="row"><div class="twelve columns"><?= $this->Session->flash(); ?></div></div>
+		<div class="row"><div class="twelve columns"><?= $logged_in ? $this->Session->flash('auth') : ''; ?></div></div>
 		<?= $this->fetch('content'); ?>
 	</div>
 	<div id="footer">

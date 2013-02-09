@@ -43,6 +43,11 @@ class NavigationHelper extends AppHelper
 							)
 						),
 						array(
+							'name' => 'Gebruikersbeheer',
+							'location' => array( 'controller'=>'users' ),
+							'subitems' => array()
+						),
+						array(
 							'name' => 'Instellingen',
 							'location' => array( 'controller'=>'admin', 'action'=>'instellingen' ),
 							'subitems' => array(
