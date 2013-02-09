@@ -87,3 +87,13 @@ CREATE TABLE IF NOT EXISTS `contestants_rounds` (
   `contestant_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `role` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+);
