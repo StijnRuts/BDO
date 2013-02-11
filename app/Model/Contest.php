@@ -19,5 +19,5 @@ class Contest extends AppModel {
 		),
 	);
 
-	public $hasMany = array('Round');
+	public $hasMany = array('Round', 'Point');
 }

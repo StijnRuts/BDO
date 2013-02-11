@@ -109,6 +109,17 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 
 
 
+CREATE TABLE IF NOT EXISTS `points` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `contest_id` int(10) unsigned NOT NULL,
+  `parent_id` int(10) DEFAULT NULL,
+  `lft` int(10) NOT NULL,
+  `rght` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `min` int(11) NOT NULL,
+  `max` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+
 CREATE TABLE IF NOT EXISTS `defaultpoints` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) DEFAULT NULL,
