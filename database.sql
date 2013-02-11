@@ -106,3 +106,31 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (6, 'Jurylid5', 'f31ed7e128a3b0a53ea842caa9d5cbe123e15e96', 'jury'),
 (7, 'Jurylid6', '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
 (8, 'Jurylid7', 'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
+
+
+
+CREATE TABLE IF NOT EXISTS `defaultpoints` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `lft` int(10) NOT NULL,
+  `rght` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+INSERT INTO `defaultpoints` (`id`, `parent_id`, `lft`, `rght`, `name`) VALUES
+(1, NULL, 1, 2, 'Presentatie'),
+(2, NULL, 3, 4, 'Houding'),
+(3, NULL, 5, 6, 'Synchroniteit'),
+(4, NULL, 7, 8, 'Spreiding'),
+(5, NULL, 9, 20, 'Choreografie Gardedansen'),
+(6, 5, 10, 11, 'Formaties'),
+(7, 5, 12, 13, 'Danspassen'),
+(8, 5, 14, 15, 'Formatiewissel'),
+(9, 5, 16, 17, 'Danselementen'),
+(10, 5, 18, 19, 'Muziekomzetting'),
+(11, NULL, 21, 22, 'Passen en danselementen'),
+(12, NULL, 23, 24, 'Tilfiguren'),
+(13, NULL, 25, 26, 'Omzetten van thema en karakter'),
+(14, NULL, 27, 28, 'Creativiteit'),
+(15, NULL, 29, 30, 'Danstechniek'),
+(16, NULL, 31, 32, 'Uitvoering');
