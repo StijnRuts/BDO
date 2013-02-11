@@ -33,4 +33,6 @@ class Defaultpoint extends AppModel {
 			),
 		),
 	);
+
+	public $actsAs = array('Tree');
 }

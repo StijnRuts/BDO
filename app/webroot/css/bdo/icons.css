@@ -15,6 +15,10 @@
 [class*="f-icon-remove"]:hover {
 	color: #E61919;
 }
+.ordering-arrows [class*="f-icon-"] {
+	padding-left: 0px;
+	font-size: 1.2em;
+}
 
 a.showmore:before, a.showless:before, a.showmore:after, a.showless:after {
 	font-family: "Generalicons";

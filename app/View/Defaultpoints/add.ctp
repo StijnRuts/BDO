@@ -1,22 +1,19 @@
-<div class="defaultpoints form">
-<?php echo $this->Form->create('Defaultpoint'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Defaultpoint'); ?></legend>
-	<?php
-		echo $this->Form->input('parent_id');
-		echo $this->Form->input('lft');
-		echo $this->Form->input('rght');
-		echo $this->Form->input('name');
-		echo $this->Form->input('min');
-		echo $this->Form->input('max');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Defaultpoints'), array('action' => 'index')); ?></li>
-	</ul>
+<div class="row">
+	<div class="ten columns centered">
+		<?= $this->Form->create('Defaultpoint'); ?>
+			<fieldset>
+				<legend>Beoordelingspunt toevoegen</legend>
+				<div class="row">
+					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Naam') ); ?></div>
+					<div class="six columns"><?= $this->Form->input('min', array('label'=>'Minimumscore', 'value'=>0) ); ?></div>
+					<div class="six columns"><?= $this->Form->input('max', array('label'=>'Maximumscore', 'value'=>10) ); ?></div>
+					<div class="twelve columns"><?= $this->Form->input('parent_id', array('label'=>'Onderdeel van') ); ?></div>
+				</div>
+			</fieldset>
+			<div class="row">
+				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+				<div class="six columns"><?= $this->Html->link('Anuleren', array('action'=>'index'), array('class'=>'radius secondary button')); ?></div>
+			</div>
+		<?= $this->Form->end(); ?>
+	</div>
 </div>

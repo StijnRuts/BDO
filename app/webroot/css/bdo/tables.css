@@ -28,3 +28,10 @@ table.selectable tbody tr, .selectable input[type=checkbox] {
 table.selectable tbody tr:hover td {
 	background-color: #F0F3F5;
 }
+
+
+.level1 .name { padding-left: 25px; } .level1 .name:before { content: '* '; }
+.level2 .name { padding-left: 40px; } .level2 .name:before { content: '+ '; }
+.level3 .name { padding-left: 55px; } .level3 .name:before { content: '- '; }
+.level4 .name { padding-left: 70px; } .level4 .name:before { content: '. '; }
+.level5 .name { padding-left: 85px; }
