@@ -119,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `points` (
   `min` int(11) NOT NULL,
   `max` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+);
 
 CREATE TABLE IF NOT EXISTS `defaultpoints` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

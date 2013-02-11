@@ -24,6 +24,11 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'rounds' ),
 									'subitems' => array()
 								),
+								array(
+									'name' => 'Beoordelingpunten',
+									'location' => array( 'controller'=>'points' ),
+									'subitems' => array()
+								),
 							)
 						),
 						array(

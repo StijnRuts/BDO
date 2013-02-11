@@ -2,17 +2,34 @@
 class PointsController extends AppController {
 
 	public function index() {
-		$this->Point->recursive = 0;
-		$this->set('Points', $this->Point->find('threaded',array('order'=>'lft')));
+		$this->loadModel('Contest');
+		$this->Contest->recursive = 0;
+		$this->set('contests', $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc'),
+		)));
 	}
 
-	public function add() {
+	public function view($contest_id = null) {
+		$this->loadModel('Contest');
+		if (!$this->Contest->exists($contest_id)) throw new NotFoundException();
+		$this->set('contest_id', $contest_id);
+		$this->Point->recursive = 0;
+		$this->set('points', $this->Point->find('threaded',array(
+			'conditions' => array('Contest.id'=>$contest_id),
+			'order'=>'lft'
+		)));
+	}
+
+	public function add($contest_id = null) {
+		$this->loadModel('Contest');
+		if (!$this->Contest->exists($contest_id)) throw new NotFoundException();
+		$this->set('contest_id', $contest_id);
 		if ($this->request->is('post')) {
 			$this->Point->create();
 			if($this->request->data['Point']['parent_id']=='0') $this->request->data['Point']['parent_id']=null;
 			if ($this->Point->save($this->request->data)) {
 				$this->Session->setFlash('Het beoordelingspunt is opgeslaan', 'flash_success');
-				$this->redirect(array('action'=>'index'));
+				$this->redirect(array('action'=>'view', $contest_id));
 			} else {
 				$this->Session->setFlash('Het beoordelingspunt kon niet worden opgeslaan', 'flash_error');
 			}
@@ -29,7 +46,7 @@ class PointsController extends AppController {
 			if($this->request->data['Point']['parent_id']=='0') $this->request->data['Point']['parent_id']=null;
 			if ($this->Point->save($this->request->data)) {
 				$this->Session->setFlash('Het beoordelingspunt is opgeslaan', 'flash_success');
-				$this->redirect(array('action'=>'index'));
+				$this->redirect(array('action'=>'view', $this->request->data['Point']['contest_id']));
 			} else {
 				$this->Session->setFlash('Het beoordelingspunt kon niet worden opgeslaan', 'flash_error');
 			}
@@ -51,18 +68,24 @@ class PointsController extends AppController {
 		} else {
 			$this->Session->setFlash('Het beoordelingspunt kon niet worden verwijderd', 'flash_error');
 		}
-		$this->redirect(array('action'=>'index'));
+		$this->Point->id = $id;
+		$point = $this->Point->read();
+		$this->redirect(array('action'=>'view', $point['Point']['contest_id']));
 	}
 
 	function moveup($id = null) {
 		if (!$this->Point->exists($id)) throw new NotFoundException();
 		if(!$this->Point->moveUp($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar boven worden verplaatst');
-		$this->redirect(array('action'=>'index'));
+		$this->Point->id = $id;
+		$point = $this->Point->read();
+		$this->redirect(array('action'=>'view', $point['Point']['contest_id']));
 	}
 
 	function movedown($id = null) {
 		if (!$this->Point->exists($id)) throw new NotFoundException();
 		if(!$this->Point->moveDown($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar onder worden verplaatst');
-		$this->redirect(array('action'=>'index'));
+		$this->Point->id = $id;
+		$point = $this->Point->read();
+		$this->redirect(array('action'=>'view', $point['Point']['contest_id']));
 	}
 }

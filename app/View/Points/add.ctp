@@ -3,6 +3,7 @@
 		<?= $this->Form->create('Point'); ?>
 			<fieldset>
 				<legend>Beoordelingspunt toevoegen</legend>
+				<?= $this->Form->input('contest_id', array('type'=>'hidden', 'value'=>$contest_id)); ?>
 				<div class="row">
 					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Naam') ); ?></div>
 					<div class="six columns"><?= $this->Form->input('min', array('label'=>'Minimumscore', 'value'=>0) ); ?></div>

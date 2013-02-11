@@ -1,5 +1,5 @@
 <?php
-class Defaultpoint extends AppModel {
+class Point extends AppModel {
 
 	public $validate = array(
 		'name' => array(
@@ -43,10 +43,10 @@ class Defaultpoint extends AppModel {
 	);
 
 	public function notTooBig($data) {
-		return ($data['min'] < $this->data['Defaultpoint']['max']);
+		return ($data['min'] < $this->data['Point']['max']);
 	}
 	public function notTooSmall($data) {
-		return ($data['max'] > $this->data['Defaultpoint']['min']);
+		return ($data['max'] > $this->data['Point']['min']);
 	}
 
 	public $belongsTo = array('Contest');
