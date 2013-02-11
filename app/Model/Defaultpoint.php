@@ -21,6 +21,10 @@ class Defaultpoint extends AppModel {
 				'rule' => array('numeric'),
 				'message' => 'Gelieve een getal op te geven',
 			),
+			'nottoobig' => array(
+				'rule' => array('notTooBig'),
+				'message' => 'De minimumscore moet kleiner zijn dan de maximumscore',
+			),
 		),
 		'max' => array(
 			'notempty' => array(
@@ -31,8 +35,19 @@ class Defaultpoint extends AppModel {
 				'rule' => array('numeric'),
 				'message' => 'Gelieve een getal op te geven',
 			),
+			'nottoosmall' => array(
+				'rule' => array('notTooSmall'),
+				'message' => 'De maximumscore moet groter zijn dan de minimumscore',
+			),
 		),
 	);
+
+	public function notTooBig($data) {
+		return ($data['min'] < $this->data['Defaultpoint']['max']);
+	}
+	public function notTooSmall($data) {
+		return ($data['max'] > $this->data['Defaultpoint']['min']);
+	}
 
 	public $actsAs = array('Tree');
 }
