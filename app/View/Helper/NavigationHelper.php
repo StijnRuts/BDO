@@ -66,6 +66,11 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'divisions' ),
 									'subitems' => array()
 								),
+								array(
+									'name' => 'Standaard beoordeling',
+									'location' => array( 'controller'=>'defaultpoints' ),
+									'subitems' => array()
+								),
 							)
 						),
 					)
