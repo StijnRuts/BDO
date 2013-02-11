@@ -14,3 +14,11 @@
 h2, h3 {
 	text-align: center;
 }
+
+form .error {
+    padding: 10px 10px 0;
+    margin-bottom: 10px;
+}
+input.form-error {
+    margin-bottom: 0;
+}
