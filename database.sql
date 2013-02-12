@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `divisions` (
 );
 INSERT INTO `divisions` (`id`, `order`, `name`) VALUES
 (1, 0, ''),
-(2, 1, '1e divisie'),
-(3, 2, '2e divisie'),
+(2, 2, '1e divisie'),
+(3, 1, '2e divisie'),
 (4, 3, 'Eredivisie');
 
 
