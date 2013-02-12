@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `clubs` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `clubs` (`id`, `name`) VALUES
-(0, '');
+(1, '');
 
 CREATE TABLE IF NOT EXISTS `contestants` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -24,18 +24,18 @@ CREATE TABLE IF NOT EXISTS `disciplines` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `disciplines` (`id`, `order`, `name`) VALUES
-(0, 0, ''),
-(1, 1, 'Gardedans Solo'),
-(2, 2, 'Gardedans Paar'),
-(3, 3, 'Gardedans Polka'),
-(4, 4, 'Gardedans Mars'),
-(5, 5, 'Gardedans met Tilfiguren'),
-(6, 6, 'Showdans Solo'),
-(7, 7, 'Showdans Duo'),
-(8, 8, 'Showdans Karakter'),
-(9, 9, 'Showdans Freestyle'),
-(10, 10, 'Showdans Modern'),
-(11, 11, 'Showdans met Tilfiguren');
+(1, 0, ''),
+(2, 1, 'Gardedans Solo'),
+(3, 2, 'Gardedans Paar'),
+(4, 3, 'Gardedans Polka'),
+(5, 4, 'Gardedans Mars'),
+(6, 5, 'Gardedans met Tilfiguren'),
+(7, 6, 'Showdans Solo'),
+(8, 7, 'Showdans Duo'),
+(9, 8, 'Showdans Karakter'),
+(10, 9, 'Showdans Freestyle'),
+(11, 10, 'Showdans Modern'),
+(12, 11, 'Showdans met Tilfiguren');
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -44,11 +44,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `categories` (`id`, `order`, `name`) VALUES
-(0, 0, ''),
-(1, 1, 'Miniklasse'),
-(2, 2, 'Juniorenklasse'),
-(3, 3, 'Jeugdklasse'),
-(4, 4, 'Hoofdklasse');
+(1, 0, ''),
+(2, 1, 'Miniklasse'),
+(3, 2, 'Juniorenklasse'),
+(4, 3, 'Jeugdklasse'),
+(5, 4, 'Hoofdklasse');
 
 CREATE TABLE IF NOT EXISTS `divisions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -57,10 +57,10 @@ CREATE TABLE IF NOT EXISTS `divisions` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `divisions` (`id`, `order`, `name`) VALUES
-(0, 0, ''),
-(1, 1, '1e divisie'),
-(2, 2, '2e divisie'),
-(3, 3, 'Eredivisie');
+(1, 0, ''),
+(2, 1, '1e divisie'),
+(3, 2, '2e divisie'),
+(4, 3, 'Eredivisie');
 
 
 

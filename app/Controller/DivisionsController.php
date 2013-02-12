@@ -7,7 +7,7 @@ class DivisionsController extends AppController {
 		$this->Division->recursive = 0;
 		$this->set('divisions', $this->Division->find('all', array(
 			'order' => array('Division.order' => 'asc'),
-			'conditions' => array('Division.id >' => 0)
+			'conditions' => array('Division.id >' => 1)
 		)));
 	}
 
