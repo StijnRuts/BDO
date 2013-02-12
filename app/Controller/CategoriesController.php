@@ -7,7 +7,7 @@ class CategoriesController extends AppController {
 		$this->Category->recursive = 0;
 		$this->set('categories', $this->Category->find('all', array(
 			'order' => array('Category.order' => 'asc'),
-			'conditions' => array('Category.id >' => 0)
+			'conditions' => array('Category.id >' => 1)
 		)));
 	}
 

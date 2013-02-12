@@ -5,7 +5,7 @@ class ClubsController extends AppController {
 		$this->Club->recursive = 0;
 		$this->set('clubs', $this->Club->find('all', array(
 			'order' => array('Club.name' => 'asc'),
-			'conditions' => array('Club.id >' => 0)
+			'conditions' => array('Club.id >' => 1)
 		)));
 	}
 
