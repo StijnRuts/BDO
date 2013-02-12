@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `clubs` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `clubs` (`id`, `name`) VALUES
-(0, ''),
+(0, '');
 
 CREATE TABLE IF NOT EXISTS `contestants` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `disciplines` (
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 );
-INSERT INTO `disciplines` (`order`, `name`) VALUES
+INSERT INTO `disciplines` (`id`, `order`, `name`) VALUES
 (0, 0, ''),
 (1, 1, 'Gardedans Solo'),
 (2, 2, 'Gardedans Paar'),
