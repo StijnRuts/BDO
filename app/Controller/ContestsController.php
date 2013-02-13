@@ -14,8 +14,9 @@ class ContestsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Contest->create();
 			if ($this->Contest->save($this->request->data)) {
+				$this->Contest->initPoints();
 				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
-				$this->redirect(array('action'=>'rounds', $this->Contest->id));
+				$this->redirect(array('controller'=>'rounds', 'action'=>'view', $this->Contest->id));
 			} else {
 				$this->Session->setFlash('De wedstrijd kon niet worden opgeslaan', 'flash_error');
 			}
