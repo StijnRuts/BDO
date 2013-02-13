@@ -74,6 +74,7 @@ class PointsController extends AppController {
 	}
 
 	function moveup($id = null) {
+		$this->request->onlyAllow('post');
 		if (!$this->Point->exists($id)) throw new NotFoundException();
 		if(!$this->Point->moveUp($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar boven worden verplaatst');
 		$this->Point->id = $id;
@@ -82,6 +83,7 @@ class PointsController extends AppController {
 	}
 
 	function movedown($id = null) {
+		$this->request->onlyAllow('post');
 		if (!$this->Point->exists($id)) throw new NotFoundException();
 		if(!$this->Point->moveDown($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar onder worden verplaatst');
 		$this->Point->id = $id;

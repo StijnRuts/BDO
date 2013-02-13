@@ -1,11 +1,11 @@
 <tr class="level<?= $level; ?>">
 	<td class="ordering-arrows">
-		<?= $this->Html->link(
+		<?= $this->Form->postLink(
 			'<i class="f-icon-up-arrow"></i>',
 			array('action'=>'moveup', $point['Point']['id']),
 			array('escape'=>false, 'title'=>h($point['Point']['name'].' naar boven verplaatsen'))
 		); ?>
-		<?= $this->Html->link(
+		<?= $this->Form->postLink(
 			'<i class="f-icon-down-arrow"></i>',
 			array('action'=>'movedown', $point['Point']['id']),
 			array('escape'=>false, 'title'=>h($point['Point']['name'].' naar onder verplaatsen'))
