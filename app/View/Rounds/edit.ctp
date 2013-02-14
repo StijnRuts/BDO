@@ -11,7 +11,7 @@
 			</fieldset>
 			<div class="row">
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
-				<div class="six columns"><?= $this->Html->link('Anuleren', array('action'=>'index'), array('class'=>'radius secondary button')); ?></div>
+				<div class="six columns"><?= $this->Html->link('Anuleren', array('action'=>'view', $this->request->data['Contest']['id']), array('class'=>'radius secondary button')); ?></div>
 			</div>
 		<?= $this->Form->end(); ?>
 	</div>

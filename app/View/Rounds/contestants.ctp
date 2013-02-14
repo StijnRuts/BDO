@@ -46,7 +46,7 @@
 <div class="row">
 	<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
 	<div class="six columns"><?= $this->Html->link('Anuleren',
-		array('controller'=>'contests', 'action'=>'rounds', $round['Round']['contest_id']),
+		array( 'action'=>'view', $round['Round']['contest_id']),
 		array('class'=>'radius secondary button')
 	); ?></div>
 </div>
