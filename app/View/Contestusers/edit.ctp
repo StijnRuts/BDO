@@ -1,3 +1,4 @@
+<h2>Jurysamenstelling voor <?= h($contest['Contest']['name']); ?> <small>(<?= h($contest['Contest']['date']); ?>)</small></h2>
 <div class="row">
 	<div class="ten columns centered">
 		<?= $this->Form->create('Contest'); ?>

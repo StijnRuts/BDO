@@ -1,3 +1,4 @@
+<h2>Beoordelingspunten voor <?= h($contest['Contest']['name']); ?> <small>(<?= h($contest['Contest']['date']); ?>)</small></h2>
 <table>
 	<thead>
 		<tr>
@@ -15,7 +16,7 @@
 		<tr>
 			<td colspan="5" class="tablebutton">
 				<?= $this->Html->link('Beoordelingspunt toevoegen',
-				array('action'=>'add', $contest_id),
+				array('action'=>'add', $contest['Contest']['id']),
 				array('class'=>'small secondary radius  button')); ?>
 			</td>
 		</tr>

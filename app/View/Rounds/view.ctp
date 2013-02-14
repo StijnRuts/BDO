@@ -6,6 +6,7 @@
 			<th>Discipline</th>
 			<th>Categorie</th>
 			<th>Divisie</th>
+			<th>Beheer</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -18,14 +19,17 @@
 				<td class="sorthandle"><?= $round['Division']['name']; ?></td>
 				<td>
 					<?= $this->Html->link(
+						'deelnemers',
+						array('controller'=>'rounds', 'action'=>'contestants', $round['id']),
+						array('title'=>'Beheer deelnemers voor deze ronde',
+							   'class'=>'tiny secondary button')
+					); ?>
+				</td>
+				<td>
+					<?= $this->Html->link(
 						'<i class="f-icon-tools"></i>',
 						array('controller'=>'rounds', 'action'=>'edit', $round['id']),
 						array('escape'=>false, 'title'=>'Bewerk ronde')
-					); ?>
-					<?= $this->Html->link(
-						'<i class="f-icon-settings"></i>',
-						array('controller'=>'rounds', 'action'=>'contestants', $round['id']),
-						array('escape'=>false, 'title'=>'Beheer deelnemers voor deze ronde')
 					); ?>
 					<?= $this->Form->postLink(
 						'<i class="f-icon-remove"></i>',

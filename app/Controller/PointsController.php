@@ -12,7 +12,7 @@ class PointsController extends AppController {
 	public function view($contest_id = null) {
 		$this->loadModel('Contest');
 		if (!$this->Contest->exists($contest_id)) throw new NotFoundException();
-		$this->set('contest_id', $contest_id);
+		$this->set('contest', $this->Contest->find('first', array('conditions' => array('Contest.id'=>$contest_id)) ));
 		$this->Point->recursive = 0;
 		$this->set('points', $this->Point->find('threaded',array(
 			'conditions' => array('Contest.id'=>$contest_id),

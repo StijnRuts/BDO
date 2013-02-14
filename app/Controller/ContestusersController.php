@@ -35,6 +35,7 @@ class ContestusersController extends AppController {
 
 		$this->Contest->id = $contest_id;
 		$contest = $this->Contest->read();
+		$this->set('contest', $contest);
 		$selected = array();
 		foreach($contest['User'] as $user) $selected[] = (int)$user['id'];
 		$this->set('selected', $selected);
