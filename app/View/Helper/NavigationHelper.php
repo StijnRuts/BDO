@@ -29,6 +29,11 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'points' ),
 									'subitems' => array()
 								),
+								array(
+									'name' => 'Jurysamenstelling',
+									'location' => array( 'controller'=>'contestusers' ),
+									'subitems' => array()
+								),
 							)
 						),
 						array(

@@ -46,3 +46,15 @@ fieldset {
 .date select:last-of-type {
 	margin-right: 0;
 }
+
+.checkbox {
+	padding: 5px;
+}
+.checkbox label {
+	display: inline-block;
+	font-size: 1.3em;
+	padding-left: 10px;
+}
+.checkbox label:hover {
+	color: #111;
+}

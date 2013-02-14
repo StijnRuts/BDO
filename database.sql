@@ -107,6 +107,13 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (7, 'Jurylid6', '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
 (8, 'Jurylid7', 'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
 
+CREATE TABLE IF NOT EXISTS `contests_users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `contest_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 
 
 CREATE TABLE IF NOT EXISTS `points` (

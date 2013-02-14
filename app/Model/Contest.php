@@ -20,6 +20,7 @@ class Contest extends AppModel {
 	);
 
 	public $hasMany = array('Round', 'Point');
+	public $hasAndBelongsToMany = array('User');
 
 	//initializes the points for this contest with the values from defaultpoints
 	public function initPoints(){
