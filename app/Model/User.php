@@ -32,6 +32,7 @@ class User extends AppModel {
 	);
 
 	public $hasAndBelongsToMany = array('Contest');
+	public $hasMany = array('Score');
 
 	public function beforeSave($options = array()) {
 		if (isset($this->data['User']['password'])) {

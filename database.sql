@@ -155,3 +155,14 @@ INSERT INTO `defaultpoints` (`id`, `parent_id`, `lft`, `rght`, `name`, `min`, `m
 (14, NULL, 27, 28, 'Creativiteit', 0, 10),
 (15, NULL, 29, 30, 'Danstechniek', 0, 10),
 (16, NULL, 31, 32, 'Uitvoering', 0, 10);
+
+
+
+CREATE TABLE IF NOT EXISTS `scores` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `point_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `contestant_id` int(10) unsigned NOT NULL,
+  `score` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);

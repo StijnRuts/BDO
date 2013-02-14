@@ -50,5 +50,6 @@ class Point extends AppModel {
 	}
 
 	public $belongsTo = array('Contest');
+	public $hasMany = array('Score');
 	public $actsAs = array('Tree');
 }
