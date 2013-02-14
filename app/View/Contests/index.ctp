@@ -31,6 +31,12 @@
 					array('title'=>'Beheer jurysamenstelling voor '.h($contest['Contest']['name']),
 						   'class'=>'tiny secondary button')
 				); ?>
+				<?= $this->Html->link(
+					'wedstrijdverloop',
+					array('controller'=>'contestmanagement', 'action'=>'view', $contest['Contest']['id']),
+					array('title'=>'Beheer wedstrijdverloop voor '.h($contest['Contest']['name']),
+						   'class'=>'tiny button')
+				); ?>
 			</td>
 			<td>
 				<?= $this->Html->link(
