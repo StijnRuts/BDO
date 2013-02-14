@@ -52,7 +52,6 @@
 </div>
 <?= $this->Form->end(); ?>
 
-<?= $this->Html->script('bdo/jquery-sliderow'); ?>
 <script>
 	$(document).ready(function(){
 		//table sorting
@@ -80,18 +79,17 @@
 		var state = '';
 		$('tfoot a').click(function(e){ e.preventDefault(); });
 		if( $('.match').length > 0 ){
-			showless(true);
+			showless();
 			$('tfoot').show();
-			$('tfoot a').click(function(e){ if(state=='more') showless(false); else showmore(); e.preventDefault(); });
+			$('tfoot a').click(function(e){ if(state=='more') showless(); else showmore(); e.preventDefault(); });
 		}
 		function showmore(){
-			$('.nomatch').slideRow('down');
+			$('.nomatch').show();
 			$('tfoot a').text('Minder weergeven').addClass('showless').removeClass('showmore');
 			state = 'more';
 		}
-		function showless(fast){
-			if(fast) $('.nomatch:not(:has(:checked))').hide();
-			else     $('.nomatch:not(:has(:checked))').slideRow('up');
+		function showless(){
+			$('.nomatch:not(:has(:checked))').hide();
 			$('tfoot a').text('Meer weergeven').addClass('showmore').removeClass('showless');
 			state = 'less';
 		}
