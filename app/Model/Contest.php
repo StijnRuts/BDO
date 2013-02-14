@@ -43,4 +43,13 @@ class Contest extends AppModel {
 			if( count($point['children'])>0 ) $this->addPoints($point['children'], $this->Point->getLastInsertID() );
 		}
 	}
+
+	//initializes the users for this contest with the values for users with role 'jury'
+	public function initUsers(){
+		$User = ClassRegistry::init('User');
+		$User->recursive = 0;
+		$users = $User->find('list',array('conditions' => array('role'=>'jury')) );
+		foreach($users as $key=>$value) $users[$key] = $key;
+		$this->save(array( 'User'=>$users ));
+	}
 }
