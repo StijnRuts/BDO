@@ -28,6 +28,10 @@ class PointsController extends AppController {
 			'conditions' => array('Contest.id'=>$contest_id),
 			'order'=>'lft'
 		)));
+
+		$this->set('contests', $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc'),
+		)));
 	}
 
 	public function add($contest_id = null) {

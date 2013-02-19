@@ -1,0 +1,1 @@
+$(document).ready(function () {$("#sortable tbody").sortable({distance:15, handle:".sorthandle", stop:function (event, ui) {$.post("/rounds/reorder", $("#sortable tbody").sortable("serialize"))}});});

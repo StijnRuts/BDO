@@ -49,6 +49,10 @@ class ContestusersController extends AppController {
 		$selected = array();
 		foreach($contest['User'] as $user) $selected[] = (int)$user['id'];
 		$this->set('selected', $selected);
+
+		$this->set('contests', $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc'),
+		)));
 	}
 
 }

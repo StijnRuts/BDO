@@ -26,6 +26,10 @@ class RoundsController extends AppController {
 			'conditions' => array('Contest.id'=>$contest_id),
 			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
 		)));
+
+		$this->set('contests', $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc'),
+		)));
 	}
 
 	public function add($contest_id = null) {
@@ -113,6 +117,12 @@ class RoundsController extends AppController {
 		$selected = array();
 		foreach($round['Contestant'] as $contestant) $selected[] = $contestant['id'];
 		$this->set('selected', $selected);
+
+		$this->set('rounds', $this->Round->find('all', array(
+			'conditions' => array('contest_id'=>$round['Round']['contest_id']),
+			'order' => 'Round.order',
+			'contain' => array('Category', 'Discipline', 'Division')
+		)));
 	}
 
 	public function reorder(){
