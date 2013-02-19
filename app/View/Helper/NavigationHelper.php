@@ -83,6 +83,12 @@ class NavigationHelper extends AppHelper
 								),
 							)
 						),
+						array(
+							'name' => 'Wedstrijdverloop',
+							'location' => array( 'controller'=>'contestmanagement' ),
+							'subitems' => array(),
+							'show' => false
+						),
 					)
 				),
 				array(
@@ -133,6 +139,7 @@ class NavigationHelper extends AppHelper
 		$returnObj['menu'] = "";
 		$subitems = count($navigation[0]['subitems'])>0 ? $navigation[0]['subitems'] : $navigation[1]['subitems'];
 		foreach($subitems as $subitem){
+			if( isset($subitem['show']) && $subitem['show']==false ) continue;
 			if(!isset($subitem['location']['action'])) $subitem['location']['action']='index';
 			$returnObj['menu'] .= $this->Html->tag('li',
 				$this->Html->Link($subitem['name'], $subitem['location']),
