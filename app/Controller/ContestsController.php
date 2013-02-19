@@ -17,6 +17,7 @@ class ContestsController extends AppController {
 				$this->Contest->initPoints();
 				$this->Contest->initUsers();
 				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
+				$this->Session->write('recent.contest', $this->Contest->getLastInsertID());
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De wedstrijd kon niet worden opgeslaan', 'flash_error');
@@ -29,6 +30,7 @@ class ContestsController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Contest->save($this->request->data)) {
 				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
+				$this->Session->write('recent.contest', $id);
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('De wedstrijd kon niet worden opgeslaan', 'flash_error');
@@ -44,6 +46,7 @@ class ContestsController extends AppController {
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Contest->delete($id)) {
 			$this->Session->setFlash('De wedstrijd is verwijderd', 'flash_info');
+			if($this->Session->check('recent.contest')) $this->Session->delete('recent.contest');
 		} else {
 			$this->Session->setFlash('De wedstrijd kon niet worden verwijderd', 'flash_error');
 		}

@@ -2,16 +2,26 @@
 class RoundsController extends AppController {
 
 	public function index() {
+		//if recent contest is set => redirect
+		if($this->Session->check('recent.contest')) $this->redirect(array('action'=>'view', $this->Session->read('recent.contest')));
+
+		//otherwise, redirect to first contest
 		$this->loadModel('Contest');
 		$this->Contest->recursive = 0;
-		$this->set('contests', $this->Contest->find('all', array(
-			'order' => array('Contest.date' => 'asc'),
-		)));
+		$contests = $this->Contest->find('all', array(
+			'order' => array('Contest.date' => 'asc')
+		));
+		if( isset($contests[0]) ){
+			$this->redirect( array('action'=>'contest', $contests[0]['Contest']['id']) );
+		} else {
+			exit();
+		}
 	}
 
 	public function view($contest_id = null) {
 		$this->loadModel('Contest');
 		if (!$this->Contest->exists($contest_id)) throw new NotFoundException();
+		$this->Session->write('recent.contest', $contest_id);
 		$this->set('contest', $this->Contest->find('first', array(
 			'conditions' => array('Contest.id'=>$contest_id),
 			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
@@ -69,6 +79,7 @@ class RoundsController extends AppController {
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Round->delete($id)) {
 			$this->Session->setFlash('De ronde is verwijderd', 'flash_info');
+			if($this->Session->check('recent.round')) $this->Session->delete('recent.round');
 		} else {
 			$this->Session->setFlash('De ronde kon niet worden verwijderd', 'flash_error');
 		}
