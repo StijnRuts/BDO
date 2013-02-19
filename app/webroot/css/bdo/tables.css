@@ -29,20 +29,6 @@ table.selectable tbody tr:hover td {
 	background-color: #F0F3F5;
 }
 
-table h2 {
-	margin: 5px 5px 15px;
-}
-table > tbody > tr > th {
-    color: #222222;
-    background: #EBEBEB;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 8px 10px 9px;
-}
-table table {
-	width: 100%;
-}
-
 .level1 .name { padding-left: 25px; } .level1 .name:before { content: '* '; }
 .level2 .name { padding-left: 40px; } .level2 .name:before { content: '+ '; }
 .level3 .name { padding-left: 55px; } .level3 .name:before { content: '- '; }

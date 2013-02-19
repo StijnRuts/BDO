@@ -9,7 +9,7 @@
 		<tr>
 			<td><?= $this->Html->link(
 				h($contest['Contest']['name']).' ('.h($contest['Contest']['date']).')',
-				array('action'=>'view', $contest['Contest']['id'])
+				array('action'=>'contest', $contest['Contest']['id'])
 			); ?></td>
 		</tr>
 		<?php endforeach; ?>

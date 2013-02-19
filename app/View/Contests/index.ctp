@@ -33,7 +33,7 @@
 				); ?>
 				<?= $this->Html->link(
 					'wedstrijdverloop',
-					array('controller'=>'contestmanagement', 'action'=>'view', $contest['Contest']['id']),
+					array('controller'=>'contestmanagement', 'action'=>'contest', $contest['Contest']['id']),
 					array('title'=>'Beheer wedstrijdverloop voor '.h($contest['Contest']['name']),
 						   'class'=>'tiny button')
 				); ?>

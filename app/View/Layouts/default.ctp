@@ -49,13 +49,10 @@
 		</nav>
 		<nav id="menubar"><?= $navigation['menu'] ?></nav>
 	</div>
-	<div id="content">
-		<div class="row"><div class="twelve columns"><?= $this->Session->flash(); ?></div></div>
-		<div class="row"><div class="twelve columns"><?= $logged_in ? $this->Session->flash('auth') : ''; ?></div></div>
-		<?= $this->fetch('content'); ?>
-	</div>
-	<div id="footer">
 
-	</div>
+	<div class="row"><div class="twelve columns"><?= $this->Session->flash(); ?></div></div>
+	<div class="row"><div class="twelve columns"><?= $logged_in ? $this->Session->flash('auth') : ''; ?></div></div>
+	<div id="content"><?= $this->fetch('content'); ?></div>
+
 </body>
 </html>
