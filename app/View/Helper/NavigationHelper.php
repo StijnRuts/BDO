@@ -34,6 +34,12 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'contestusers' ),
 									'subitems' => array()
 								),
+								array(
+									'name' => 'Wedstrijdverloop',
+									'location' => array( 'controller'=>'contestmanagement' ),
+									'subitems' => array(),
+									'show' => false
+								),
 							)
 						),
 						array(
@@ -82,12 +88,6 @@ class NavigationHelper extends AppHelper
 									'subitems' => array()
 								),
 							)
-						),
-						array(
-							'name' => 'Wedstrijdverloop',
-							'location' => array( 'controller'=>'contestmanagement' ),
-							'subitems' => array(),
-							'show' => false
 						),
 					)
 				),

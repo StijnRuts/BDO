@@ -41,7 +41,7 @@
 										'deelnemers',
 										array('controller'=>'rounds', 'action'=>'contestants', $round['id']),
 										array('title'=>'Beheer deelnemers voor deze ronde',
-											   'class'=>'tiny secondary button')
+											   'class'=>'tiny button')
 									); ?>
 								</td>
 								<td>
