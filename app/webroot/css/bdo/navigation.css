@@ -47,6 +47,10 @@ ul.nav-bar {
     border-color: #666;
 }
 
+ul.vertical.nav-bar {
+	box-shadow: 0 0 15px 0 rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.5);
+}
 ul.vertical.nav-bar, .vertical.nav-bar li {
 	display: block;
 }
