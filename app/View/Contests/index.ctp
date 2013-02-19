@@ -14,24 +14,6 @@
 			<td><?= h($contest['Contest']['date']); ?></td>
 			<td>
 				<?= $this->Html->link(
-					'rondes',
-					array('controller'=>'rounds', 'action'=>'view', $contest['Contest']['id']),
-					array('title'=>'Beheer rondes voor '.h($contest['Contest']['name']),
-						   'class'=>'tiny secondary button')
-				); ?>
-				<?= $this->Html->link(
-					'beoordeling',
-					array('controller'=>'points', 'action'=>'view', $contest['Contest']['id']),
-					array('title'=>'Beheer beoordelingspunten voor '.h($contest['Contest']['name']),
-						   'class'=>'tiny secondary button')
-				); ?>
-				<?= $this->Html->link(
-					'jury',
-					array('controller'=>'contestusers', 'action'=>'edit', $contest['Contest']['id']),
-					array('title'=>'Beheer jurysamenstelling voor '.h($contest['Contest']['name']),
-						   'class'=>'tiny secondary button')
-				); ?>
-				<?= $this->Html->link(
 					'wedstrijdverloop',
 					array('controller'=>'contestmanagement', 'action'=>'contest', $contest['Contest']['id']),
 					array('title'=>'Beheer wedstrijdverloop voor '.h($contest['Contest']['name']),
