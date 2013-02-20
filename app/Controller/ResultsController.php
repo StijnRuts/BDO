@@ -5,5 +5,8 @@ class ResultsController extends AppController {
 		$this->layout = 'results';
 	}
 
+	public function results() {
+		$this->layout = 'ajax';
+	}
 }
 ?>

@@ -29,3 +29,11 @@ form .error {
 input.form-error {
     margin-bottom: 0;
 }
+
+div.alert-box.alert {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+}
