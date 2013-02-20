@@ -23,31 +23,31 @@
 					<?= $this->Html->link(
 						'toon',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+						array('title'=>'Toon resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
 						'print',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button')
 					); ?>
 				</h2>
 
 				<h3>
-					<?= $round['Discipline']['name']; ?>,
-					<?= $round['Category']['name']; ?>,
-					<?= $round['Division']['name']; ?>
+					<?= h($round['Discipline']['name']); ?>,
+					<?= h($round['Category']['name']); ?>,
+					<?= h($round['Division']['name']); ?>
 					<?= $this->Html->link(
 						'toon',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+						array('title'=>'Toon resultaten van deze ronde',
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
 						'print',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+						array('title'=>'Print resultaten van deze ronde',
 							   'class'=>'tiny secondary button')
 					); ?>
 				</h3>
@@ -64,26 +64,26 @@
 					<tbody>
 						<?php foreach ($round['Contestant'] as $contestant): ?>
 						<tr>
-							<td class="startnr"><strong><?= $contestant['startnr']; ?></strong></td>
-							<td><?= $contestant['name']; ?></td>
+							<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
+							<td><?= h($contestant['name']); ?></td>
 							<td></td>
 							<td>
 								<?= $this->Html->link(
 									'toon',
 									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-									array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+									array('title'=>'Toon resultaten van  '.h($contestant['name']),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(
 									'print',
 									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-									array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+									array('title'=>'Print resultaten van '.h($contestant['name']),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(
 									'beoordeling',
 									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-									array('title'=>'??? voor '.h(/*$contest['Contest']['name']*/'???'),
+									array('title'=>'Start beoordeling van '.h($contestant['name']),
 										   'class'=>'tiny button')
 								); ?>
 							</td>
