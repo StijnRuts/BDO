@@ -23,7 +23,7 @@
 					<?= $this->Html->link(
 						'toon',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'Toon resultaten van '.h($contest['Contest']['name']),
+						array('title'=>'Toon resultaten van '.h($contest['Contest']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
@@ -41,7 +41,7 @@
 					<?= $this->Html->link(
 						'toon',
 						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-						array('title'=>'Toon resultaten van deze ronde',
+						array('title'=>'Toon resultaten van deze ronde op scorebord',
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
@@ -71,7 +71,7 @@
 								<?= $this->Html->link(
 									'toon',
 									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
-									array('title'=>'Toon resultaten van  '.h($contestant['name']),
+									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(

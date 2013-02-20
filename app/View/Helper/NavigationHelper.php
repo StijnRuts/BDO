@@ -16,28 +16,23 @@ class NavigationHelper extends AppHelper
 							'subitems' => array(
 								array(
 									'name' => 'Wedstrijden',
-									'location' => array( 'controller'=>'contests' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'contests' )
 								),
 								array(
 									'name' => 'Rondes',
-									'location' => array( 'controller'=>'rounds' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'rounds' )
 								),
 								array(
 									'name' => 'Beoordelingpunten',
-									'location' => array( 'controller'=>'points' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'points' )
 								),
 								array(
 									'name' => 'Jurysamenstelling',
-									'location' => array( 'controller'=>'contestusers' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'contestusers' )
 								),
 								array(
 									'name' => 'Wedstrijdverloop',
 									'location' => array( 'controller'=>'contestmanagement' ),
-									'subitems' => array(),
 									'show' => false
 								),
 							)
@@ -48,20 +43,17 @@ class NavigationHelper extends AppHelper
 							'subitems' => array(
 								array(
 									'name' => 'Leden',
-									'location' => array( 'controller'=>'contestants' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'contestants' )
 								),
 								array(
 									'name' => 'Clubs',
-									'location' => array( 'controller'=>'clubs' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'clubs' )
 								),
 							)
 						),
 						array(
 							'name' => 'Gebruikersbeheer',
-							'location' => array( 'controller'=>'users' ),
-							'subitems' => array()
+							'location' => array( 'controller'=>'users' )
 						),
 						array(
 							'name' => 'Instellingen',
@@ -69,23 +61,19 @@ class NavigationHelper extends AppHelper
 							'subitems' => array(
 								array(
 									'name' => 'Categoriëen',
-									'location' => array( 'controller'=>'categories' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'categories' )
 								),
 								array(
 									'name' => 'Disciplines',
-									'location' => array( 'controller'=>'disciplines' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'disciplines' )
 								),
 								array(
 									'name' => 'Divisies',
-									'location' => array( 'controller'=>'divisions' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'divisions' )
 								),
 								array(
 									'name' => 'Standaard beoordeling',
-									'location' => array( 'controller'=>'defaultpoints' ),
-									'subitems' => array()
+									'location' => array( 'controller'=>'defaultpoints' )
 								),
 							)
 						),
@@ -93,8 +81,11 @@ class NavigationHelper extends AppHelper
 				),
 				array(
 					'name' => 'Jury',
-					'location' => array( 'controller'=>'jury', 'action'=>'index' ),
-					'subitems' => array()
+					'location' => array( 'controller'=>'jury', 'action'=>'index' )
+				),
+				array(
+					'name' => 'Scorebord',
+					'location' => array( 'controller'=>'results' )
 				),
 			)
 		)
@@ -118,10 +109,12 @@ class NavigationHelper extends AppHelper
 			}
 		}
 		foreach($items as $item){
-			$result = $this->find($location, $item['subitems']);
-			if($result!=null){
-				array_push($result, $item);
-				return $result;
+			if( isset($item['subitems']) ){
+				$result = $this->find($location, $item['subitems']);
+				if($result!=null){
+					array_push($result, $item);
+					return $result;
+				}
 			}
 		}
 		return null;
@@ -137,7 +130,7 @@ class NavigationHelper extends AppHelper
 
 		// MENU
 		$returnObj['menu'] = "";
-		$subitems = count($navigation[0]['subitems'])>0 ? $navigation[0]['subitems'] : $navigation[1]['subitems'];
+		$subitems = isset($navigation[0]['subitems']) ? $navigation[0]['subitems'] : $navigation[1]['subitems'];
 		foreach($subitems as $subitem){
 			if( isset($subitem['show']) && $subitem['show']==false ) continue;
 			if(!isset($subitem['location']['action'])) $subitem['location']['action']='index';
