@@ -20,7 +20,7 @@
 
 				<h2>
 					<?= h($contest['Contest']['name']); ?> (<?= h($contest['Contest']['date']); ?>)
-					<?= $this->Html->link(
+					<?= $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showcontest', $contest['Contest']['id']),
 						array('title'=>'Toon resultaten van '.h($contest['Contest']['name'].' op scorebord'),
@@ -38,7 +38,7 @@
 					<?= h($round['Discipline']['name']); ?>,
 					<?= h($round['Category']['name']); ?>,
 					<?= h($round['Division']['name']); ?>
-					<?= $this->Html->link(
+					<?= $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showround', $round['Round']['id']),
 						array('title'=>'Toon resultaten van deze ronde op scorebord',
@@ -68,7 +68,7 @@
 							<td><?= h($contestant['name']); ?></td>
 							<td></td>
 							<td>
-								<?= $this->Html->link(
+								<?= $this->Js->link(
 									'toon',
 									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id']),
 									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),

@@ -39,15 +39,15 @@ class ResultsController extends AppController {
 
 	public function showcontest($id = null){
 		$this->write_ini("contest", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer());
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 	public function showround($id = null){
 		$this->write_ini("round", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer());
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 	public function showcontestant($id = null){
 		$this->write_ini("contestant", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer());
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 
 	private function write_ini($type, $id) {
