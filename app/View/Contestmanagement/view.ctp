@@ -22,13 +22,13 @@
 					<?= h($contest['Contest']['name']); ?> (<?= h($contest['Contest']['date']); ?>)
 					<?= $this->Html->link(
 						'toon',
-						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+						array('controller'=>'results', 'action'=>'showcontest', $contest['Contest']['id']),
 						array('title'=>'Toon resultaten van '.h($contest['Contest']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+						array('controller'=>'???', 'action'=>'???', $contest['Contest']['id']), /* ??????????????? */
 						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button')
 					); ?>
@@ -40,13 +40,13 @@
 					<?= h($round['Division']['name']); ?>
 					<?= $this->Html->link(
 						'toon',
-						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+						array('controller'=>'results', 'action'=>'showround', $round['Round']['id']),
 						array('title'=>'Toon resultaten van deze ronde op scorebord',
 							   'class'=>'tiny secondary button')
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+						array('controller'=>'???', 'action'=>'???', $round['Round']['id']), /* ??????????????? */
 						array('title'=>'Print resultaten van deze ronde',
 							   'class'=>'tiny secondary button')
 					); ?>
@@ -70,19 +70,19 @@
 							<td>
 								<?= $this->Html->link(
 									'toon',
-									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id']),
 									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(
 									'print',
-									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+									array('controller'=>'???', 'action'=>'???', $contestant['id']), /* ??????????????? */
 									array('title'=>'Print resultaten van '.h($contestant['name']),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(
 									'beoordeling',
-									array('controller'=>'???', 'action'=>'???'/*, $contest['Contest']['id']*/),
+									array('controller'=>'???', 'action'=>'???', $contestant['id']), /* ??????????????? */
 									array('title'=>'Start beoordeling van '.h($contestant['name']),
 										   'class'=>'tiny button')
 								); ?>

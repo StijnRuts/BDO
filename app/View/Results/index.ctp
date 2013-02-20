@@ -1,8 +1,5 @@
 <div id="error"></div>
-<div id="autorefresh">
-	<h2>Scorebord</h2>
-	<h3>Even geduld...</h3>
-</div>
+<div id="autorefresh"></div>
 
 <script>
 	$(document).ready(function(){ refresh(); setInterval(refresh, 5000); });
