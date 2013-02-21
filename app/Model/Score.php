@@ -14,5 +14,5 @@ class Score extends AppModel {
 		),
 	);
 
-	public $belongsTo = array('Point', 'User', 'Contestant');
+	public $belongsTo = array('Point', 'User', 'ContestantsRound');
 }

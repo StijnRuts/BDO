@@ -32,6 +32,5 @@ class Contestant extends AppModel {
 		'Division'
 	);
 	public $hasAndBelongsToMany = array('Round');
-	public $hasMany = array('Score');
 }
 ?>
