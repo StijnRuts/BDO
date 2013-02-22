@@ -12,7 +12,7 @@ class PointsController extends AppController {
 			'order' => array('Contest.date' => 'asc')
 		));
 		if( isset($contests[0]) ){
-			$this->redirect( array('action'=>'contest', $contests[0]['Contest']['id']) );
+			$this->redirect( array('action'=>'view', $contests[0]['Contest']['id']) );
 		} else {
 			exit();
 		}
