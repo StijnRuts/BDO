@@ -10,6 +10,18 @@ table thead {
 td.startnr {
 	text-align: right;
 }
+td.score {
+	text-align: right;
+}
+tbody th {
+	text-align: left;
+}
+
+td.subfield {
+	color: #888;
+	background-color: #F2F2F2;
+	font-weight: bold;
+}
 
 table tfoot tr td {
 	padding: 0;

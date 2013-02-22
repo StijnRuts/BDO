@@ -82,7 +82,7 @@
 								); ?>
 								<?= $this->Html->link(
 									'beoordeling',
-									array('controller'=>'contestantmanagement', 'action'=>'view', $contestant['id']),
+									array('controller'=>'contestantmanagement', 'action'=>'view', $contestant['id'], $round['Round']['id']),
 									array('title'=>'Start beoordeling van '.h($contestant['name']),
 										   'class'=>'tiny button')
 								); ?>
