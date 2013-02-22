@@ -15,10 +15,16 @@ td.score {
 }
 tbody th {
 	text-align: left;
+	padding: 8px 10px 9px;
 }
 
 td.subfield {
 	color: #888;
+	background-color: #F2F2F2;
+	font-weight: bold;
+}
+td.important {
+	color: black;
 	background-color: #F2F2F2;
 	font-weight: bold;
 }
