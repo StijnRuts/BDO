@@ -6,6 +6,19 @@
 		<?= h($contestant['Category']['name']); ?>,
 		<?= h($contestant['Division']['name']); ?>
 	)</small>
+
+	<?= $this->Js->link(
+		'toon',
+		array('controller'=>'results', 'action'=>'showcontestant', $contestant['Contestant']['id']),
+		array('title'=>'Toon resultaten van '.h($contestant['Contestant']['name'].' op scorebord'),
+			   'class'=>'tiny secondary button')
+	); ?>
+	<?= $this->Html->link(
+		'print',
+		array('controller'=>'???', 'action'=>'???', $contestant['Contestant']['id']), /* ??????????????? */
+		array('title'=>'Print resultaten van '.h($contestant['Contestant']['name']),
+			   'class'=>'tiny secondary button')
+	); ?>
 </h2>
 
 <table>
@@ -31,6 +44,29 @@
 		</tr>
 	</tbody>
 </table>
+
+<p>Wordt beoordeeld door: ...</p>
+
+<div class="buttonbar row">
+	<div class="two columns">
+		<a class="secondary button" href="#">Vorige</a>
+	</div>
+	<div class="one column"></div>
+	<div class="six columns">
+		<div class="button split dropdown">
+			<a href="#">Beoordeel door alle juryleden</a><span></span>
+			<ul>
+				<li><a href="#">Beoordeel door Jurylid1</a></li>
+				<li><a href="#">Beoordeel door Jurylid2</a></li>
+				<li><a href="#">Beoordeel door Jurylid3</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="one column"></div>
+	<div class="two columns">
+		<a class="secondary button" href="#">Volgende</a>
+	</div>
+</div>
 
 
 <?php

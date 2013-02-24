@@ -35,6 +35,17 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'contestmanagement' ),
 									'show' => false
 								),
+								array(
+									'name' => 'Beoordeling Deelnemer',
+									'location' => array( 'controller'=>'contestantmanagement' ),
+									'show' => false,
+									'subitems' => array(
+										array(
+											'name' => '<<< Terug',
+											'location' => array( 'controller'=>'contestmanagement' ),
+										),
+									)
+								),
 							)
 						),
 						array(

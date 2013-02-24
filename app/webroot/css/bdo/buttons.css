@@ -1,0 +1,15 @@
+.buttonbar {
+	margin-top: 30px;
+}
+.buttonbar .button {
+	width: 100%;
+}
+
+.dropdown.button {
+	margin-bottom: 300px;
+}
+
+.dropdown.button > ul li a {
+	font-size: 1.2em;
+	padding: 8px 14px;
+}
