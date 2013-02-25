@@ -48,24 +48,27 @@
 <p>Wordt beoordeeld door: ...</p>
 
 <div class="buttonbar row">
-	<div class="two columns">
-		<a class="secondary button" href="#">Vorige</a>
-	</div>
-	<div class="one column"></div>
+	<div class="three column"></div>
 	<div class="six columns">
 		<div class="button split dropdown">
-			<a href="#">Beoordeel door alle juryleden</a><span></span>
+			<?= $this->Html->link(
+				'Laat beoordelen door alle juryleden',
+				array('controller'=>'???') /* ??????????????????????????????? */
+			); ?>
+			<span></span>
 			<ul>
-				<li><a href="#">Beoordeel door Jurylid1</a></li>
-				<li><a href="#">Beoordeel door Jurylid2</a></li>
-				<li><a href="#">Beoordeel door Jurylid3</a></li>
+			<?php foreach($scores['users'] as $user): ?>
+				<li>
+					<?= $this->Html->link(
+						'Laat beoordelen door '.h($user['username']),
+						array('controller'=>'???') /* ??????????????????????????????? */
+					); ?>
+				</li>
+			<?php endforeach; ?>
 			</ul>
 		</div>
 	</div>
-	<div class="one column"></div>
-	<div class="two columns">
-		<a class="secondary button" href="#">Volgende</a>
-	</div>
+	<div class="three column"></div>
 </div>
 
 

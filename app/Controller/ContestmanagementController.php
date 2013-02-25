@@ -51,7 +51,7 @@ class ContestmanagementController extends AppController {
 		$round = $this->Round->find('first', array(
 			'conditions' => array('Round.id'=>$round_id),
 			'order'=>'Round.order',
-			'contain' => array('Category', 'Discipline', 'Division', 'Contestant')
+			'contain' => array('Category', 'Discipline', 'Division', 'Contestant'=>array('order'=>'startnr'))
 		));
 		$this->set('round', $round);
 		$this->set('contest', $this->Contest->find('first', array(
