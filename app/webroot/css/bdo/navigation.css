@@ -57,6 +57,7 @@ ul.vertical.nav-bar, .vertical.nav-bar li {
 .vertical.nav-bar li a {
 	font-size: 14px;
 	font-weight: normal;
+	text-align: left;
 }
 
 #login {
