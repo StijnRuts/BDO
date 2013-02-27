@@ -10,6 +10,7 @@
    	$.get("<?= Router::url(array('action'=>'ready')) ?>")
 		 .done(function(data){
 		 		console.log(data); //leeg->watchen, 1->klaar
+		 		$("#error").html("");
 		 })
 		 .fail(function(){
 		 	$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
