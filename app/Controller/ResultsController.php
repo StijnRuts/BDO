@@ -1,7 +1,10 @@
 <?php
 class ResultsController extends AppController {
 
-	function beforeFilter(){ $this->inifile =  ROOT.DS.APP_DIR.DS."scorebord.ini"; }
+	function beforeFilter(){
+		$this->Auth->allow('index', 'results');
+		$this->inifile =  ROOT.DS.APP_DIR.DS."scorebord.ini";
+	}
 
 	public function index() {
 		$this->write_ini("welcome", null);
