@@ -1,3 +1,5 @@
+<div id="error"></div>
+
 <div class="row">
 
 	<div class="three columns">
@@ -40,39 +42,7 @@
 					); ?>
 				</h2>
 
-				<table>
-					<thead>
-						<tr>
-							<th></th>
-							<?php foreach($scores['users'] as $user): ?>
-								<th><?= h($user['username']); ?></th>
-							<?php endforeach; ?>
-							<th>Min</th>
-							<th>Max</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
-						<tr>
-							<th class="name">Totaal</th>
-							<?php foreach($scores['users'] as $user): ?>
-								<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
-							<?php endforeach; ?>
-							<td class="subfield score">???</td>
-							<td class="subfield score">???</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<p><?php
-					if( count($staged)>0 ){
-						$users = array();
-						foreach($staged as $s) $users[] = h($s['User']['username']);
-						echo 'Wordt beoordeeld door: '.join(', ',$users);
-					} else {
-						echo 'Wordt momenteel niet beoordeeld';
-					}
-				?></p>
+				<div id="autorefresh"> <div class="load"></div> </div>
 
 				<div class="buttonbar row">
 					<div class="three column"></div>
@@ -99,24 +69,22 @@
 					<div class="three column"></div>
 				</div>
 
-
-				<?php
-				function output_rows($list, $level, $users, $scores, $t){
-					foreach($list as $item){
-						echo $t->element('contestantmanagement_row', array(
-							'point'=>$item,
-							'level'=>$level,
-							'users'=>$users,
-							'scores'=>$scores
-						));
-						if( count($item['children'])>0 ) output_rows($item['children'], $level+1, $users, $scores, $t);
-					}
-				}
-				?>
-
-
 			</div>
 		</div>
 	</div>
 
 </div>
+
+<script>
+	$(document).ready(function(){ refresh(); setInterval(refresh, 1000); });
+   function refresh(){
+   	$.get("<?= Router::url(array('action'=>'viewcontent', $contestant['Contestant']['id'], $round['Round']['id'])) ?>")
+		 .done(function(data){
+		 		$("#autorefresh").html(data);
+		 		$("#error").html("");
+		 })
+		 .fail(function(){
+		 	$("#error").html('<div class="alert-box alert">Kan gegevens niet updaten</div>');
+		 });
+   }
+</script>

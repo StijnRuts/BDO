@@ -16,6 +16,16 @@ class ContestantmanagementController extends AppController {
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 		$this->set('scores', $this->Contestant->getScores($round_id));
+	}
+
+	public function viewcontent($contestant_id = null, $round_id = null) {
+		$this->request->onlyAllow('ajax');
+		$this->layout = 'ajax';
+
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
+		$this->Contestant->id = $contestant_id;
+		$this->set('scores', $this->Contestant->getScores($round_id));
 
 		$this->loadModel('Stage');
 		$this->set('staged', $this->Stage->find('all', array(

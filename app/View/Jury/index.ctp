@@ -1,5 +1,3 @@
-<?php $this->Html->css('bdo/loadspinner', null, array('inline'=>false)); ?>
-
 <div id="error"></div>
 <h2>Wachten op deelnemer</h2>
 <div class="load"></div>
