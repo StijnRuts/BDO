@@ -10,6 +10,7 @@ class ResultsController extends AppController {
 
 
 	public function results() {
+		$this->request->onlyAllow('ajax');
 		$ini = parse_ini_file($this->inifile);
 		switch($ini['type']){
 			case 'contest': $this->contest_results($ini['id']); break;

@@ -1,0 +1,35 @@
+.load {
+	width: 150px;
+	height: 150px;
+	margin: 100px auto;
+	border: 40px solid black;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-radius: 50%;
+	-webkit-animation: spin 2s linear infinite;
+	-moz-animation: spin 2s linear infinite;
+	-ms-animation: spin 2s linear infinite;
+	-o-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin{
+	from { -webkit-transform: rotate(0deg); }
+	to   { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spin{
+	from { -moz-transform: rotate(0deg); }
+	to   { -moz-transform: rotate(360deg); }
+}
+@-ms-keyframes spin{
+	from { -ms-transform: rotate(0deg); }
+	to   { -ms-transform: rotate(360deg); }
+}
+@-o-keyframes spin{
+	from { -o-transform: rotate(0deg); }
+	to   { -o-transform: rotate(360deg); }
+}
+@keyframes spin{
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(360deg); }
+}

@@ -64,23 +64,32 @@
 					</tbody>
 				</table>
 
-				<p>Wordt beoordeeld door: ...</p>
+				<p><?php
+					if( count($staged)>0 ){
+						$users = array();
+						foreach($staged as $s) $users[] = h($s['User']['username']);
+						echo 'Wordt beoordeeld door: '.join(', ',$users);
+					} else {
+						echo 'Wordt momenteel niet beoordeeld';
+					}
+				?></p>
 
 				<div class="buttonbar row">
 					<div class="three column"></div>
 					<div class="six columns">
 						<div class="button split dropdown">
-							<?= $this->Html->link(
+							<?= $this->Js->link(
 								'Laat beoordelen door alle juryleden',
-								array('controller'=>'???') /* ??????????????????????????????? */
+								array('action'=>'stage', $contestant['Contestant']['id'], $round['Round']['id']),
+								array('onclick'=>'alert("Beoordeling gestart voor alle juryleden")')
 							); ?>
 							<span></span>
 							<ul>
 							<?php foreach($scores['users'] as $user): ?>
 								<li>
-									<?= $this->Html->link(
+									<?= $this->Js->link(
 										'Laat beoordelen door '.h($user['username']),
-										array('controller'=>'???') /* ??????????????????????????????? */
+										array('action'=>'stage', $contestant['Contestant']['id'], $round['Round']['id'], $user['id'])
 									); ?>
 								</li>
 							<?php endforeach; ?>

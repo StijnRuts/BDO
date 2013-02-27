@@ -21,6 +21,7 @@
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-tablesorter' : 'jquery-tablesorter.min');
 		echo $this->Html->script('bdo/alerts');
 		echo $this->Html->script('bdo/input_focus');
+		echo $this->Html->script('bdo/close_dropdown');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');
