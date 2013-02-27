@@ -3,12 +3,11 @@
 <div class="load"></div>
 
 <script>
-	$(document).ready(function(){ refresh(); setInterval(refresh, 5000); });
-   function refresh(){
-   	$.get("<?= Router::url(array('action'=>'ready')) ?>")
-		 .done(function(data){
-		 		console.log(data); //leeg->watchen, 1->klaar
-		 		$("#error").html("");
+	$(document).ready(function(){ checkStage(); setInterval(checkStage, 5000); });
+   function checkStage(){
+   	$.get("<?= Router::url(array('action'=>'checkstage')) ?>")
+		 .done(function(ready){
+		 	if(ready) window.location.href = "<?= Router::url(array('action'=>'startjudging')) ?>";
 		 })
 		 .fail(function(){
 		 	$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
