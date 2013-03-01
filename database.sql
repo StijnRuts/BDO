@@ -166,3 +166,13 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `score` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS `stages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `round_id` int(10) unsigned NOT NULL,
+  `contestant_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+);
