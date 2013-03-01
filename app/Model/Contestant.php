@@ -51,12 +51,11 @@ class Contestant extends AppModel {
 
 	private function get_scores($round_id){
 		$contestant = $this->read();
-		$contestantsround = null;
-		foreach($contestant['Round'] as $round) if($round['id']==$round_id) $contestantsround = $round['ContestantsRound']['id'];
 
 		$scores = array();
 		$Score = ClassRegistry::init('Score');
-		$s = $Score->find('all', array( 'conditions' => array('contestants_round_id'=>$contestantsround) ));
+		$s = $Score->find('all', array(
+			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
 		foreach($s as $score) $scores[$score['Score']['user_id']][$score['Score']['point_id']] = $score['Score']['score'];
 
 		return $scores;

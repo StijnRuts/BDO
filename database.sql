@@ -162,7 +162,8 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `point_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `contestants_round_id` int(10) unsigned NOT NULL,
+  `contestant_id` int(10) unsigned NOT NULL,
+  `round_id` int(10) unsigned NOT NULL,
   `score` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 );
