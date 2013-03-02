@@ -7,6 +7,11 @@ class NavigationHelper extends AppHelper
 			'location' => array( 'controller'=>'home' ),
 			'subitems' => array(
 				array(
+					'name' => 'Login',
+					'location' => array( 'controller'=>'users', 'action'=>'login' ),
+					'show' => false
+				),
+				array(
 					'name' => 'Admin',
 					'location' => array( 'controller'=>'admin', 'action'=>'index' ),
 					'subitems' => array(
@@ -92,7 +97,7 @@ class NavigationHelper extends AppHelper
 				),
 				array(
 					'name' => 'Jury',
-					'location' => array( 'controller'=>'jury', 'action'=>'index' )
+					'location' => array( 'controller'=>'jury' )
 				),
 				array(
 					'name' => 'Scorebord',

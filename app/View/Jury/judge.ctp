@@ -11,34 +11,20 @@
 <div class="row">
 	<div class="ten columns centered">
 		<?= $this->Form->create('Score'); ?>
-			<fieldset>
-				<legend>Beoordeling</legend>
-				<table>
-					<thead>
-						<tr>
-							<th></th>
-							<th>Score</th>
-							<th>Min</th>
-							<th>Max</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php output_rows($scores['points'], 0, $current_user['id'], $scores['scores'], $this); ?>
-					</tbody>
-				</table>
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>Score</th>
+						<th>Min</th>
+						<th>Max</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php output_rows($scores['points'], 0, $current_user['id'], $scores['scores'], $this); ?>
+				</tbody>
+			</table>
 
-
-
-				<?php	foreach($this->request->data['Score'] as $key => $value): ?>
-					<div class="row">
-				   	<?= $this->Form->input('Score.'.$key.'.id', array('type'=>'hidden')); ?>
-				   	<div class="twelve columns"><?= $this->Form->input('Score.'.$key.'.score'); ?></div>
-				   </div>
-				<?php endforeach; ?>
-
-
-
-			</fieldset>
 			<div class="buttonbar row">
 				<div class="three columns"></div>
 				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
@@ -48,6 +34,7 @@
 	</div>
 </div>
 
+
 <?php
 function output_rows($list, $level, $user_id, $scores, $t){
 	foreach($list as $item){
@@ -55,11 +42,17 @@ function output_rows($list, $level, $user_id, $scores, $t){
 			'point'=>$item,
 			'level'=>$level,
 			'user_id'=>$user_id,
-			'scores'=>$scores
+			'scores'=>$scores,
+			'form_id'=>findindex($t->request->data, $item['Point']['id'])
 		));
 		if( count($item['children'])>0 ) output_rows($item['children'], $level+1, $user_id, $scores, $t);
 	}
 }
-?>
 
-<?php debug($this->request->data) ?>
+function findindex($requestdata, $point_id){
+	foreach($requestdata['Score'] as $key=>$score){
+		if($score['point_id']==$point_id) return $key;
+	}
+	return null;
+}
+?>
