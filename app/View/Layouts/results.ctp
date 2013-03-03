@@ -7,7 +7,9 @@
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css( Configure::read('debug')>0 ? 'foundation' : 'foundation.min');
+		echo $this->Html->css('foundation_icons');
 		echo $this->Html->css('bdo/all');
+		echo $this->Html->css('bdo/results');
 
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-1.9.0' : 'jquery-1.9.0.min');
 		echo $this->Html->script('foundation/modernizr.foundation.js');

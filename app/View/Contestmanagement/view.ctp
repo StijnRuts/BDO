@@ -70,13 +70,13 @@
 							<td>
 								<?= $this->Js->link(
 									'toon',
-									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id']),
+									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id'], $round['Round']['id']),
 									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Html->link(
 									'print',
-									array('controller'=>'???', 'action'=>'???', $contestant['id']), /* ??????????????? */
+									array('controller'=>'???', 'action'=>'???', $contestant['id'], $round['Round']['id']), /* ??????????????? */
 									array('title'=>'Print resultaten van '.h($contestant['name']),
 										   'class'=>'tiny secondary button')
 								); ?>

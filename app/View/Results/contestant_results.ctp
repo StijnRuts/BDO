@@ -1,5 +1,18 @@
-<div class="row">
-	<div class="twelve columns">
-		<h2>Deelnemer: </h2>
-	</div>
-</div>
+<h2>
+	<?= $contestant['Contestant']['startnr']; ?>:
+	<?= $contestant['Contestant']['name']; ?>
+	<small>(<?= $contestant['Club']['name']; ?>)</small>
+</h2>
+
+<h1 id="scores">
+	<span class="heading">Punten:</span>
+	<?php foreach($scores['users'] as $user): ?>
+		<span class="score <?= $user['id']==$scores['min'] ? 'min' : ''  ?> <?= $user['id']==$scores['max'] ? 'max' : ''  ?>">
+			<?= h($scores['scores'][$user['id']]['total']); ?>
+		</span>
+	<?php endforeach; ?>
+</h1>
+<h1 id="total">
+	<span class="heading">Totaal:</span>
+	<span class="total score"><?= h($scores['total']); ?></span>
+</h1>

@@ -24,6 +24,8 @@ class ContestantmanagementController extends AppController {
 
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
+		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
 		$this->Contestant->id = $contestant_id;
 		$this->set('scores', $this->Contestant->getScores($round_id));
 

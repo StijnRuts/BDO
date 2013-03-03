@@ -41,12 +41,14 @@ class Contestant extends AppModel {
 		$points = $this->get_points($round_id);
 
 		$scores = $this->calculate_totals($scores, $users, $points, 'total');
-
-		return array(
+		$scores = array(
 			'scores' => $scores,
 			'users' => $users,
 			'points' => $points,
 		);
+		$scores = $this->calculate_minmax($scores);
+
+		return $scores;
 	}
 
 	private function get_scores($round_id){
@@ -105,6 +107,37 @@ class Contestant extends AppModel {
 				}
 			}
 		}
+
+		return $scores;
+	}
+
+	private function calculate_minmax($scores){
+		$min = $scores['scores'][$scores['users'][0]['id']]['total'];
+		$max = $scores['scores'][$scores['users'][0]['id']]['total'];
+		$min_id = $scores['users'][0]['id'];
+		$max_id = $scores['users'][0]['id'];
+
+		foreach($scores['users'] as $user){
+			if($scores['scores'][$user['id']]['total'] <= $min){
+				$min = $scores['scores'][$user['id']]['total'];
+				$min_id = $user['id'];
+			}
+			if($scores['scores'][$user['id']]['total'] >= $max){
+				$max = $scores['scores'][$user['id']]['total'];
+				$max_id = $user['id'];
+			}
+		}
+		$scores['min'] = $min_id;
+		$scores['max'] = $max_id;
+
+
+		$total = 0;
+		foreach($scores['users'] as $user){
+			if( ($user['id']!=$min_id) && ($user['id']!=$max_id) ){
+				$total += $scores['scores'][$user['id']]['total'];
+			}
+		}
+		$scores['total'] = $total;
 
 		return $scores;
 	}
