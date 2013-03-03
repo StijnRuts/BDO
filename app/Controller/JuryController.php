@@ -23,6 +23,12 @@ class JuryController extends AppController {
 
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if($this->Score->saveAll($this->request->data['Score'])){
+				$this->loadModel('Stage');
+				$this->Stage->deleteAll(array(
+					'contestant_id' => $contestant_id,
+					'round_id' => $round_id,
+					'user_id' => $current_user['id']
+				));
 				$this->redirect(array('action'=>'index'));
 			}else{
 				$this->Session->setFlash("Deze scores konden niet worden opgeslaan");
