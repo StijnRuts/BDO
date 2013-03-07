@@ -24,14 +24,34 @@ class ResultsController extends AppController {
 		}
 	}
 	private function contest_results($id = null) {
+		$this->loadModel('Contest');
+		$this->loadModel('Contestant');
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
+		$contest = $this->Contest->find('first', array(
+			'conditions' => array('Contest.id'=>$id),
+			'contain' => array(
+				'Round'=>array('order'=>'order'),
+				'Round.Contestant'=>array('order'=>'startnr'),
+				'Round.Category',
+				'Round.Discipline',
+				'Round.Division'
+			)
+		));
+		foreach($contest['Round'] as &$round){
+			foreach($round['Contestant'] as &$contestant){
+				$this->Contestant->id = $contestant['id'];
+				$contestant['scores'] = $this->Contestant->getScores($round['id']);
+			}
+		}
+		$this->set('contest', $contest);
+
 		$this->layout = 'ajax';
 		$this->render('contest_results');
 	}
 	private function round_results($id = null) {
-		$this->loadModel('Contestant');
 		$this->loadModel('Round');
+		$this->loadModel('Contestant');
 		if (!$this->Round->exists($id)) throw new NotFoundException();
-		//$this->Round->Behaviors->load('Containable');
 		$round = $this->Round->find('first', array(
 			'conditions' => array('Round.id'=>$id),
 			'contain' => array('Contestant'=>array('order'=>'startnr'), 'Category', 'Discipline', 'Division')
