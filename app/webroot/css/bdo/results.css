@@ -2,13 +2,27 @@
 	padding: 0 20px;
 	text-align: right;
 }
+td .score {
+	padding: 0 10px;
+}
+td.score {
+	padding: 9px 10px;
+}
 
-.min.score, .max.score {
+.filler {
+	visibility: hidden;
+}
+
+h1 .min.score, h1 .max.score {
 	background: url("strike.png") no-repeat 50% 50%;
+}
+td .min.score, td .max.score {
+	text-decoration: line-through;
 }
 .total.score {
 	font-size: 1.3em;
 }
+
 
 .heading {
 	font-weight: normal;

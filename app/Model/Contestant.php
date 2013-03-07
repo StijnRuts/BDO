@@ -113,20 +113,25 @@ class Contestant extends AppModel {
 
 	private function calculate_minmax($scores){
 		$min = $scores['scores'][$scores['users'][0]['id']]['total'];
-		$max = $scores['scores'][$scores['users'][0]['id']]['total'];
 		$min_id = $scores['users'][0]['id'];
-		$max_id = $scores['users'][0]['id'];
 
 		foreach($scores['users'] as $user){
 			if($scores['scores'][$user['id']]['total'] <= $min){
 				$min = $scores['scores'][$user['id']]['total'];
 				$min_id = $user['id'];
 			}
-			if($scores['scores'][$user['id']]['total'] >= $max){
+		}
+
+		$max = $scores['scores'][$scores['users'][0]['id']]['total'];
+		$max_id = $scores['users'][0]['id'];
+
+		foreach($scores['users'] as $user){
+			if($scores['scores'][$user['id']]['total'] >= $max && $user['id']!=$min_id){
 				$max = $scores['scores'][$user['id']]['total'];
 				$max_id = $user['id'];
 			}
 		}
+
 		$scores['min'] = $min_id;
 		$scores['max'] = $max_id;
 

@@ -28,14 +28,28 @@ class ResultsController extends AppController {
 		$this->render('contest_results');
 	}
 	private function round_results($id = null) {
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
+		if (!$this->Round->exists($id)) throw new NotFoundException();
+		//$this->Round->Behaviors->load('Containable');
+		$round = $this->Round->find('first', array(
+			'conditions' => array('Round.id'=>$id),
+			'contain' => array('Contestant'=>array('order'=>'startnr'), 'Category', 'Discipline', 'Division')
+		));
+		foreach($round['Contestant'] as &$contestant){
+			$this->Contestant->id = $contestant['id'];
+			$contestant['scores'] = $this->Contestant->getScores($id);
+		}
+		$this->set('round', $round);
+
 		$this->layout = 'ajax';
 		$this->render('round_results');
 	}
 	private function contestant_results($contestant_id = null, $round_id = null) {
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
-		//if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
-		//if (!$this->Round->exists($round_id)) throw new NotFoundException();
+		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 		$this->set('scores', $this->Contestant->getScores($round_id));
