@@ -3,7 +3,7 @@ class ResultsController extends AppController {
 
 	function beforeFilter(){
 		$this->Auth->allow('index', 'results');
-		$this->inifile =  ROOT.DS.APP_DIR.DS."scorebord.ini";
+		$this->inifile =  TMP."scorebord.ini";
 	}
 
 	public function index() {
