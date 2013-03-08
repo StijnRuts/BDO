@@ -19,6 +19,7 @@ class ResultsController extends AppController {
 			case 'contest': $this->contest_results($ini['id']); break;
 			case 'round': $this->round_results($ini['id']); break;
 			case 'contestant': $this->contestant_results($ini['id'], $ini['round_id']); break;
+			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
 		}
@@ -77,6 +78,17 @@ class ResultsController extends AppController {
 		$this->layout = 'ajax';
 		$this->render('contestant_results');
 	}
+	private function contestant_name($contestant_id = null, $round_id = null) {
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
+		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+		$this->Contestant->id = $contestant_id;
+		$this->set('contestant', $this->Contestant->read());
+
+		$this->layout = 'ajax';
+		$this->render('contestant_name');
+	}
 	private function welcome() {
 		$this->layout = 'ajax';
 		$this->render('welcome');
@@ -93,6 +105,10 @@ class ResultsController extends AppController {
 	}
 	public function showcontestant($id = null, $round_id = null){
 		$this->write_ini("contestant", $id, $round_id);
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+	}
+	public function showcontestantname($id = null, $round_id = null){
+		$this->write_ini("contestantname", $id, $round_id);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 

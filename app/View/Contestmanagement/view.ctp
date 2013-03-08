@@ -69,6 +69,12 @@
 							<td></td>
 							<td>
 								<?= $this->Js->link(
+									'toon naam',
+									array('controller'=>'results', 'action'=>'showcontestantname', $contestant['id'], $round['Round']['id']),
+									array('title'=>'Toon naam van '.h($contestant['name'].' op scorebord'),
+										   'class'=>'tiny secondary button')
+								); ?>
+								<?= $this->Js->link(
 									'toon',
 									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id'], $round['Round']['id']),
 									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
