@@ -2,7 +2,7 @@
 <div id="autorefresh"></div>
 
 <script>
-	$(document).ready(function(){ refresh(); setInterval(refresh, 5000); });
+	$(document).ready(function(){ refresh(); setInterval(refresh, 1000); });
    function refresh(){
    	$.get("<?= Router::url(array('action'=>'results')) ?>")
 		 .done(function(data){

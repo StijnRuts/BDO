@@ -43,14 +43,18 @@ class JuryController extends AppController {
 		$this->set('contestant', $this->Contestant->read());
 
 		$scores = $this->Contestant->getScores($round_id);
-		$this->setEmptyPoints($scores['points'], $contestant_id, $round_id, $current_user['id']);
+		$this->setEmptyPoints($scores['points'], $round_id, $contestant_id, $current_user['id']);
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
 		if (!$this->request->is('post') && !$this->request->is('put')) {
 			$this->request->data = array('Score' => Set::combine(
 				$this->Score->find('all', array(
-					'conditions'=>array('user_id'=>$current_user['id'])
+					'conditions'=>array(
+						'user_id'=>$current_user['id'],
+						'contestant_id'=>$contestant_id,
+						'round_id'=>$round_id
+					)
 				)),
 				'{n}.Score.id', '{n}.Score'
 			));
@@ -68,7 +72,7 @@ class JuryController extends AppController {
 				$this->Score->create();
 				$this->Score->save($data);
 			}
-			if( count($point['children'])>0 ) $this->setEmptyPoints($point['children'], $contestant_id, $round_id, $user_id);
+			if( count($point['children'])>0 ) $this->setEmptyPoints($point['children'], $round_id, $contestant_id, $user_id);
 		}
 	}
 
