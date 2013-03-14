@@ -3,7 +3,6 @@
 		<tr>
 			<th></th>
 			<th>Naam</th>
-			<th>Min</th>
 			<th>Max</th>
 			<th></th>
 		</tr>

@@ -16,7 +16,6 @@
 					<tr>
 						<th></th>
 						<th>Score</th>
-						<th>Min</th>
 						<th>Max</th>
 					</tr>
 				</thead>

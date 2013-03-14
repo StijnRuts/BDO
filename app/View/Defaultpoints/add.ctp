@@ -5,8 +5,7 @@
 				<legend>Beoordelingspunt toevoegen</legend>
 				<div class="row">
 					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Naam') ); ?></div>
-					<div class="six columns"><?= $this->Form->input('min', array('label'=>'Minimumscore', 'value'=>0) ); ?></div>
-					<div class="six columns"><?= $this->Form->input('max', array('label'=>'Maximumscore', 'value'=>10) ); ?></div>
+					<div class="twelve columns"><?= $this->Form->input('max', array('label'=>'Maximumscore', 'value'=>10) ); ?></div>
 					<div class="twelve columns"><?= $this->Form->input('parent_id', array('label'=>'Onderdeel van') ); ?></div>
 				</div>
 			</fieldset>

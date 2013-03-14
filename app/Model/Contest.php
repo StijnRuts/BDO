@@ -35,7 +35,6 @@ class Contest extends AppModel {
 			$Point->create();
 			$Point->save(array(
 				'name' => $point['Defaultpoint']['name'],
-				'min' => $point['Defaultpoint']['min'],
 				'max' => $point['Defaultpoint']['max'],
 				'parent_id' => $parent,
 				'contest_id' => $this->id,

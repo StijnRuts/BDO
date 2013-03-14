@@ -90,7 +90,7 @@ class Contestant extends AppModel {
 		$points = $Point->find('threaded', array(
 			'conditions' => array('Contest.id'=>$round['Contest']['id']),
 			'order'=>'lft',
-			'fields'=>array('id', 'parent_id', 'name', 'min', 'max')
+			'fields'=>array('id', 'parent_id', 'name', 'max')
 		));
 
 		return $points;

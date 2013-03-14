@@ -7,8 +7,7 @@
 				<?= $this->Form->input('contest_id', array('type'=>'hidden')); ?>
 				<div class="row">
 					<div class="twelve columns"><?= $this->Form->input('name', array('label'=>'Naam') ); ?></div>
-					<div class="six columns"><?= $this->Form->input('min', array('label'=>'Minimumscore') ); ?></div>
-					<div class="six columns"><?= $this->Form->input('max', array('label'=>'Maximumscore') ); ?></div>
+					<div class="twelve columns"><?= $this->Form->input('max', array('label'=>'Maximumscore') ); ?></div>
 					<div class="twelve columns"><?= $this->Form->input('parent_id', array('label'=>'Onderdeel van') ); ?></div>
 				</div>
 			</fieldset>

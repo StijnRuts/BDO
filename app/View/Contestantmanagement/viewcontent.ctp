@@ -5,7 +5,6 @@
 			<?php foreach($scores['users'] as $user): ?>
 				<th><?= h($user['username']); ?></th>
 			<?php endforeach; ?>
-			<th>Min</th>
 			<th>Max</th>
 		</tr>
 	</thead>
@@ -16,7 +15,6 @@
 			<?php foreach($scores['users'] as $user): ?>
 				<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
 			<?php endforeach; ?>
-			<td class="subfield score">???</td>
 			<td class="subfield score">???</td>
 		</tr>
 	</tbody>

@@ -10,7 +10,6 @@
 		<?= $this->Form->input('Score.'.$form_id.'.id', array('type'=>'hidden')); ?>
 	</td>
 
-	<td class="subfield score"><?= h($point['Point']['min']); ?></td>
 	<td class="subfield score"><?= h($point['Point']['max']); ?></td>
 </tr>
 

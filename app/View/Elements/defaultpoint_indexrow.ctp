@@ -12,7 +12,6 @@
 		); ?>
 	</td>
 	<td class="name"><?= h($defaultpoint['Defaultpoint']['name']); ?></td>
-	<td><?= h($defaultpoint['Defaultpoint']['min']); ?></td>
 	<td><?= h($defaultpoint['Defaultpoint']['max']); ?></td>
 	<td>
 		<?= $this->Html->link(

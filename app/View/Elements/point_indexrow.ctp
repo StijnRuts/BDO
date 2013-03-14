@@ -12,7 +12,6 @@
 		); ?>
 	</td>
 	<td class="name"><?= h($point['Point']['name']); ?></td>
-	<td><?= h($point['Point']['min']); ?></td>
 	<td><?= h($point['Point']['max']); ?></td>
 	<td>
 		<?= $this->Html->link(
