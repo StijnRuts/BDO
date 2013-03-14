@@ -55,3 +55,14 @@ function findindex($requestdata, $point_id){
 	return null;
 }
 ?>
+
+
+<?= $this->Html->script('emulatetab'); ?>
+<?= $this->Html->script('plusastab'); ?>
+<script>
+	$(document).ready(function(){
+		//make enter key (and arrow down) act as tab
+		// -> move to next input field instead of submitting the form
+		JoelPurra.PlusAsTab.setOptions({ key: [13, 40] });
+	});
+</script>

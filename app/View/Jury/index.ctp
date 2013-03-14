@@ -4,13 +4,14 @@
 
 <script>
 	$(document).ready(function(){ checkStage(); setInterval(checkStage, 5000); });
-   function checkStage(){
-   	$.get("<?= Router::url(array('action'=>'checkstage')) ?>")
+	function checkStage(){
+		$.get("<?= Router::url(array('action'=>'checkstage')) ?>")
 		 .done(function(ready){
-		 	if(ready) window.location.href = "<?= Router::url(array('action'=>'startjudging')) ?>";
+			if(ready) window.location.href = "<?= Router::url(array('action'=>'startjudging')) ?>";
+			$("#error").html('');
 		 })
 		 .fail(function(){
-		 	$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
+			$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
 		 });
-   }
+	}
 </script>
