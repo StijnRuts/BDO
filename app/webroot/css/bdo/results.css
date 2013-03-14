@@ -1,3 +1,14 @@
+body { background: black; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, th, td { color: white; }
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { color: #AAA; }
+table { background: black; border-color: #111; }
+table thead, table tfoot {	background: #101010; }
+table thead tr th, table tfoot tr td { color: white; }
+table tbody tr.even, table tbody tr.alt { background: #080808; }
+table tbody tr:nth-child(even) { background: #080808; }
+table tbody tr td { color: #CCC; }
+
+
 .score {
 	padding: 0 20px;
 	text-align: right;
@@ -40,5 +51,5 @@ h3 {
 #total {
 	margin: 20px 30px 0;
 	padding: 10px 30px 0;
-	border-top: 3px solid black;
+	border-top: 3px solid #BBB;
 }
