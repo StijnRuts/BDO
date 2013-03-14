@@ -20,7 +20,7 @@
 	</tbody>
 </table>
 
-<p><?php
+<p id="judgedby"><?php
 	if( count($staged)>0 ){
 		$users = array();
 		foreach($staged as $s) $users[] = h($s['User']['username']);

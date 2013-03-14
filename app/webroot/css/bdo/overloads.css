@@ -2,8 +2,9 @@
     width: auto;
 }
 
-p {
+p#judgedby {
 	text-align: center;
+	font-size: 2em;
 }
 
 #nojs {
