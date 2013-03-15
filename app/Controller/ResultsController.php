@@ -33,6 +33,7 @@ class ResultsController extends AppController {
 			'contain' => array(
 				'Round'=>array('order'=>'order'),
 				'Round.Contestant'=>array('order'=>'startnr'),
+				'Round.Contestant.Club',
 				'Round.Category',
 				'Round.Discipline',
 				'Round.Division'
@@ -55,7 +56,7 @@ class ResultsController extends AppController {
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$round = $this->Round->find('first', array(
 			'conditions' => array('Round.id'=>$id),
-			'contain' => array('Contestant'=>array('order'=>'startnr'), 'Category', 'Discipline', 'Division')
+			'contain' => array('Contestant'=>array('order'=>'startnr'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
 		));
 		foreach($round['Contestant'] as &$contestant){
 			$this->Contestant->id = $contestant['id'];
