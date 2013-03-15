@@ -1,12 +1,12 @@
 body { background: black; }
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, th, td { color: white; }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { color: #AAA; }
-table { background: black; border-color: #111; }
-table thead, table tfoot {	background: #101010; }
+table { background: black; border-color: #252525; }
+table thead, table tfoot {	background: #252525; }
 table thead tr th, table tfoot tr td { color: white; }
-table tbody tr.even, table tbody tr.alt { background: #080808; }
-table tbody tr:nth-child(even) { background: #080808; }
-table tbody tr td { color: #CCC; }
+table tbody tr.even, table tbody tr.alt { background: #121212; }
+table tbody tr:nth-child(even) { background: #121212; }
+table tbody tr td { color: white; }
 
 
 body, div, dl, dt, dd, ul, ol, li, pre, form, p, blockquote, th, td { font-size: 20px; }
