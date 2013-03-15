@@ -9,6 +9,17 @@ table tbody tr:nth-child(even) { background: #080808; }
 table tbody tr td { color: #CCC; }
 
 
+body, div, dl, dt, dd, ul, ol, li, pre, form, p, blockquote, th, td { font-size: 20px; }
+table thead tr th, table tfoot tr th, table tfoot tr td { font-size: 21px; line-height: 27px; }
+table tbody tr td, table tr td { font-size: 25px; line-height: 29px; }
+h1 { font-size: 50px; }
+h2 { font-size: 56px; }
+h3 { font-size: 41px; }
+h4 { font-size: 23px; }
+h5 { font-size: 35px; }
+h6 { font-size: 21px; }
+
+
 .score {
 	padding: 0 20px;
 	text-align: right;
