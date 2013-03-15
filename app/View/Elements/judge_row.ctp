@@ -6,6 +6,7 @@
 			'type'=>'text',
 			'size'=>4,
 			'label'=>false,
+			'autocomplete'=>"off",
 			'data-plus-as-tab'=>"true"
 		)); ?>
 		<?= $this->Form->input('Score.'.$form_id.'.id', array('type'=>'hidden')); ?>
