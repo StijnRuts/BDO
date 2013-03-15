@@ -1,4 +1,6 @@
-<h2 style="margin-top: 150px;">
+<div id="infopage"></div>
+
+<h2>
 	<?= $contestant['Contestant']['startnr']; ?>:
 	<?= $contestant['Contestant']['name']; ?>
 	<small>(<?= $contestant['Club']['name']; ?>)</small>

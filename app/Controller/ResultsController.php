@@ -19,6 +19,8 @@ class ResultsController extends AppController {
 			case 'contest': $this->contest_results($ini['id']); break;
 			case 'round': $this->round_results($ini['id']); break;
 			case 'contestant': $this->contestant_results($ini['id'], $ini['round_id']); break;
+			case 'contestname': $this->contest_name($ini['id']); break;
+			case 'roundname': $this->round_name($ini['id']); break;
 			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
@@ -79,6 +81,27 @@ class ResultsController extends AppController {
 		$this->layout = 'ajax';
 		$this->render('contestant_results');
 	}
+	private function contest_name($id = null) {
+		$this->loadModel('Contest');
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
+		$contest = $this->Contest->find('first', array(	'conditions' => array('Contest.id'=>$id) ));
+		$this->set('contest', $contest);
+
+		$this->layout = 'ajax';
+		$this->render('contest_name');
+	}
+	private function round_name($id = null) {
+		$this->loadModel('Round');
+		if (!$this->Round->exists($id)) throw new NotFoundException();
+		$round = $this->Round->find('first', array(
+			'conditions' => array('Round.id'=>$id),
+			'contain' => array('Category', 'Discipline', 'Division', 'Contest')
+		));
+		$this->set('round', $round);
+
+		$this->layout = 'ajax';
+		$this->render('round_name');
+	}
 	private function contestant_name($contestant_id = null, $round_id = null) {
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
@@ -106,6 +129,14 @@ class ResultsController extends AppController {
 	}
 	public function showcontestant($id = null, $round_id = null){
 		$this->write_ini("contestant", $id, $round_id);
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+	}
+	public function showcontestname($id = null){
+		$this->write_ini("contestname", $id);
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+	}
+	public function showroundname($id = null){
+		$this->write_ini("roundname", $id);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 	public function showcontestantname($id = null, $round_id = null){

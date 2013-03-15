@@ -20,6 +20,10 @@ h5 { font-size: 35px; }
 h6 { font-size: 21px; }
 
 
+#infopage {
+	margin-top: 200px;
+}
+
 .score {
 	padding: 0 20px;
 	text-align: right;

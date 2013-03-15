@@ -4,6 +4,12 @@
 	<small>(<?= $contestant['Club']['name']; ?>)</small>
 </h2>
 
+<h3>
+	<?= $contestant['Discipline']['name']; ?>,
+	<?= $contestant['Category']['name']; ?>,
+	<?= $contestant['Division']['name']; ?>
+</h3>
+
 <h1 id="scores">
 	<span class="heading">Punten:</span>
 	<?php foreach($scores['users'] as $user): ?>

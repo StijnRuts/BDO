@@ -21,6 +21,12 @@
 				<h2>
 					<?= h($contest['Contest']['name']); ?> (<?= h($contest['Contest']['date']); ?>)
 					<?= $this->Js->link(
+						'toon naam',
+						array('controller'=>'results', 'action'=>'showcontestname', $contest['Contest']['id']),
+						array('title'=>'Toon naam van deze wedstrijd op scorebord',
+							   'class'=>'tiny secondary button')
+					); ?>
+					<?= $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showcontest', $contest['Contest']['id']),
 						array('title'=>'Toon resultaten van '.h($contest['Contest']['name'].' op scorebord'),
@@ -38,6 +44,12 @@
 					<?= h($round['Discipline']['name']); ?>,
 					<?= h($round['Category']['name']); ?>,
 					<?= h($round['Division']['name']); ?>
+					<?= $this->Js->link(
+						'toon naam',
+						array('controller'=>'results', 'action'=>'showroundname', $round['Round']['id']),
+						array('title'=>'Toon naam van deze ronde op scorebord',
+							   'class'=>'tiny secondary button')
+					); ?>
 					<?= $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showround', $round['Round']['id']),
@@ -71,7 +83,7 @@
 								<?= $this->Js->link(
 									'toon naam',
 									array('controller'=>'results', 'action'=>'showcontestantname', $contestant['id'], $round['Round']['id']),
-									array('title'=>'Toon naam van '.h($contestant['name'].' op scorebord'),
+									array('title'=>'Toon naam van '.h($contestant['name']).' op scorebord',
 										   'class'=>'tiny secondary button')
 								); ?>
 								<?= $this->Js->link(
