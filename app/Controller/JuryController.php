@@ -47,18 +47,16 @@ class JuryController extends AppController {
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
-		if (!$this->request->is('post') && !$this->request->is('put')) {
-			$this->request->data = array('Score' => Set::combine(
-				$this->Score->find('all', array(
-					'conditions'=>array(
-						'user_id'=>$current_user['id'],
-						'contestant_id'=>$contestant_id,
-						'round_id'=>$round_id
-					)
-				)),
-				'{n}.Score.id', '{n}.Score'
-			));
-		}
+		$this->request->data = array('Score' => Set::combine(
+			$this->Score->find('all', array(
+				'conditions'=>array(
+					'user_id'=>$current_user['id'],
+					'contestant_id'=>$contestant_id,
+					'round_id'=>$round_id
+				)
+			)),
+			'{n}.Score.id', '{n}.Score'
+		));
 	}
 	private function setEmptyPoints($list, $round_id, $contestant_id, $user_id){
 		foreach($list as $point){
