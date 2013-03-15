@@ -54,6 +54,9 @@ ul.vertical.nav-bar {
 ul.vertical.nav-bar, .vertical.nav-bar li {
 	display: block;
 }
+.nav-bar.vertical > li.active {
+	border-right: none;
+}
 .vertical.nav-bar li a {
 	font-size: 14px;
 	font-weight: normal;
