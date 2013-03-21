@@ -57,14 +57,14 @@ class DefaultpointsController extends AppController {
 	function moveup($id = null) {
 		$this->request->onlyAllow('post');
 		if (!$this->Defaultpoint->exists($id)) throw new NotFoundException();
-		if(!$this->Defaultpoint->moveUp($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar boven worden verplaatst');
+		if(!$this->Defaultpoint->moveUp($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar boven worden verplaatst', 'flash_error');
 		$this->redirect(array('action'=>'index'));
 	}
 
 	function movedown($id = null) {
 		$this->request->onlyAllow('post');
 		if (!$this->Defaultpoint->exists($id)) throw new NotFoundException();
-		if(!$this->Defaultpoint->moveDown($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar onder worden verplaatst');
+		if(!$this->Defaultpoint->moveDown($id)) $this->Session->setFlash('Dit beoordelingspunt kan niet verder naar onder worden verplaatst', 'flash_error');
 		$this->redirect(array('action'=>'index'));
 	}
 }
