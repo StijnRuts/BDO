@@ -42,9 +42,12 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'???', 'action'=>'???', $contestant['Contestant']['id'], $round['Round']['id']), /* ??????????????? */
+						array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
+								$contestant['Contestant']['id'], $round['Round']['id'],
+								$contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name']),
 						array('title'=>'Print resultaten van '.h($contestant['Contestant']['name']),
-							   'class'=>'tiny secondary button')
+							   'class'=>'tiny secondary button',
+							   'target'=>'_blank')
 					); ?>
 				</h2>
 

@@ -1,6 +1,8 @@
 <?php
 class ResultsController extends AppController {
 
+	public $components = array('RequestHandler');
+
 	function beforeFilter(){
 		$this->Auth->allow('index', 'results');
 		$this->inifile =  TMP."scorebord.ini";
@@ -25,6 +27,10 @@ class ResultsController extends AppController {
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
 		}
+	}
+	private function welcome() {
+		$this->layout = 'ajax';
+		$this->render('welcome');
 	}
 	private function contest_results($id = null) {
 		$this->loadModel('Contest');
@@ -113,10 +119,16 @@ class ResultsController extends AppController {
 		$this->layout = 'ajax';
 		$this->render('contestant_name');
 	}
-	private function welcome() {
-		$this->layout = 'ajax';
-		$this->render('welcome');
+	public function contest_print($id = null) {
+
 	}
+	public function round_print($id = null) {
+
+	}
+	public function contestant_print($contestant_id = null, $round_id = null) {
+
+	}
+
 
 
 	public function showcontest($id = null){

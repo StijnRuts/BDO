@@ -34,9 +34,10 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'???', 'action'=>'???', $contest['Contest']['id']), /* ??????????????? */
+						array('controller'=>'results', 'action'=>'contest_print', 'ext'=>'pdf', $contest['Contest']['id'],	$contest['Contest']['name']),
 						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
-							   'class'=>'tiny secondary button')
+							   'class'=>'tiny secondary button',
+								'target'=>'_blank')
 					); ?>
 				</h2>
 
@@ -58,9 +59,11 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'???', 'action'=>'???', $round['Round']['id']), /* ??????????????? */
+						array('controller'=>'results', 'action'=>'round_print', 'ext'=>'pdf', $round['Round']['id'],
+								$contest['Contest']['name']." - ".$round['Discipline']['name'].", ".$round['Category']['name'].", ".$round['Division']['name']),
 						array('title'=>'Print resultaten van deze ronde',
-							   'class'=>'tiny secondary button')
+							   'class'=>'tiny secondary button',
+							   'target'=>'_blank')
 					); ?>
 				</h3>
 
@@ -94,9 +97,12 @@
 								); ?>
 								<?= $this->Html->link(
 									'print',
-									array('controller'=>'???', 'action'=>'???', $contestant['id'], $round['Round']['id']), /* ??????????????? */
+									array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
+											$contestant['id'], $round['Round']['id'],
+											$contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name']),
 									array('title'=>'Print resultaten van '.h($contestant['name']),
-										   'class'=>'tiny secondary button')
+										   'class'=>'tiny secondary button',
+										   'target'=>'_blank')
 								); ?>
 								<?= $this->Html->link(
 									'beoordeling',
