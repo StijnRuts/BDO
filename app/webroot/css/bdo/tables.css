@@ -23,10 +23,14 @@ td.subfield {
 	background-color: #F2F2F2;
 	font-weight: bold;
 }
-td.important {
-	color: black;
-	background-color: #F2F2F2;
+td.important, th.important {
+	background-color: #E8E8E8;
 	font-weight: bold;
+	font-size: 1.1em;
+}
+.important input {
+	font-weight: bold;
+	font-size: 1.1em;
 }
 
 table tfoot tr td {

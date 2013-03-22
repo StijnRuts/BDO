@@ -11,11 +11,11 @@
 	<tbody>
 		<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
 		<tr>
-			<th class="name">Totaal</th>
+			<th class="important name">Totaal</th>
 			<?php foreach($scores['users'] as $user): ?>
 				<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
 			<?php endforeach; ?>
-			<td class="subfield score">???</td>
+			<td class="important subfield score">???</td>
 		</tr>
 	</tbody>
 </table>

@@ -30,8 +30,9 @@ class JuryController extends AppController {
 					'user_id' => $current_user['id']
 				));
 				$this->redirect(array('action'=>'index'));
+				$this->Session->setFlash("Gelukt", 'flash_success');
 			}else{
-				$this->Session->setFlash("Deze scores konden niet worden opgeslaan");
+				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
 			}
 		}
 
@@ -66,7 +67,7 @@ class JuryController extends AppController {
 				'point_id' => $point['Point']['id'],
 				'user_id' => $user_id
 			);
-			if( !$this->Score->hasAny($data)) {
+			if( !$this->Score->hasAny($data) ) {
 				$this->Score->create();
 				$this->Score->save($data);
 			}

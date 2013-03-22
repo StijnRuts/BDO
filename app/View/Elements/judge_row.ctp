@@ -7,7 +7,8 @@
 			'size'=>4,
 			'label'=>false,
 			'autocomplete'=>"off",
-			'data-plus-as-tab'=>"true"
+			'data-plus-as-tab'=>"true",
+			'disabled'=>$subcategory ? "disabled" : ""
 		)); ?>
 		<?= $this->Form->input('Score.'.$form_id.'.id', array('type'=>'hidden')); ?>
 	</td>

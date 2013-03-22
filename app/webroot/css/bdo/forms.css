@@ -59,10 +59,10 @@ fieldset {
 	color: #111;
 }
 
-form td.scoreinput {
+form .scoreinput {
 	padding: 2px;
 }
-form td.scoreinput input {
+form .scoreinput input {
 	margin: 0;
 	text-align: right;
 }
