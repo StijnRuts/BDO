@@ -20,15 +20,29 @@ class JuryController extends AppController {
 	public function judge($contestant_id = null, $round_id = null) {
 		$current_user = $this->Auth->user();
 		$this->loadModel('Score');
+		$this->loadModel('Stage');
 
+		// redirect if not staged
+		if( count( $this->Stage->find('first', array(
+			'conditions' => array(
+				'user_id' => $current_user['id'],
+				'round_id' => $round_id,
+				'contestant_id' => $contestant_id
+			)
+		))) == 0 )  $this->redirect(array('action'=>'index'));
+
+		// if post
 		if ($this->request->is('post') || $this->request->is('put')) {
+			// save data
 			if($this->Score->saveAll($this->request->data['Score'])){
 				$this->loadModel('Stage');
+				// unstage
 				$this->Stage->deleteAll(array(
 					'contestant_id' => $contestant_id,
 					'round_id' => $round_id,
 					'user_id' => $current_user['id']
 				));
+				//redirect
 				$this->redirect(array('action'=>'index'));
 				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
 			}else{
@@ -44,11 +58,13 @@ class JuryController extends AppController {
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 
+		// create empty score objects
 		$scores = $this->Contestant->getScores($round_id);
 		$this->setEmptyPoints($scores['points'], $round_id, $contestant_id, $current_user['id']);
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
+		// load data
 		$this->request->data = array('Score' => Set::combine(
 			$this->Score->find('all', array(
 				'conditions'=>array(
@@ -60,6 +76,7 @@ class JuryController extends AppController {
 			'{n}.Score.id', '{n}.Score'
 		));
 
+		// show submitted scores if validation failed
 		if ($this->request->is('post') || $this->request->is('put')) {
 			foreach($this->request->data['Score'] as $key=>&$score){
 				if( isset($submitted_values[$key]['score']) ){
