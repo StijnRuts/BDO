@@ -30,8 +30,9 @@ class JuryController extends AppController {
 					'user_id' => $current_user['id']
 				));
 				$this->redirect(array('action'=>'index'));
-				$this->Session->setFlash("Gelukt", 'flash_success');
+				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
 			}else{
+				$submitted_values = $this->request->data['Score'];
 				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
 			}
 		}
@@ -58,6 +59,14 @@ class JuryController extends AppController {
 			)),
 			'{n}.Score.id', '{n}.Score'
 		));
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			foreach($this->request->data['Score'] as $key=>&$score){
+				if( isset($submitted_values[$key]['score']) ){
+					$score['score'] = $submitted_values[$key]['score'];
+				}
+			}
+		}
 	}
 	private function setEmptyPoints($list, $round_id, $contestant_id, $user_id){
 		foreach($list as $point){
