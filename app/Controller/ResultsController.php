@@ -123,7 +123,18 @@ class ResultsController extends AppController {
 
 	}
 	public function round_print($id = null) {
-
+		$this->loadModel('Round');
+		$this->loadModel('Contestant');
+		if (!$this->Round->exists($id)) throw new NotFoundException();
+		$round = $this->Round->find('first', array(
+			'conditions' => array('Round.id'=>$id),
+			'contain' => array('Contestant', 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
+		));
+		foreach($round['Contestant'] as &$contestant){
+			$this->Contestant->id = $contestant['id'];
+			$contestant['scores'] = $this->Contestant->getScores($id);
+		}
+		$this->set('round', $round);
 	}
 	public function contestant_print($contestant_id = null, $round_id = null) {
 		$this->loadModel('Contestant');

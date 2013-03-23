@@ -4,6 +4,7 @@ $dompdf = new DOMPDF();
 $dompdf->load_html(utf8_decode(
 	'<style>
 		th { text-align: left; }
+		.score { text-align: right; }
 		.level1 .name { padding-left: 15px; } .level1 .name:before { content: "* "; }
 		.level2 .name { padding-left: 30px; } .level2 .name:before { content: "+ "; }
 		.level3 .name { padding-left: 45px; } .level3 .name:before { content: "- "; }
