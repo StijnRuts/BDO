@@ -11,6 +11,7 @@
 <table>
 	<thead>
 		<tr>
+			<th>Plaats</th>
 			<th>Startnr</th>
 			<th>Deelnemer</th>
 			<th>Club</th>
@@ -20,6 +21,7 @@
 	<tbody>
 	<?php foreach($round['Contestant'] as $contestant): ?>
 		<tr>
+			<td><?= h($contestant['scores']['rank']); ?></td>
 			<td><?= h($contestant['startnr']); ?></td>
 			<td><?= h($contestant['name']); ?></td>
 			<td><?= h($contestant['Club']['name']); ?></td>

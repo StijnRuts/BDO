@@ -134,6 +134,7 @@ class ResultsController extends AppController {
 			$this->Contestant->id = $contestant['id'];
 			$contestant['scores'] = $this->Contestant->getScores($id);
 		}
+		$round['Contestant'] = $this->computeRanks($round['Contestant']);
 		$this->set('round', $round);
 	}
 	public function contestant_print($contestant_id = null, $round_id = null) {
@@ -147,7 +148,6 @@ class ResultsController extends AppController {
 		$this->set('round', $this->Round->read());
 		$this->set('scores', $this->Contestant->getScores($round_id));
 	}
-
 
 
 	public function showcontest($id = null){
@@ -181,5 +181,36 @@ class ResultsController extends AppController {
 		if($round_id) fwrite($fh,"\r\nround_id=$round_id");
 		fclose($fh);
 	}
+
+
+	private function computeRanks($contestants){
+		if( count($contestants)==0 ) return;
+
+		uasort($contestants, 'cmpTotal');
+
+		$rank = 0;
+		$first = reset($contestants);
+		$score = $first['scores']['total'] + 1;
+		foreach($contestants as &$contestant){
+			if( $contestant['scores']['total']<$score ){
+				$score = $contestant['scores']['total'];
+				$rank++;
+				$contestant['scores']['rank'] = $rank;
+			} else {
+				//$contestant['scores']['rank'] = $rank;
+				$contestant['scores']['rank'] = 'ex-aequo';
+			}
+		}
+		return $contestants;
+	}
+
+}
+
+
+function cmpTotal($contestant_a, $contestant_b) {
+	$a = $contestant_a['scores']['total'];
+	$b = $contestant_b['scores']['total'];
+	if ($a == $b) return 0;
+	return ($a < $b) ? 1 : -1;
 }
 ?>
