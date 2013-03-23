@@ -120,7 +120,24 @@ class ResultsController extends AppController {
 		$this->render('contestant_name');
 	}
 	public function contest_print($id = null) {
-
+		$this->loadModel('Contest');
+		$this->loadModel('Contestant');
+		if (!$this->Contest->exists($id)) throw new NotFoundException();
+		$contest = $this->Contest->find('first', array(
+			'conditions' => array('Contest.id'=>$id),
+			'contain' => array(
+				'Round'=>array('order'=>'order'), 'Round.Contestant', 'Round.Contestant.Club',
+				'Round.Category', 'Round.Discipline','Round.Division'
+			)
+		));
+		foreach($contest['Round'] as &$round){
+			foreach($round['Contestant'] as &$contestant){
+				$this->Contestant->id = $contestant['id'];
+				$contestant['scores'] = $this->Contestant->getScores($round['id']);
+			}
+			$round['Contestant'] = $this->computeRanks($round['Contestant']);
+		}
+		$this->set('contest', $contest);
 	}
 	public function round_print($id = null) {
 		$this->loadModel('Round');

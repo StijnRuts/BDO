@@ -13,6 +13,7 @@ $dompdf->load_html(utf8_decode(
 		th, td { padding: 2px 5px; }
 		tr#total td, tr#total th { border-top: 1px solid black; }
 		table { margin-top: 20px; }
+		table.many { margin-top: -5px; margin-bottom: 40px; }
 	</style>'.
 	$content_for_layout
 ), Configure::read('App.encoding'));
