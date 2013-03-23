@@ -13,6 +13,12 @@ td.startnr {
 td.score {
 	text-align: right;
 }
+.filler {
+	visibility: hidden;
+}
+.min.score, .max.score {
+	text-decoration: line-through;
+}
 tbody th {
 	text-align: left;
 	padding: 8px 10px 9px;

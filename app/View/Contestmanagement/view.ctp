@@ -81,7 +81,16 @@
 						<tr>
 							<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
 							<td><?= h($contestant['name']); ?></td>
-							<td></td>
+							<td>
+								<?php foreach($contestant['scores']['users'] as $user): ?>
+								<span class="filler">
+									<?php for($i=0; $i<3-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
+								</span>
+								<span class="score <?= $user['id']==$contestant['scores']['min'] ? 'min' : '' ?> <?= $user['id']==$contestant['scores']['max'] ? 'max' : '' ?>">
+									<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
+								</span>
+								<?php endforeach; ?>
+							</td>
 							<td>
 								<?= $this->Js->link(
 									'toon naam',
