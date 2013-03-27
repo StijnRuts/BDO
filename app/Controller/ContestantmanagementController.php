@@ -16,6 +16,27 @@ class ContestantmanagementController extends AppController {
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 		$this->set('scores', $this->Contestant->getScores($round_id));
+
+		//set empty score
+		$this->loadModel('Adminscore');
+		$data = array(
+			'contestant_id' => $contestant_id,
+			'round_id' => $round_id
+		);
+		if( !$this->Adminscore->hasAny($data) ) {
+			$this->Adminscore->create();
+			$this->Adminscore->save($data);
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->Adminscore->save($this->request->data)) {
+				$this->Session->setFlash('De beheerdersbeoordeling is opgeslaan', 'flash_success');
+			} else {
+				$this->Session->setFlash('De beheerdersbeoordeling kon niet worden opgeslaan', 'flash_error');
+			}
+		}
+		$this->request->data = $this->Adminscore->find('first', array(
+			'conditions' => array('contestant_id'=>$contestant_id, 'round_id'=>$round_id)
+		));
 	}
 
 	public function viewcontent($contestant_id = null, $round_id = null) {

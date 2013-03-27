@@ -51,6 +51,15 @@
 					); ?>
 				</h2>
 
+				<div class="row" id="adminform">
+				<?= $this->Form->create('Adminscore'); ?>
+					<?= $this->Form->input('id', array('type'=>'hidden')); ?>
+					<?= $this->Form->input('verplichtelem', array('type'=>'text', 'label'=>'Verplichte elementen')); ?>
+					<?= $this->Form->input('strafpunten', array('type'=>'text', 'label'=>'Strafpunten')); ?>
+					<?= $this->Form->submit('Opslaan', array('class'=>'small radius button')); ?>
+				<?= $this->Form->end(); ?>
+				</div>
+
 				<div id="autorefresh"> <div class="load"></div> </div>
 
 				<div class="buttonbar row">
