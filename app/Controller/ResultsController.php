@@ -4,7 +4,7 @@ class ResultsController extends AppController {
 	public $components = array('RequestHandler');
 
 	function beforeFilter(){
-		$this->Auth->allow('index', 'results');
+		//$this->Auth->allow('index', 'results'); //uncomment to make result page world accessible
 		$this->inifile =  TMP."scorebord.ini";
 	}
 
