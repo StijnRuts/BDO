@@ -40,6 +40,7 @@ class Contestant extends AppModel {
 		$users = $this->get_users($round_id);
 		$points = $this->get_points($round_id);
 
+		$this->add_verplichtelem($round_id, $scores, $users, $points);
 		$scores = $this->calculate_categorytotals($scores, $users, $points, 'total');
 		$scores = array(
 			'scores' => $scores,
@@ -96,6 +97,31 @@ class Contestant extends AppModel {
 		));
 
 		return $points;
+	}
+
+	private function add_verplichtelem($round_id, &$scores, &$users, &$points){
+		$Adminscore = ClassRegistry::init('Adminscore');
+		$contestant = $this->read();
+
+		$s = $Adminscore->find('first', array(
+			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
+
+		$verplichtelem = isset($s['Adminscore']['verplichtelem']) ? $s['Adminscore']['verplichtelem'] : 0;
+
+		$points[] = array(
+			'Point'=>array(
+				'id'=>-1,
+				'parent_id'=>null,
+				'name'=>'Verplichte elementen',
+				'max'=>''
+			),
+			'children'=>array()
+		);
+		foreach($users as $user){
+			$scores[$user['id']][-1] = $verplichtelem;
+		}
+
+		return $scores;
 	}
 
 	private function calculate_categorytotals($scores, $users, $points, $group){
