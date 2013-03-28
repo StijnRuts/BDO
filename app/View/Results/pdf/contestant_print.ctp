@@ -35,6 +35,8 @@
 	</tbody>
 </table>
 
+<p><strong>Strafpunten: </strong><?= $scores['strafpunten'] ?></p>
+<p><strong>Totaal: </strong><?= $scores['total'] ?></p>
 
 <?php
 function output_rows($list, $level, $users, $scores, $t){

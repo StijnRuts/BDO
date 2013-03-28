@@ -40,13 +40,15 @@ class Contestant extends AppModel {
 		$users = $this->get_users($round_id);
 		$points = $this->get_points($round_id);
 
-		$scores = $this->calculate_totals($scores, $users, $points, 'total');
+		$scores = $this->calculate_categorytotals($scores, $users, $points, 'total');
 		$scores = array(
 			'scores' => $scores,
 			'users' => $users,
 			'points' => $points,
 		);
+		$scores = $this->calculate_adminscores($scores, $round_id);
 		$scores = $this->calculate_minmax($scores);
+		$scores = $this->calculate_total($scores);
 
 		return $scores;
 	}
@@ -96,17 +98,30 @@ class Contestant extends AppModel {
 		return $points;
 	}
 
-	private function calculate_totals($scores, $users, $points, $group){
+	private function calculate_categorytotals($scores, $users, $points, $group){
 		foreach($users as $user) $scores[$user['id']][$group] = 0;
 
 		foreach($points as $point){
-			if(count($point['children'])>0) $scores = $this->calculate_totals($scores, $users, $point['children'], $point['Point']['id']);
+			if(count($point['children'])>0) $scores = $this->calculate_categorytotals($scores, $users, $point['children'], $point['Point']['id']);
 			foreach($users as $user){
 				if( isset($scores[$user['id']][$point['Point']['id']]) ){
 					$scores[$user['id']][$group] += $scores[$user['id']][$point['Point']['id']];
 				}
 			}
 		}
+
+		return $scores;
+	}
+
+	private function calculate_adminscores($scores, $round_id){
+		$Adminscore = ClassRegistry::init('Adminscore');
+		$contestant = $this->read();
+
+		$s = $Adminscore->find('first', array(
+			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
+
+		$scores['strafpunten'] = isset($s['Adminscore']['strafpunten']) ? $s['Adminscore']['strafpunten'] : 0;
+		$scores['verplichtelem'] = isset($s['Adminscore']['verplichtelem']) ? $s['Adminscore']['verplichtelem'] : 0;
 
 		return $scores;
 	}
@@ -134,14 +149,20 @@ class Contestant extends AppModel {
 
 		$scores['min'] = $min_id;
 		$scores['max'] = $max_id;
+		return $scores;
+	}
 
-
+	private function calculate_total($scores){
 		$total = 0;
+		$min_id = $scores['min'];
+		$max_id = $scores['max'];
 		foreach($scores['users'] as $user){
 			if( ($user['id']!=$min_id) && ($user['id']!=$max_id) ){
 				$total += $scores['scores'][$user['id']]['total'];
 			}
 		}
+
+		$total -= $scores['strafpunten'];
 		$scores['total'] = $total;
 
 		return $scores;

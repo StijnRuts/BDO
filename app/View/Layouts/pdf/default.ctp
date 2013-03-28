@@ -12,7 +12,7 @@ $dompdf->load_html(utf8_decode(
 		.level5 .name { padding-left: 75px; }
 		th, td { padding: 2px 5px; }
 		tr#total td, tr#total th { border-top: 1px solid black; }
-		table { margin-top: 20px; }
+		table { margin: 20px 0; }
 		table.many { margin-top: -5px; margin-bottom: 40px; }
 	</style>'.
 	$content_for_layout

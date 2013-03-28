@@ -72,7 +72,9 @@
 						<tr>
 							<th>Starnr</th>
 							<th>Naam</th>
-							<th>Beoordeling</th>
+							<th>Jury beoordeling</th>
+							<th>Verpl elem</th>
+							<th>Strafp</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -91,6 +93,8 @@
 								</span>
 								<?php endforeach; ?>
 							</td>
+							<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
+							<td class="score"><?= h($contestant['scores']['strafpunten']); ?></td>
 							<td>
 								<?= $this->Js->link(
 									'toon naam',

@@ -40,7 +40,7 @@ td.score {
 }
 
 h1 .min.score, h1 .max.score {
-	background: url("strike.png") no-repeat center center;
+	background: url("strike.png") no-repeat 50% 55%;
 	background-size: 100% 12px;
 }
 .total.score {
@@ -58,11 +58,14 @@ h3 {
 
 #scores {
 	margin: 120px 30px 0;
-	padding: 0 40px;
+	padding: 0 40px 10px;
 }
-
-#total {
+#strafpunten {
 	margin: 20px 30px 0;
-	padding: 10px 30px 0;
+	padding: 0 40px 20px;
+}
+#total {
+	margin: 20px 40px 0;
+	padding: 10px 0 0 60px;
 	border-top: 3px solid #BBB;
 }

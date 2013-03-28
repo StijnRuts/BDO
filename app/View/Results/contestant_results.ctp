@@ -18,6 +18,14 @@
 		</span>
 	<?php endforeach; ?>
 </h1>
+
+<?php if($scores['strafpunten'] > 0): ?>
+	<h1 id="strafpunten">
+		<span class="heading">Strafpunten:</span>
+		<span class="score"><?= h($scores['strafpunten']); ?></span>
+	</h1>
+<?php endif; ?>
+
 <h1 id="total">
 	<span class="heading">Totaal:</span>
 	<span class="total score"><?= h($scores['total']); ?></span>
