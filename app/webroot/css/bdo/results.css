@@ -40,10 +40,8 @@ td.score {
 }
 
 h1 .min.score, h1 .max.score {
-	background: url("strike.png") no-repeat 50% 50%;
-}
-td .min.score, td .max.score {
-	text-decoration: line-through;
+	background: url("strike.png") no-repeat center center;
+	background-size: 100% 12px;
 }
 .total.score {
 	font-size: 1.3em;
