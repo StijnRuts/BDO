@@ -12,7 +12,7 @@
 		); ?>
 	</td>
 	<td class="name"><?= h($point['Point']['name']); ?></td>
-	<td><?= h($point['Point']['max']); ?></td>
+	<td><?= count($point['children'])>0 ? '-' : h($point['Point']['max']); ?></td>
 	<td>
 		<?= $this->Html->link(
 			'<i class="f-icon-tools"></i>',

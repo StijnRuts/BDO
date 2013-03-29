@@ -41,12 +41,13 @@ class Contestant extends AppModel {
 		$points = $this->get_points($round_id);
 
 		$this->add_verplichtelem($round_id, $scores, $users, $points);
-		$scores = $this->calculate_categorytotals($scores, $users, $points, 'total');
+		$scores = $this->calculate_jurytotals($scores, $users, $points, 'total');
 		$scores = array(
 			'scores' => $scores,
 			'users' => $users,
 			'points' => $points,
 		);
+		$scores = $this->calculate_categorytotals($scores);
 		$scores = $this->calculate_adminscores($scores, $round_id);
 		$scores = $this->calculate_minmax($scores);
 		$scores = $this->calculate_total($scores);
@@ -124,11 +125,11 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	private function calculate_categorytotals($scores, $users, $points, $group){
+	private function calculate_jurytotals($scores, $users, $points, $group){
 		foreach($users as $user) $scores[$user['id']][$group] = 0;
 
 		foreach($points as $point){
-			if(count($point['children'])>0) $scores = $this->calculate_categorytotals($scores, $users, $point['children'], $point['Point']['id']);
+			if(count($point['children'])>0) $scores = $this->calculate_jurytotals($scores, $users, $point['children'], $point['Point']['id']);
 			foreach($users as $user){
 				if( isset($scores[$user['id']][$point['Point']['id']]) ){
 					$scores[$user['id']][$group] += $scores[$user['id']][$point['Point']['id']];
@@ -137,6 +138,19 @@ class Contestant extends AppModel {
 		}
 
 		return $scores;
+	}
+
+	private function calculate_categorytotals($scores){
+		$scores['maxtotal'] = $this->sum_of_max($scores['points']);
+		return $scores;
+	}
+	private function sum_of_max(&$points){
+		$sum = 0;
+		foreach($points as &$point){
+			if(count($point['children'])>0) $point['Point']['max'] = $this->sum_of_max($point['children']);
+			$sum += $point['Point']['max'];
+		}
+		return $sum;
 	}
 
 	private function calculate_adminscores($scores, $round_id){

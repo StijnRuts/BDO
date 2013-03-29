@@ -86,7 +86,7 @@
 							<td>
 								<?php foreach($contestant['scores']['users'] as $user): ?>
 								<span class="filler">
-									<?php for($i=0; $i<3-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
+									<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
 								</span>
 								<span class="score <?= $user['id']==$contestant['scores']['min'] ? 'min' : '' ?> <?= $user['id']==$contestant['scores']['max'] ? 'max' : '' ?>">
 									<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>

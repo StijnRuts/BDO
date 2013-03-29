@@ -15,7 +15,7 @@
 			<?php foreach($scores['users'] as $user): ?>
 				<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
 			<?php endforeach; ?>
-			<td class="important subfield score">???</td>
+			<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
 		</tr>
 	</tbody>
 </table>

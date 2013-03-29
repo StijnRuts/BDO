@@ -37,7 +37,7 @@
 								"Total"
 							);
 						'); ?>
-						<td class="important subfield score">???</td>
+						<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
 					</tr>
 				</tbody>
 			</table>
