@@ -105,4 +105,8 @@
 		 	$("#error").html('<div class="alert-box alert">Kan gegevens niet updaten</div>');
 		 });
    }
+
+	$(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
 </script>

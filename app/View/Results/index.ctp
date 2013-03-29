@@ -13,4 +13,8 @@
 		 	$("#error").html('<div class="alert-box alert">Kan scorebord niet updaten</div>');
 		 });
    }
+
+   $(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
 </script>
