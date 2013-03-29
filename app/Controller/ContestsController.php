@@ -38,6 +38,7 @@ class ContestsController extends AppController {
 		} else {
 			$this->Contest->id = $id;
 			$this->request->data = $this->Contest->read();
+			$this->request->data['Contest']['date'] = $this->request->data['Contest']['USdate'];
 		}
 	}
 

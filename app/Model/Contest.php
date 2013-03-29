@@ -22,6 +22,16 @@ class Contest extends AppModel {
 	public $hasMany = array('Round', 'Point');
 	public $hasAndBelongsToMany = array('User');
 
+	public function afterFind($results, $primary = false) {
+		foreach ($results as $key => $val) {
+			if (isset($val['Contest']['date'])) {
+				$results[$key]['Contest']['USdate'] = $results[$key]['Contest']['date'];
+				$results[$key]['Contest']['date'] = date('d-m-Y', strtotime($val['Contest']['date']));
+			}
+		}
+		return $results;
+	}
+
 	//initializes the points for this contest with the values from defaultpoints
 	public function initPoints(){
 		$Defaultpoint = ClassRegistry::init('Defaultpoint');
