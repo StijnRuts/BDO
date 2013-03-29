@@ -6,12 +6,14 @@ class Adminscore extends AppModel {
 			'naturalnumber' => array(
 				'rule' => array('naturalnumber'),
 				'message' => 'Gelieve een getal op te geven',
+				'allowEmpty' => true
 			),
 		),
 		'strafpunten' => array(
 			'naturalnumber' => array(
 				'rule' => array('naturalnumber'),
 				'message' => 'Gelieve een getal op te geven',
+				'allowEmpty' => true
 			),
 		),
 	);
