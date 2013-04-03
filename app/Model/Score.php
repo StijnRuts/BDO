@@ -14,6 +14,11 @@ class Score extends AppModel {
 	public $belongsTo = array('Point', 'User', 'Contestant', 'Round');
 
 	public function beforeValidate($options = array()){
+		$current_user = AuthComponent::user();
+		if($current_user['role']=='admin') {
+			$this->validator()->getField('score')->getRule('naturalNumber')->allowEmpty = true;
+		}
+
 		$Score = ClassRegistry::init('Score');
 		if( !isset($this->data['Score']['score']) || $this->data['Score']['score']==null ){;
 			//$this->validator()->remove('score', 'naturalNumber');

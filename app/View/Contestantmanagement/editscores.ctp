@@ -59,7 +59,7 @@
 <?php
 function output_rows($list, $level, $user_id, $scores, $t){
 	foreach($list as $item){
-		if($item['Point']['id'] > -1) echo $t->element('judge_row', array(
+		if($item['Point']['id'] > -1) echo $t->element('editscores_row', array(
 			'point'=>$item,
 			'level'=>$level,
 			'user_id'=>$user_id,
