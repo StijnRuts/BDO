@@ -44,9 +44,13 @@
 			</table>
 
 			<div class="buttonbar row">
-				<div class="three columns"></div>
-				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
-				<div class="three columns"></div>
+				<div class="four columns"></div>
+				<div class="two columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+				<div class="two columns"><?= $this->Html->link('Anuleren',
+					array('action'=>'view', $contestant['Contestant']['id'], $round['Round']['id']),
+					array('class'=>'radius secondary button')
+				); ?></div>
+				<div class="four columns"></div>
 			</div>
 		<?= $this->Form->end(); ?>
 	</div>

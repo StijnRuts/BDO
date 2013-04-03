@@ -43,9 +43,9 @@
 			</table>
 
 			<div class="buttonbar row">
-				<div class="three columns"></div>
-				<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
-				<div class="three columns"></div>
+				<div class="four columns"></div>
+				<div class="four columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+				<div class="four columns"></div>
 			</div>
 		<?= $this->Form->end(); ?>
 	</div>

@@ -41,6 +41,18 @@ class NavigationHelper extends AppHelper
 									'show' => false
 								),
 								array(
+									'name' => 'Beoordeling Aanpassen',
+									'location' => array( 'controller'=>'contestantmanagement', 'action'=>'editscores' ),
+									'show' => false,
+									'subitems' => array(
+										array(
+											'name' => '<<< Terug',
+											'location' => array( 'controller'=>'contestmanagement' ),
+											'show' => false,
+										),
+									)
+								),
+								array(
 									'name' => 'Beoordeling Deelnemer',
 									'location' => array( 'controller'=>'contestantmanagement' ),
 									'show' => false,
@@ -155,7 +167,10 @@ class NavigationHelper extends AppHelper
 				($subitem['name']==$returnObj['title']) ? array('class'=>'active') : null
 			);
 		}
-		$returnObj['menu'] = $this->Html->tag('ul', $returnObj['menu'], array('class'=>'nav-bar'));
+		$returnObj['menu'] = $this->Html->tag('ul', $returnObj['menu'], array(
+			'class'=>'nav-bar',
+			'style'=>(strlen($returnObj['menu'])==0 ? 'height:20px' : '')
+		));
 
 		// BREADCRUMBS
 		foreach(array_reverse($navigation) as $crumb){

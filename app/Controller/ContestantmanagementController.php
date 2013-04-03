@@ -80,6 +80,8 @@ class ContestantmanagementController extends AppController {
 		if (!$this->User->exists($user_id)) throw new NotFoundException();
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
+		$this->Round->id = $round_id;
+		$this->set('round', $this->Round->read());
 		$this->User->id = $user_id;
 		$this->set('user', $this->User->read());
 
