@@ -87,7 +87,7 @@ class ContestantmanagementController extends AppController {
 
 		// create empty score objects
 		$scores = $this->Contestant->getScores($round_id);
-		$this->setEmptyPoints($scores['points'], $round_id, $contestant_id, $user_id);
+		$this->Score->setEmptyScores($scores['points'], $round_id, $contestant_id, $user_id);
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
@@ -110,21 +110,6 @@ class ContestantmanagementController extends AppController {
 					$score['score'] = $submitted_values[$key]['score'];
 				}
 			}
-		}
-	}
-	private function setEmptyPoints($list, $round_id, $contestant_id, $user_id){
-		foreach($list as $point){
-			$data = array(
-				'contestant_id' => $contestant_id,
-				'round_id' => $round_id,
-				'point_id' => $point['Point']['id'],
-				'user_id' => $user_id
-			);
-			if( !$this->Score->hasAny($data) ) {
-				$this->Score->create();
-				$this->Score->save($data);
-			}
-			if( count($point['children'])>0 ) $this->setEmptyPoints($point['children'], $round_id, $contestant_id, $user_id);
 		}
 	}
 
