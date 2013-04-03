@@ -1,3 +1,4 @@
+<h3>Beoordeling van <?= h($user['User']['username']); ?> voor</h3>
 <h2>
 	<?= h($contestant['Contestant']['startnr']); ?>:
 	<?= h($contestant['Contestant']['name']); ?>
