@@ -52,7 +52,7 @@ class ContestmanagementController extends AppController {
 		$round = $this->Round->find('first', array(
 			'conditions' => array('Round.id'=>$round_id),
 			'order'=>'Round.order',
-			'contain' => array('Category', 'Discipline', 'Division', 'Contestant'=>array('order'=>'startnr'), 'Contestant.Club')
+			'contain' => array('Category', 'Discipline', 'Division', 'Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club')
 		));
 		foreach ($round['Contestant'] as &$contestant){
 			$this->Contestant->id = $contestant['id'];

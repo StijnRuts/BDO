@@ -7,7 +7,7 @@
 			<?php foreach ($round['Contestant'] as $c): ?>
 			<li class="<?= $c['id']==$contestant['Contestant']['id'] ? 'active' : ''; ?>">
 				<?= $this->Html->link(
-					h($c['startnr'] .': '. $c['name']),
+					$c['startnr'] .': '. $c['name'],
 					array('action'=>'view', $c['id'], $round['Round']['id'])
 				); ?>
 			</li>

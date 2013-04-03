@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `contestants` (
   `category_id` int(10) unsigned NOT NULL,
   `division_id` int(10) unsigned NOT NULL,
   `startnr` varchar(10) NOT NULL,
+  `startnrorder` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 );

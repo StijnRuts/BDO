@@ -33,6 +33,22 @@ class Contestant extends AppModel {
 	);
 	public $hasAndBelongsToMany = array('Round');
 
+	public function beforeSave($options = array()) {
+		if (isset($this->data['Contestant']['startnr'])) {
+			$startnr = strtoupper(trim( $this->data['Contestant']['startnr'] ));
+			$nrzeros = strlen( $this->firstmatch('/^0*/', $startnr) );
+			$number = (int)$this->firstmatch('/^[0-9]*/', $startnr);
+			$letter = $this->firstmatch('/[A-Z]/', $startnr);
+			$letter = $letter=='' ? 99 : ord($letter);
+			$this->data['Contestant']['startnrorder'] = -1000000*$nrzeros + ($nrzeros>0 ? -1 : 1)*(100*$number + $letter);
+		}
+	}
+	private function firstmatch($pattern, $subject){
+		$matches = array();
+		preg_match($pattern, $subject, $matches);
+		return count($matches)>0 ? $matches[0] : '';
+	}
+
 
 
 	public function getScores($round_id) {
