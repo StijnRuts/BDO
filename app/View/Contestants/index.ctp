@@ -49,8 +49,15 @@
 		$.tablesorter.addParser({
 			id: 'startnr',
 			is: function(s){ return false; },
-			format: function(s){ return s.toUpperCase(); },
-			type: 'text'
+			format: function(s){
+				var startnr = $.trim( s.toUpperCase() );
+				var nrzeros = /^0*/.exec(startnr)[0].length;
+				var number = parseInt( /^[0-9]*/.exec(startnr)[0] );
+				var letter = /[A-Z]/.exec(startnr);
+				letter = letter==null ? 99 : letter[0].charCodeAt(0);
+				return -1000000*nrzeros + (nrzeros>0 ? -1 : 1)*(100*number + letter);
+			},
+			type: 'numeric'
 		});
 		$(".tablesorter").tablesorter({
 			headers: {
