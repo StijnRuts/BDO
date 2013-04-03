@@ -59,6 +59,71 @@ class ContestantmanagementController extends AppController {
 		)));
 	}
 
+	public function editscores($contestant_id = null, $round_id = null, $user_id = null) {
+		$this->loadModel('Score');
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if($this->Score->saveAll($this->request->data['Score'])){
+				$this->redirect(array('action'=>'view', $contestant_id, $round_id));
+				$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
+			}else{
+				$submitted_values = $this->request->data['Score'];
+				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
+			}
+		}
+
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
+		$this->loadModel('User');
+		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+		if (!$this->User->exists($user_id)) throw new NotFoundException();
+		$this->Contestant->id = $contestant_id;
+		$this->set('contestant', $this->Contestant->read());
+
+		// create empty score objects
+		$scores = $this->Contestant->getScores($round_id);
+		$this->setEmptyPoints($scores['points'], $round_id, $contestant_id, $user_id);
+		$scores = $this->Contestant->getScores($round_id);
+		$this->set('scores', $scores);
+
+		// load data
+		$this->request->data = array('Score' => Set::combine(
+			$this->Score->find('all', array(
+				'conditions'=>array(
+					'user_id'=>$user_id,
+					'contestant_id'=>$contestant_id,
+					'round_id'=>$round_id
+				)
+			)),
+			'{n}.Score.id', '{n}.Score'
+		));
+
+		// show submitted scores if validation failed
+		if ($this->request->is('post') || $this->request->is('put')) {
+			foreach($this->request->data['Score'] as $key=>&$score){
+				if( isset($submitted_values[$key]['score']) ){
+					$score['score'] = $submitted_values[$key]['score'];
+				}
+			}
+		}
+	}
+	private function setEmptyPoints($list, $round_id, $contestant_id, $user_id){
+		foreach($list as $point){
+			$data = array(
+				'contestant_id' => $contestant_id,
+				'round_id' => $round_id,
+				'point_id' => $point['Point']['id'],
+				'user_id' => $user_id
+			);
+			if( !$this->Score->hasAny($data) ) {
+				$this->Score->create();
+				$this->Score->save($data);
+			}
+			if( count($point['children'])>0 ) $this->setEmptyPoints($point['children'], $round_id, $contestant_id, $user_id);
+		}
+	}
+
 	// stage jurylid voor beoordeling van deelemer
 	public function stage($contestant_id = null, $round_id = null, $user = 'all') {
 		$this->loadModel('Stage');

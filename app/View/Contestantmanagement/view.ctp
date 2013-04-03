@@ -63,8 +63,9 @@
 				<div id="autorefresh"> <div class="load"></div> </div>
 
 				<div class="buttonbar row">
-					<div class="three column"></div>
-					<div class="six columns">
+					<div class="two columns"></div>
+
+					<div class="five columns">
 						<div class="button split dropdown">
 							<?= $this->Js->link(
 								'Laat beoordelen door alle juryleden',
@@ -84,7 +85,24 @@
 							</ul>
 						</div>
 					</div>
-					<div class="three column"></div>
+
+					<div class="three columns">
+						<div class="button secondary dropdown">
+							Pas scores aan van
+							<ul>
+							<?php foreach($scores['users'] as $user): ?>
+								<li>
+									<?= $this->Html->link(
+										h($user['username']),
+										array('action'=>'editscores', $contestant['Contestant']['id'], $round['Round']['id'], $user['id'])
+									); ?>
+								</li>
+							<?php endforeach; ?>
+							</ul>
+						</div>
+					</div>
+
+					<div class="two columns"></div>
 				</div>
 
 			</div>

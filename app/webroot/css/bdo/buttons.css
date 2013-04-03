@@ -13,3 +13,7 @@
 	font-size: 1.2em;
 	padding: 8px 14px;
 }
+
+.button.secondary.dropdown:after {
+	border-color: #1d1d1d transparent transparent transparent;
+}
