@@ -24,5 +24,14 @@ class AdminController extends AppController {
 		}
 		$this->redirect(array('action'=>'index'));
 	}
+	public function clearstage() {
+		$this->loadModel('Stage');
+		if( $this->Stage->deleteAll( array('Stage.id >'=>0) ) ){
+			$this->Session->setFlash('Alle geplande beoordelingen zijn gewist', 'flash_success');
+		} else {
+			$this->Session->setFlash('De geplande beoordelingen konden niet worden gewist', 'flash_error');
+		}
+		$this->redirect(array('action'=>'index'));
+	}
 }
 ?>
