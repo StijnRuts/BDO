@@ -77,13 +77,13 @@ class PointsController extends AppController {
 	public function delete($id = null) {
 		if (!$this->Point->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
+		$this->Point->id = $id;
+		$point = $this->Point->read();
 		if ($this->Point->removeFromTree($id,true)) {
 			$this->Session->setFlash('Het beoordelingspunt is verwijderd', 'flash_info');
 		} else {
 			$this->Session->setFlash('Het beoordelingspunt kon niet worden verwijderd', 'flash_error');
 		}
-		$this->Point->id = $id;
-		$point = $this->Point->read();
 		$this->redirect(array('action'=>'view', $point['Point']['contest_id']));
 	}
 
