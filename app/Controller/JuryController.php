@@ -53,8 +53,15 @@ class JuryController extends AppController {
 
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
-		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
-		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+		if (!$this->Contestant->exists($contestant_id) || !$this->Round->exists($round_id)){
+			//unstage and redirect
+			$this->Stage->deleteAll(array(
+				'contestant_id' => $contestant_id,
+				'round_id' => $round_id,
+				'user_id' => $current_user['id']
+			));
+			$this->redirect(array('action'=>'index'));
+		}
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 
