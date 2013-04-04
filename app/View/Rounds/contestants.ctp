@@ -34,9 +34,9 @@
 					<tbody>
 						<?php foreach ($contestants as $contestant): ?>
 						<tr class="<?= (
-							$round['Discipline']['id'] == $contestant['Discipline']['id'] &&
-							$round['Category']['id']   == $contestant['Category']['id'] &&
-							$round['Division']['id']   == $contestant['Division']['id']
+							($round['Discipline']['id'] == $contestant['Discipline']['id'] || $round['Discipline']['order']==0) &&
+							($round['Category']['id']   == $contestant['Category']['id']   || $round['Category']['order']==0) &&
+							($round['Division']['id']   == $contestant['Division']['id']   || $round['Division']['order']==0)
 						) ? 'match' : 'nomatch' ?>">
 							<td><?= $this->Form->checkbox('', array(
 								'checked' => in_array($contestant['Contestant']['id'], $selected),
