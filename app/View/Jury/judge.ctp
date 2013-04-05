@@ -1,55 +1,81 @@
-<h2>
-	<?= h($contestant['Contestant']['startnr']); ?>:
-	<?= h($contestant['Contestant']['name']); ?>
-	<small>(
-		<?= h($contestant['Discipline']['name']); ?>,
-		<?= h($contestant['Category']['name']); ?>,
-		<?= h($contestant['Division']['name']); ?> )
-	</small>
-</h2>
+<style>
+	@media only screen and (min-width: 768px) {
+		#previousscores { position:absolute; bottom:0; right:0; margin-bottom:56px; }
+	}
+</style>
 
-<div class="row">
-	<div class="ten columns centered">
-		<?= $this->Form->create('Score'); ?>
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Score</th>
-						<th>Max</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php output_rows($scores['points'], 0, $current_user['id'], $scores['scores'], $this); ?>
-					<tr>
-						<th class="important name">Totaal</th>
-						<td class="important scoreinput">
-							<?=  $this->Form->input('TotalScore', array(
-								'type'=>'text',
-								'size'=>4,
-								'label'=>false,
-								'disabled'=>"disabled"
-							)); ?>
-						</td>
-						<?php $this->Js->buffer('
-							dynamictotal(
-								['.join(",",findindices($this->request->data, $scores['points'])).'],
-								"Total"
-							);
-						'); ?>
-						<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
-					</tr>
-				</tbody>
-			</table>
+<div class="row" style="position:relative;">
+<div class="eight columns">
 
-			<div class="buttonbar row">
-				<div class="four columns"></div>
-				<div class="four columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
-				<div class="four columns"></div>
-			</div>
-		<?= $this->Form->end(); ?>
+	<h2>
+		<?= h($contestant['Contestant']['startnr']); ?>:
+		<?= h($contestant['Contestant']['name']); ?>
+	</h2>
+	<h2>
+		<small>(
+			<?= h($contestant['Discipline']['name']); ?>,
+			<?= h($contestant['Category']['name']); ?>,
+			<?= h($contestant['Division']['name']); ?> )
+		</small>
+	</h2>
+
+	<?= $this->Form->create('Score'); ?>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Score</th>
+				<th>Max</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php output_rows($scores['points'], 0, $current_user['id'], $scores['scores'], $this); ?>
+			<tr>
+				<th class="important name">Totaal</th>
+				<td class="important scoreinput">
+					<?=  $this->Form->input('TotalScore', array(
+						'type'=>'text',
+						'size'=>4,
+						'label'=>false,
+						'disabled'=>"disabled"
+					)); ?>
+				</td>
+				<?php $this->Js->buffer('
+					dynamictotal(
+						['.join(",",findindices($this->request->data, $scores['points'])).'],
+						"Total"
+					);
+				'); ?>
+				<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="buttonbar row">
+		<div class="four columns"></div>
+		<div class="four columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+		<div class="four columns"></div>
 	</div>
+	<?= $this->Form->end(); ?>
+
 </div>
+<div class="four columns" id="previousscores">
+
+	<h3>Eerdere beoordelingen</h3>
+	<table>
+		<tbody>
+			<?php foreach($round['Contestant'] as $contestant): ?>
+			<tr>
+				<td><?= h($contestant['startnr']); ?>: <?= h($contestant['name']); ?></td>
+				<td class="score"><strong><?= h($contestant['score']); ?></strong></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+
+</div>
+</div>
+
 
 <?php
 function output_rows($list, $level, $user_id, $scores, $t){

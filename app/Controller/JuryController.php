@@ -71,6 +71,20 @@ class JuryController extends AppController {
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
+		//load scores
+		$this->Round->id = $round_id;
+		$round = $this->Round->find('first', array(
+			'conditions' => array('Round.id'=>$round_id),
+			'contain' => array('Contestant'=>array('order'=>'startnrorder'))
+		));
+		foreach($round['Contestant'] as &$contestant){
+			$this->Contestant->id = $contestant['id'];
+			$score = $this->Contestant->getScores($round_id);
+			$juryscores = $score['scores'][$current_user['id']];
+			$contestant['score'] = ($juryscores['total']==0) ? '-' : $juryscores['total'];
+		}
+		$this->set('round', $round);
+
 		// load data
 		$this->request->data = array('Score' => Set::combine(
 			$this->Score->find('all', array(
