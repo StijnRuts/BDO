@@ -75,6 +75,7 @@
 							<th>Jury beoordeling</th>
 							<th>Verpl elem</th>
 							<th>Strafp</th>
+							<th>Totaal</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -95,6 +96,7 @@
 							</td>
 							<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
 							<td class="score"><?= h($contestant['scores']['strafpunten']); ?></td>
+							<td class="score"><strong><?= h($contestant['scores']['total']); ?></strong></td>
 							<td>
 								<?= $this->Js->link(
 									'toon naam',
