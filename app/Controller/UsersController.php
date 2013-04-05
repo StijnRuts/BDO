@@ -64,7 +64,7 @@ class UsersController extends AppController {
 
 		$this->User->recursive = 0;
 		$usernames = array();
-		$users = $this->User->find('all', array('order' => array('User.role'=>'desc', 'User.username'=>'asc') ));
+		$users = $this->User->find('all', array('order' => array('User.role'=>'asc', 'User.username'=>'asc') ));
 		foreach($users as $user) $usernames[$user['User']['username']] = $user['User']['username'];
 		$this->set('usernames', $usernames);
 	}

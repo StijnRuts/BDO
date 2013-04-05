@@ -1,7 +1,7 @@
 <?php if(!$logged_in): ?>
 <div class="row">
 	<div class="ten columns centered">
-		<?= $this->Form->create('User'); ?>
+		<?= $this->Form->create('User', array('class'=>'custom')); ?>
 			<fieldset>
 				<legend>Inloggen</legend>
 				<div class="row">

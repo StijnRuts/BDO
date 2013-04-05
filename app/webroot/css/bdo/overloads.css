@@ -2,6 +2,13 @@
     width: auto;
 }
 
+.custom.dropdown {
+	width: auto !important;
+}
+.custom.dropdown ul {
+	width: 100% !important;
+}
+
 p#judgedby {
 	text-align: center;
 	font-size: 2em;
