@@ -81,7 +81,7 @@ class JuryController extends AppController {
 			$this->Contestant->id = $contestant['id'];
 			$score = $this->Contestant->getScores($round_id);
 			$juryscores = $score['scores'][$current_user['id']];
-			$contestant['score'] = ($juryscores['total']==0) ? '-' : $juryscores['total'];
+			$contestant['score'] = ($juryscores['total']==0) ? '-' : $juryscores['total']-$juryscores[-1];
 		}
 		$this->set('round', $round);
 
