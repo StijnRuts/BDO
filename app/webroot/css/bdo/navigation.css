@@ -63,6 +63,10 @@ ul.vertical.nav-bar, .vertical.nav-bar li {
 	text-align: left;
 }
 
+.nowrap {
+	white-space: nowrap;
+}
+
 #login {
 	float: right;
 	margin: 9px 15px 0;

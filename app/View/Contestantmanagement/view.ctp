@@ -28,6 +28,7 @@
 						<?= h($contestant['Division']['name']); ?>
 					)</small>
 
+					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
 						array('controller'=>'results', 'action'=>'showcontestantname', $contestant['Contestant']['id'], $round['Round']['id']),
@@ -49,6 +50,7 @@
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
 					); ?>
+					</span>
 				</h2>
 
 				<div class="row" id="adminform">

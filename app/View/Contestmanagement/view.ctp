@@ -20,6 +20,8 @@
 
 				<h2>
 					<?= h($contest['Contest']['name']); ?> (<?= h($contest['Contest']['date']); ?>)
+
+					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
 						array('controller'=>'results', 'action'=>'showcontestname', $contest['Contest']['id']),
@@ -39,12 +41,15 @@
 							   'class'=>'tiny secondary button',
 								'target'=>'_blank')
 					); ?>
+					</span>
 				</h2>
 
 				<h3>
 					<?= h($round['Discipline']['name']); ?>,
 					<?= h($round['Category']['name']); ?>,
 					<?= h($round['Division']['name']); ?>
+
+					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
 						array('controller'=>'results', 'action'=>'showroundname', $round['Round']['id']),
@@ -65,6 +70,7 @@
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
 					); ?>
+					</span>
 				</h3>
 
 				<table>
