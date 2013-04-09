@@ -103,6 +103,7 @@ class RoundsController extends AppController {
 			if(!isset($this->request->data['Contestant'])) $this->request->data['Contestant'] = array('Contestant'=>'');
 
 			$this->ContestantsRound->deleteAll(array('round_id'=>$id));
+<<<<<<< HEAD
 			foreach($this->request->data['Contestant'] as $contestant){
 				$this->request->data['ContestantsRound'][] = array('round_id'=>$id, 'contestant_id'=>$contestant);
 			}
@@ -110,6 +111,9 @@ class RoundsController extends AppController {
 			unset($this->request->data['Round']);
 
 			if ($this->ContestantsRound->saveMany($this->request->data['ContestantsRound'])) {
+=======
+			if ($this->Round->save($this->request->data)) {
+>>>>>>> 75925163d1792f67260d1a0989216a401444d763
 				$this->Session->setFlash('De deelnemerlijst is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'view', $round['Round']['contest_id']));
 			} else {
