@@ -81,14 +81,14 @@ class RoundsController extends AppController {
 	public function delete($id = null) {
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
+		$this->Round->id = $id;
+		$round = $this->Round->read();
 		if ($this->Round->delete($id)) {
 			$this->Session->setFlash('De ronde is verwijderd', 'flash_info');
 			if($this->Session->check('recent.round')) $this->Session->delete('recent.round');
 		} else {
 			$this->Session->setFlash('De ronde kon niet worden verwijderd', 'flash_error');
 		}
-		$this->Round->id = $id;
-		$round = $this->Round->read();
 		$this->redirect(array('action'=>'view', $round['Contest']['id']));
 	}
 
