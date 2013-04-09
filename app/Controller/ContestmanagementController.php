@@ -64,6 +64,17 @@ class ContestmanagementController extends AppController {
 			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
 		)));
 
+		$this->loadModel('Stage');
+		$stage = $this->Stage->find('all');
+		foreach($stage as &$s){
+			$c = $this->Contestant->find('first', array(
+				'conditions'=>array('Contestant.id'=>$s['Stage']['contestant_id']),
+				'fields'=>array('name', 'startnr')
+			));
+			$s['Contestant'] = $c['Contestant'];
+		}
+		$this->set('stage', $stage);
+
 		$this->Session->write('recent.round', $round['Round']['id']);
 		$this->Session->write('recent.contest', $round['Round']['contest_id']);
 	}

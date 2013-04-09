@@ -137,6 +137,37 @@
 					</tbody>
 				</table>
 
+				<?php if( count($stage)==0 ): ?>
+				<h4 style="margin-top:50px">Geen geplande beoordelingen</h4>
+				<?php else: ?>
+				<h4 style="margin-top:50px">Geplande beoordelingen</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Jurylid</th>
+							<th>Deelnemer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($stage as $s): ?>
+						<tr>
+							<td><?= h($s['User']['username']) ?></td>
+							<td><?= h($s['Contestant']['startnr']) ?>: <?= h($s['Contestant']['name']) ?></td>
+						</tr>
+						<?php endforeach; ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2" class="tablebutton">
+								<?= $this->Html->link('Wis alle geplande beoordelingen',
+								array('controller'=>'admin', 'action'=>'clearstage'),
+								array('class'=>'small secondary radius button')); ?>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<?php endif; ?>
+
 			</div>
 		</div>
 	</div>
