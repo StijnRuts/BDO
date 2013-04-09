@@ -93,6 +93,7 @@ class RoundsController extends AppController {
 	}
 
 	public function contestants($id = null) {
+		$this->loadModel('ContestantsRound');
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->Round->id = $id;
 		$round = $this->Round->read();
@@ -101,6 +102,7 @@ class RoundsController extends AppController {
 			$this->request->data['Round'] = array('id'=>$id);
 			if(!isset($this->request->data['Contestant'])) $this->request->data['Contestant'] = array('Contestant'=>'');
 
+			$this->ContestantsRound->deleteAll(array('round_id'=>$id));
 			if ($this->Round->save($this->request->data)) {
 				$this->Session->setFlash('De deelnemerlijst is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'view', $round['Round']['contest_id']));
