@@ -67,7 +67,7 @@
 				<div class="buttonbar row">
 
 					<div class="four columns">
-						<?= $this->Html->link('Wis alle geplande beoordelingen',
+						<?= $this->Js->link('Wis alle geplande beoordelingen',
 						array('controller'=>'admin', 'action'=>'clearstage'),
 						array('class'=>'secondary radius button')); ?>
 					</div>
