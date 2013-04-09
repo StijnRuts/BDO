@@ -65,7 +65,12 @@
 				<div id="autorefresh"> <div class="load"></div> </div>
 
 				<div class="buttonbar row">
-					<div class="two columns"></div>
+
+					<div class="four columns">
+						<?= $this->Html->link('Wis alle geplande beoordelingen',
+						array('controller'=>'admin', 'action'=>'clearstage'),
+						array('class'=>'secondary radius button')); ?>
+					</div>
 
 					<div class="five columns">
 						<div class="button split dropdown">
@@ -104,7 +109,6 @@
 						</div>
 					</div>
 
-					<div class="two columns"></div>
 				</div>
 
 			</div>
