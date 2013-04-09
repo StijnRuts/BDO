@@ -89,7 +89,13 @@
 						<?php foreach ($round['Contestant'] as $contestant): ?>
 						<tr>
 							<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
-							<td><?= h($contestant['name']); ?></td>
+							<td>
+								<?= $this->Html->link(
+									$contestant['name'],
+									array('controller'=>'contestants', 'action'=>'edit', $contestant['id']),
+									array('title'=>'Bewerk '.h($contestant['name']), 'class'=>"tablelink")
+								); ?>
+							</td>
 							<td>
 								<?php foreach($contestant['scores']['users'] as $user): ?>
 								<span class="filler">

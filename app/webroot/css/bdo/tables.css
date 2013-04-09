@@ -21,6 +21,14 @@ tbody th {
 	padding: 8px 10px 9px;
 }
 
+td a.tablelink {
+	color: black;
+	text-decoration: underline;
+}
+td a.tablelink:hover {
+	color: #00C6FF;
+}
+
 td.subfield {
 	color: #888;
 	background-color: #F2F2F2;
