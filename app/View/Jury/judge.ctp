@@ -4,6 +4,8 @@
 	}
 </style>
 
+<div id="error"></div>
+
 <div class="row" style="position:relative;">
 <div class="eight columns">
 
@@ -64,10 +66,10 @@
 	<h3>Eerdere beoordelingen</h3>
 	<table>
 		<tbody>
-			<?php foreach($round['Contestant'] as $contestant): ?>
+			<?php foreach($round['Contestant'] as $c): ?>
 			<tr>
-				<td><?= h($contestant['startnr']); ?>: <?= h($contestant['name']); ?></td>
-				<td class="score"><strong><?= h($contestant['score']); ?></strong></td>
+				<td><?= h($c['startnr']); ?>: <?= h($c['name']); ?></td>
+				<td class="score"><strong><?= h($c['score']); ?></strong></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -135,7 +137,6 @@ function findindices($requestdata, $children){
 				var val = $.trim( $(this).val() );
 				val = isNaN(val)||val=="" ? 0 : parseInt(val);
 				total+=val;
-				//if(totalfield=="Total") console.log("0"+$(this).val(), parseInt("0"+$(this).val()));
 			});
 			$("#Score"+totalfield+"Score").val(total);
 			$("#Score"+totalfield+"Score").change();
@@ -146,4 +147,20 @@ function findindices($requestdata, $children){
 		$(fields).bind('change', calculate);
 		calculate();
 	}
+
+	$(document).ready(checkStage);
+	function checkStage(){
+		$.get("<?= Router::url(array('action'=>'checkstaged', $contestant['Contestant']['id'], $round['Round']['id'])) ?>")
+		 .done(function(staged){
+			if(!staged) window.location.href = "<?= Router::url(array('action'=>'index')) ?>";
+			$("#error").html('');
+		 })
+		 .fail(function(){
+			$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
+		 });
+		setTimeout(checkStage, 5000);
+	}
+	$(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
 </script>

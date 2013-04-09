@@ -15,4 +15,7 @@
 		 });
 		setTimeout(checkStage, 5000);
 	}
+	$(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
 </script>

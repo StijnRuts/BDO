@@ -4,7 +4,7 @@ class JuryController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$current_user = $this->Auth->user();
-		if($current_user['role']=='jury') $this->Auth->allow('index', 'startjudging', 'judge', 'checkstage');
+		if($current_user['role']=='jury') $this->Auth->allow('index', 'startjudging', 'judge', 'checkstage', 'checkstaged');
 	}
 
 	public function index() {	}
@@ -112,6 +112,20 @@ class JuryController extends AppController {
 		$this->loadModel('Stage');
 		$current_user = $this->Auth->user();
 		$stage = $this->Stage->findByUser_id($current_user['id']);
+		echo ( count($stage)>0 );
+		exit();
+	}
+	public function checkstaged($contestant_id = null, $round_id = null) {
+		$this->request->onlyAllow('ajax');
+		$this->loadModel('Stage');
+		$current_user = $this->Auth->user();
+		$stage = $this->Stage->find('first', array(
+			'conditions' => array(
+				'user_id' => $current_user['id'],
+				'round_id' => $round_id,
+				'contestant_id' => $contestant_id
+			)
+		));
 		echo ( count($stage)>0 );
 		exit();
 	}
