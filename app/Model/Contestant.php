@@ -130,7 +130,7 @@ class Contestant extends AppModel {
 				'id'=>-1,
 				'parent_id'=>null,
 				'name'=>'Verplichte elementen',
-				'max'=>''
+				'max'=>15
 			),
 			'children'=>array()
 		);

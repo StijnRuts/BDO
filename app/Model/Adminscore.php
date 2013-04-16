@@ -8,6 +8,10 @@ class Adminscore extends AppModel {
 				'message' => 'Gelieve een getal op te geven',
 				'allowEmpty' => true
 			),
+			'max' => array(
+				'rule' => array('comparison', '<=', 15),
+				'message' => 'De verplichte elementen kunnen maximum 15 zijn'
+			)
 		),
 		'strafpunten' => array(
 			'naturalnumber' => array(
