@@ -11,7 +11,7 @@ $dompdf->load_html(utf8_decode(
 		.level3 .name { padding-left: 45px; } .level3 .name:before { content: "- "; }
 		.level4 .name { padding-left: 60px; } .level4 .name:before { content: ". "; }
 		.level5 .name { padding-left: 75px; }
-		th, td { padding: 2px 5px; }
+		th, td { padding: 2px 4px; font-size: 0.9em; }
 		tr#total td, tr#total th { border-top: 1px solid black; }
 		table { margin: 20px 0; }
 		table.many { margin-top: -5px; margin-bottom: 40px; }
