@@ -70,6 +70,12 @@
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
 					); ?>
+					<?= $this->Form->postLink(
+					'wis scores',
+						array('action'=>'clearscores', $round['Round']['id']),
+						array('title'=>'Wis alle scores voor deze ronde', 'class'=>'tiny alert button'),
+						'Weet u zeker dat u alle scores voor deze ronde wilt verwijderen?'
+					); ?>
 					</span>
 				</h3>
 
