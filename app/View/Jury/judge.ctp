@@ -126,6 +126,14 @@ function findindices($requestdata, $children){
 		//make enter key (and arrow down) act as tab
 		// -> move to next input field instead of submitting the form
 		JoelPurra.PlusAsTab.setOptions({ key: [13, 40] });
+		//focus previous input field on arrow up
+		$(window).bind('keydown', function(e){
+			if(e.keyCode==38){
+				var focusable = $(":input").not(":disabled").not(":hidden");
+				var index = focusable.index($(':focus'))
+				$(focusable[index-1]).focus();
+			}
+		});
 	});
 </script>
 
