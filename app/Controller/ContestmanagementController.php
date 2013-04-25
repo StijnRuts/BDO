@@ -82,9 +82,10 @@ class ContestmanagementController extends AppController {
 	public function clearscores($id = null) {
 		$this->loadModel('Round');
 		$this->loadModel('Score');
+		$this->loadModel('Adminscore');
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Score->deleteAll( array('round_id'=>$id) )) {
+		if ($this->Score->deleteAll(array('round_id'=>$id)) && $this->Adminscore->deleteAll(array('round_id'=>$id))) {
 			$this->Session->setFlash('Alle scores zijn verwijderd', 'flash_info');
 		} else {
 			$this->Session->setFlash('De scores konden niet worden verwijderd', 'flash_error');

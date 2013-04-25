@@ -55,7 +55,7 @@
 
 	<div class="buttonbar row">
 		<div class="four columns"></div>
-		<div class="four columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
+		<div class="four columns"><?= $this->Form->submit('Verstuur', array('class'=>'radius button')); ?></div>
 		<div class="four columns"></div>
 	</div>
 	<?= $this->Form->end(); ?>
