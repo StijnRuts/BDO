@@ -45,7 +45,7 @@
 						'print',
 						array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
 								$contestant['Contestant']['id'], $round['Round']['id'],
-								$contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name']),
+								str_replace('/', '-', $contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name'])),
 						array('title'=>'Print resultaten van '.h($contestant['Contestant']['name']),
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
