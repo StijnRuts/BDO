@@ -125,17 +125,19 @@ class Contestant extends AppModel {
 
 		$verplichtelem = isset($s['Adminscore']['verplichtelem']) ? $s['Adminscore']['verplichtelem'] : 0;
 
-		$points[] = array(
-			'Point'=>array(
-				'id'=>-1,
-				'parent_id'=>null,
-				'name'=>'Verplichte elementen',
-				'max'=>15
-			),
-			'children'=>array()
-		);
-		foreach($users as $user){
-			$scores[$user['id']][-1] = $verplichtelem;
+		if($verplichtelem > 0){
+			$points[] = array(
+				'Point'=>array(
+					'id'=>-1,
+					'parent_id'=>null,
+					'name'=>'Verplichte elementen',
+					'max'=>15
+				),
+				'children'=>array()
+			);
+			foreach($users as $user){
+				$scores[$user['id']][-1] = $verplichtelem;
+			}
 		}
 
 		return $scores;

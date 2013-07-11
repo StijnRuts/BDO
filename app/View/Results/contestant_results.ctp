@@ -22,9 +22,11 @@
 </h1>
 
 <h1 id="extra">
-	<small class="heading">Verplichte elementen:</small>
-	<span class="score"><?= h($scores['verplichtelem']); ?></span>
-<br />
+	<?php if($scores['verplichtelem'] > 0): ?>
+		<small class="heading">Verplichte elementen:</small>
+		<span class="score"><?= h($scores['verplichtelem']); ?></span>
+		<br />
+	<?php endif; ?>
 	<?php if($scores['strafpunten'] > 0): ?>
 		<small class="heading">Strafpunten:</small>
 		<span class="score"><?= h($scores['strafpunten']); ?></span>
