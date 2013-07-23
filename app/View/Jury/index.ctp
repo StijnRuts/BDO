@@ -3,7 +3,7 @@
 <div class="load"></div>
 
 <script>
-	$(document).ready(function(){ checkStage(); setInterval(checkStage, 5000); });
+	$(document).ready(checkStage);
 	function checkStage(){
 		$.get("<?= Router::url(array('action'=>'checkstage')) ?>")
 		 .done(function(ready){
@@ -13,5 +13,9 @@
 		 .fail(function(){
 			$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
 		 });
+		setTimeout(checkStage, 5000);
 	}
+	$(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
 </script>

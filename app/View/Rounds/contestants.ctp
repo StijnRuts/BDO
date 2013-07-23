@@ -34,9 +34,9 @@
 					<tbody>
 						<?php foreach ($contestants as $contestant): ?>
 						<tr class="<?= (
-							$round['Discipline']['id'] == $contestant['Discipline']['id'] &&
-							$round['Category']['id']   == $contestant['Category']['id'] &&
-							$round['Division']['id']   == $contestant['Division']['id']
+							($round['Discipline']['id'] == $contestant['Discipline']['id'] || $round['Discipline']['order']==0 || $contestant['Discipline']['order']==0) &&
+							($round['Category']['id']   == $contestant['Category']['id']   || $round['Category']['order']==0   || $contestant['Category']['order']==0) &&
+							($round['Division']['id']   == $contestant['Division']['id']   || $round['Division']['order']==0   || $contestant['Division']['order']==0)
 						) ? 'match' : 'nomatch' ?>">
 							<td><?= $this->Form->checkbox('', array(
 								'checked' => in_array($contestant['Contestant']['id'], $selected),
@@ -46,7 +46,13 @@
 								'id' => null
 							)); ?></td>
 							<td class="startnr"><?= h($contestant['Contestant']['startnr']); ?></td>
-							<td><?= h($contestant['Contestant']['name']); ?></td>
+							<td>
+								<?= $this->Html->link(
+									$contestant['Contestant']['name'],
+									array('controller'=>'contestants', 'action'=>'edit', $contestant['Contestant']['id']),
+									array('title'=>'Bewerk '.h($contestant['Contestant']['name']), 'class'=>"tablelink")
+								); ?>
+							</td>
 							<td><?= h($contestant['Club']['name']); ?></td>
 							<td><?= h($contestant['Discipline']['name']); ?></td>
 							<td><?= h($contestant['Category']['name']); ?></td>
@@ -106,6 +112,7 @@ $(document).ready(function(){
 		var checkbox = $(this).find('input[type=checkbox]');
 		checkbox.prop("checked", !checkbox.prop("checked"));
 	});
+	$('tbody tr a').click(function(event){ event.stopPropagation(); });
 	$('tbody tr input[type=checkbox]').click(function(event){ event.stopPropagation(); });
 
 	//show more/less button

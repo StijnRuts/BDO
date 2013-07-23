@@ -20,6 +20,8 @@
 
 				<h2>
 					<?= h($contest['Contest']['name']); ?> (<?= h($contest['Contest']['date']); ?>)
+
+					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
 						array('controller'=>'results', 'action'=>'showcontestname', $contest['Contest']['id']),
@@ -34,17 +36,21 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'results', 'action'=>'contest_print', 'ext'=>'pdf', $contest['Contest']['id'],	$contest['Contest']['name']),
+						array('controller'=>'results', 'action'=>'contest_print', 'ext'=>'pdf', $contest['Contest']['id'],
+						str_replace('/', '-', $contest['Contest']['name'])),
 						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button',
 								'target'=>'_blank')
 					); ?>
+					</span>
 				</h2>
 
 				<h3>
 					<?= h($round['Discipline']['name']); ?>,
 					<?= h($round['Category']['name']); ?>,
 					<?= h($round['Division']['name']); ?>
+
+					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
 						array('controller'=>'results', 'action'=>'showroundname', $round['Round']['id']),
@@ -60,11 +66,18 @@
 					<?= $this->Html->link(
 						'print',
 						array('controller'=>'results', 'action'=>'round_print', 'ext'=>'pdf', $round['Round']['id'],
-								$contest['Contest']['name']." - ".$round['Discipline']['name'].", ".$round['Category']['name'].", ".$round['Division']['name']),
+								str_replace('/', '-', $contest['Contest']['name']." - ".$round['Discipline']['name'].", ".$round['Category']['name'].", ".$round['Division']['name'])),
 						array('title'=>'Print resultaten van deze ronde',
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
 					); ?>
+					<?= $this->Form->postLink(
+					'wis scores',
+						array('action'=>'clearscores', $round['Round']['id']),
+						array('title'=>'Wis alle scores voor deze ronde', 'class'=>'tiny alert button'),
+						'Weet u zeker dat u alle scores voor deze ronde wilt verwijderen?'
+					); ?>
+					</span>
 				</h3>
 
 				<table>
@@ -75,6 +88,7 @@
 							<th>Jury beoordeling</th>
 							<th>Verpl elem</th>
 							<th>Strafp</th>
+							<th>Totaal</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -82,7 +96,13 @@
 						<?php foreach ($round['Contestant'] as $contestant): ?>
 						<tr>
 							<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
-							<td><?= h($contestant['name']); ?></td>
+							<td>
+								<?= $this->Html->link(
+									$contestant['name'],
+									array('controller'=>'contestants', 'action'=>'edit', $contestant['id']),
+									array('title'=>'Bewerk '.h($contestant['name']), 'class'=>"tablelink")
+								); ?>
+							</td>
 							<td>
 								<?php foreach($contestant['scores']['users'] as $user): ?>
 								<span class="filler">
@@ -95,6 +115,7 @@
 							</td>
 							<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
 							<td class="score"><?= h($contestant['scores']['strafpunten']); ?></td>
+							<td class="score"><strong><?= h($contestant['scores']['total']); ?></strong></td>
 							<td>
 								<?= $this->Js->link(
 									'toon naam',
@@ -112,7 +133,7 @@
 									'print',
 									array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
 											$contestant['id'], $round['Round']['id'],
-											$contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name']),
+											str_replace('/', '-', $contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name'])),
 									array('title'=>'Print resultaten van '.h($contestant['name']),
 										   'class'=>'tiny secondary button',
 										   'target'=>'_blank')
@@ -128,6 +149,37 @@
 						<?php endforeach; ?>
 					</tbody>
 				</table>
+
+				<?php if( count($stage)==0 ): ?>
+				<h4 style="margin-top:50px">Geen geplande beoordelingen</h4>
+				<?php else: ?>
+				<h4 style="margin-top:50px">Geplande beoordelingen</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Jurylid</th>
+							<th>Deelnemer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($stage as $s): ?>
+						<tr>
+							<td><?= h($s['User']['username']) ?></td>
+							<td><?= h($s['Contestant']['startnr']) ?>: <?= h($s['Contestant']['name']) ?></td>
+						</tr>
+						<?php endforeach; ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2" class="tablebutton">
+								<?= $this->Html->link('Wis alle geplande beoordelingen',
+								array('controller'=>'admin', 'action'=>'clearstage'),
+								array('class'=>'small secondary radius button')); ?>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<?php endif; ?>
 
 			</div>
 		</div>

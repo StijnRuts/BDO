@@ -31,7 +31,7 @@ class AdminController extends AppController {
 		} else {
 			$this->Session->setFlash('De geplande beoordelingen konden niet worden gewist', 'flash_error');
 		}
-		$this->redirect(array('action'=>'index'));
+		$this->redirect( $this->referer()=="/" ? array('action'=>'index') : $this->referer() );
 	}
 }
 ?>

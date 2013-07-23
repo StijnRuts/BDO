@@ -81,18 +81,19 @@ class RoundsController extends AppController {
 	public function delete($id = null) {
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->request->onlyAllow('post', 'delete');
+		$this->Round->id = $id;
+		$round = $this->Round->read();
 		if ($this->Round->delete($id)) {
 			$this->Session->setFlash('De ronde is verwijderd', 'flash_info');
 			if($this->Session->check('recent.round')) $this->Session->delete('recent.round');
 		} else {
 			$this->Session->setFlash('De ronde kon niet worden verwijderd', 'flash_error');
 		}
-		$this->Round->id = $id;
-		$round = $this->Round->read();
 		$this->redirect(array('action'=>'view', $round['Contest']['id']));
 	}
 
 	public function contestants($id = null) {
+		$this->loadModel('ContestantsRound');
 		if (!$this->Round->exists($id)) throw new NotFoundException();
 		$this->Round->id = $id;
 		$round = $this->Round->read();
@@ -101,7 +102,14 @@ class RoundsController extends AppController {
 			$this->request->data['Round'] = array('id'=>$id);
 			if(!isset($this->request->data['Contestant'])) $this->request->data['Contestant'] = array('Contestant'=>'');
 
-			if ($this->Round->save($this->request->data)) {
+			$this->ContestantsRound->deleteAll(array('round_id'=>$id));
+			foreach($this->request->data['Contestant'] as $contestant){
+				$this->request->data['ContestantsRound'][] = array('round_id'=>$id, 'contestant_id'=>$contestant);
+			}
+			unset($this->request->data['Contestant']);
+			unset($this->request->data['Round']);
+
+			if ($this->ContestantsRound->saveMany($this->request->data['ContestantsRound'])) {
 				$this->Session->setFlash('De deelnemerlijst is opgeslaan', 'flash_success');
 				$this->redirect(array('action'=>'view', $round['Round']['contest_id']));
 			} else {

@@ -26,9 +26,11 @@ class ContestantsController extends AppController {
 	public function edit($id = null) {
 		if (!$this->Contestant->exists($id)) throw new NotFoundException();
 		if ($this->request->is('post') || $this->request->is('put')) {
+			$referer = $this->request->data['Contestant']['referer'];
+			unset($this->request->data['Contestant']['referer']);
 			if ($this->Contestant->save($this->request->data)) {
 				$this->Session->setFlash($this->request->data['Contestant']['name'].' opgeslaan', 'flash_success');
-				$this->redirect(array('action'=>'index'));
+				$this->redirect($referer);
 			} else {
 				$this->Session->setFlash($this->request->data['Contestant']['name'].' kon niet worden opgeslaan', 'flash_error');
 			}
@@ -41,6 +43,10 @@ class ContestantsController extends AppController {
 		$categories = $this->Contestant->Category->find('list', array('order'=>array('Category.order'=>'asc')) );
 		$divisions = $this->Contestant->Division->find('list', array('order'=>array('Division.order'=>'asc')) );
 		$this->set(compact('clubs', 'disciplines', 'categories', 'divisions'));
+
+		$referer = $this->referer()=="/" ? Router::url(array('action'=>'index')) : $this->referer();
+		$this->request->data['Contestant']['referer'] = $referer;
+		$this->set('referer', $referer);
 	}
 
 	public function delete($id = null) {

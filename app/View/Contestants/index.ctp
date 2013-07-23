@@ -14,7 +14,13 @@
 		<?php foreach ($contestants as $contestant): ?>
 		<tr>
 			<td class="startnr"><?= h($contestant['Contestant']['startnr']); ?></td>
-			<td><?= h($contestant['Contestant']['name']); ?></td>
+			<td>
+				<?= $this->Html->link(
+					$contestant['Contestant']['name'],
+					array('action'=>'edit', $contestant['Contestant']['id']),
+					array('title'=>'Bewerk '.h($contestant['Contestant']['name']), 'class'=>"tablelink")
+				); ?>
+			</td>
 			<td><?= h($contestant['Club']['name']); ?></td>
 			<td><?= h($contestant['Discipline']['name']); ?></td>
 			<td><?= h($contestant['Category']['name']); ?></td>

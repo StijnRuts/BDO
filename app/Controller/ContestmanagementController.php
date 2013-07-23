@@ -64,8 +64,33 @@ class ContestmanagementController extends AppController {
 			'contain' => array('Round' => array('order'=>'Round.order', 'Category', 'Discipline', 'Division'))
 		)));
 
+		$this->loadModel('Stage');
+		$stage = $this->Stage->find('all');
+		foreach($stage as &$s){
+			$c = $this->Contestant->find('first', array(
+				'conditions'=>array('Contestant.id'=>$s['Stage']['contestant_id']),
+				'fields'=>array('name', 'startnr')
+			));
+			$s['Contestant'] = $c['Contestant'];
+		}
+		$this->set('stage', $stage);
+
 		$this->Session->write('recent.round', $round['Round']['id']);
 		$this->Session->write('recent.contest', $round['Round']['contest_id']);
+	}
+
+	public function clearscores($id = null) {
+		$this->loadModel('Round');
+		$this->loadModel('Score');
+		$this->loadModel('Adminscore');
+		if (!$this->Round->exists($id)) throw new NotFoundException();
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->Score->deleteAll(array('round_id'=>$id)) && $this->Adminscore->deleteAll(array('round_id'=>$id))) {
+			$this->Session->setFlash('Alle scores zijn verwijderd', 'flash_info');
+		} else {
+			$this->Session->setFlash('De scores konden niet worden verwijderd', 'flash_error');
+		}
+		$this->redirect(array('action'=>'view', $id));
 	}
 
 }
