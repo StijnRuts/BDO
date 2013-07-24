@@ -4,7 +4,7 @@ class Adminscore extends AppModel {
 	public $validate = array(
 		'verplichtelem' => array(
 			'naturalnumber' => array(
-				'rule' => array('naturalnumber'),
+				'rule' => array('naturalnumber', true),
 				'message' => 'Gelieve een getal op te geven',
 				'allowEmpty' => true
 			),
@@ -15,7 +15,7 @@ class Adminscore extends AppModel {
 		),
 		'strafpunten' => array(
 			'naturalnumber' => array(
-				'rule' => array('naturalnumber'),
+				'rule' => array('naturalnumber', true),
 				'message' => 'Gelieve een getal op te geven',
 				'allowEmpty' => true
 			),
