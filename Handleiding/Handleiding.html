@@ -4,6 +4,7 @@
 	<title>BDO Scoresysteem: Handleiding</title>
 	<style type="text/css">
 		.page-break{ page-break-before:always; }
+		.list strong {display: inline-block; min-width: 170px; }
 	</style>
 </head>
 <body>
@@ -13,16 +14,27 @@
 <h1>BDO Scoresysteem: Handleiding</h1>
 
 <h2>Wat is er aanwezig?</h2>
-<p><img src="screenshot.png" alt="PIC" /></p>
+<p><img src="files.png" alt="PIC" /></p>
 <p>Volgende files zijn geleverd met het BDO Scoresysteem:</p>
-<p><strong>Handleiding</strong> Deze handleiding.</p>
-<p><strong>Server files</strong> Deze files worden gebruikt door de server. Tijdens het nomale gebruikt is het niet nodig deze map te openen.</p>
-<p><strong>Start server</strong> Dubbelklik op dit icoon om de server op te starten.</p>
+<div class="list">
+	<p><strong>Virtuele Server</strong> Dit is de eigenlijke applicatie.</p>
+	<p><strong>code.zip</strong> De programmacode voor de applicatie.</p>
+	<p><strong>Handleiding.pdf</strong> Deze handleiding.</p>
+	<p><strong>VirtualBox-4.2.16.exe</strong> Installer voor de virtualisatiesoftware.</p>
+	<p><strong>wachtwoorden.txt</strong> De standaard wachtwoorden voor de applicatie en server.</p>
+</div>
 
 	<div class="page-break"></div> <!-------------------------------------------------------------------->
 
+<h2>De applicatie installeren</h2>
+<p>Installeer de virtualisatiesoftware <em>VirtualBox</em> op de computer waarop u de applicatie wilt gebruiken (bijvoorbeeld op de laptop van de beheerder, op de laptops van de juryleden is enkel een webbrowser nodig).
+De meest recente versie van de software kan worden gedownload van <a href="https://www.virtualbox.org/">https://www.virtualbox.org/</a>.</p>
+<p>Kopieer de map <em>Virtuele Server</em> naar de computer waarop u de applicatie wilt gebruiken.</p>
+
+<br/>
+	
 <h2>De server starten</h2>
-<p>Dubbelklik op het item <em>Start server</em> en wacht tot de server volledig is opgestart. U ziet volgend scherm:</p>
+<p>Dubbelklik op het item <em>BDO Server.vbox</em> in de map <em>Virtuele Server</em> en wacht tot de server volledig is opgestart. Deze map moet zich op de computer bevinden, niet op de CD.  U ziet volgend scherm:</p>
 <p><img src="server.png" alt="PIC" /></p>
 
 	<div class="page-break"></div> <!-------------------------------------------------------------------->
@@ -31,7 +43,7 @@
 <p>Om verbinding te maken met de server en zo de applicatie te gebruiken surft u met uw browser naar <em>http://scoresysteem</em> of <em>https://scoresysteem</em>.<br />
 Bij het https adres kan uw verbinding niet worden afgeluisterd, het zou wel kunnen dat uw browser een waarschuwing geeft
 maar deze kan veilig worden genegeerd door te klikken op <em>Proceed anyway</em>.</p>
-<p><img src="https.png" alt="PIC" /></p>
+<p><img src="https.png" alt="PIC"  style="height:400px; width:auto;"/></p>
 <p>Indien u op deze manier geen verbinding zou kunnen maken surft u naar het adres dat in het serverscherm wordt vermeld achter <em>Web</em>. Ook hier is er een http en https versie beschikbaar.</p>
 <p><img src="ip.png" alt="PIC" /></p>
 
