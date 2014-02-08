@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `user_id` int(10) unsigned NOT NULL,
   `contestant_id` int(10) unsigned NOT NULL,
   `round_id` int(10) unsigned NOT NULL,
-  `score` int(10) unsigned DEFAULT NULL,
+  `score` float unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -171,8 +171,8 @@ CREATE TABLE IF NOT EXISTS `adminscores` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contestant_id` int(10) unsigned NOT NULL,
   `round_id` int(10) unsigned NOT NULL,
-  `verplichtelem` int(10) unsigned DEFAULT NULL,
-  `strafpunten` int(10) unsigned DEFAULT NULL,
+  `verplichtelem` float unsigned DEFAULT NULL,
+  `strafpunten` float unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 

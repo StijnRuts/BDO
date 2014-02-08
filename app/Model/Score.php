@@ -4,8 +4,12 @@ class Score extends AppModel {
 	public $validate = array(
 		'score' => array(
 			'naturalNumber' => array(
-				'rule' =>  array('naturalNumber', true),
+				'rule' =>  'decimal',
 				'message' => 'Gelieve een getal op te geven',
+			),
+			'min' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Negatieve getallen zijn niet toegestaan'
 			)
 		),
 

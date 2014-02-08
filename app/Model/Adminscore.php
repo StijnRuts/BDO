@@ -4,9 +4,13 @@ class Adminscore extends AppModel {
 	public $validate = array(
 		'verplichtelem' => array(
 			'naturalnumber' => array(
-				'rule' => array('naturalnumber', true),
+				'rule' => 'decimal',
 				'message' => 'Gelieve een getal op te geven',
 				'allowEmpty' => true
+			),
+			'min' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Negatieve getallen zijn niet toegestaan'
 			),
 			'max' => array(
 				'rule' => array('comparison', '<=', 15),
@@ -15,10 +19,14 @@ class Adminscore extends AppModel {
 		),
 		'strafpunten' => array(
 			'naturalnumber' => array(
-				'rule' => array('naturalnumber', true),
+				'rule' => 'decimal',
 				'message' => 'Gelieve een getal op te geven',
 				'allowEmpty' => true
 			),
+			'min' => array(
+				'rule' => array('comparison', '>=', 0),
+				'message' => 'Negatieve getallen zijn niet toegestaan'
+			)
 		),
 	);
 
