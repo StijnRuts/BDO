@@ -21,6 +21,8 @@ class JuryController extends AppController {
 		$current_user = $this->Auth->user();
 		$this->loadModel('Score');
 		$this->loadModel('Stage');
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
 
 		// redirect if not staged
 		if( count( $this->Stage->find('first', array(
@@ -31,28 +33,7 @@ class JuryController extends AppController {
 			)
 		))) == 0 )  $this->redirect(array('action'=>'index'));
 
-		// if post
-		if ($this->request->is('post') || $this->request->is('put')) {
-			// save data
-			if($this->Score->saveAll($this->request->data['Score'])){
-				$this->loadModel('Stage');
-				// unstage
-				$this->Stage->deleteAll(array(
-					'contestant_id' => $contestant_id,
-					'round_id' => $round_id,
-					'user_id' => $current_user['id']
-				));
-				//redirect
-				$this->redirect(array('action'=>'index'));
-				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
-			}else{
-				$submitted_values = $this->request->data['Score'];
-				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
-			}
-		}
 
-		$this->loadModel('Contestant');
-		$this->loadModel('Round');
 		if (!$this->Contestant->exists($contestant_id) || !$this->Round->exists($round_id)){
 			//unstage and redirect
 			$this->Stage->deleteAll(array(
@@ -81,9 +62,42 @@ class JuryController extends AppController {
 			$this->Contestant->id = $contestant['id'];
 			$score = $this->Contestant->getScores($round_id);
 			$juryscores = $score['scores'][$current_user['id']];
-			$contestant['score'] = ($juryscores['total']==0) ? '-' : $juryscores['total']-$juryscores[-1];
+			$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+			$contestant['score'] = $juryscores['total']-$juryscores[-1];
 		}
 		$this->set('round', $round);
+
+		// if post
+		if ($this->request->is('post') || $this->request->is('put')) {
+			// save data
+			if($this->Score->saveAll($this->request->data['Score'])){
+				$this->loadModel('Stage');
+				// redirect before unstage, if score equals previous score in same round for same judge
+				$this->Contestant->id = $contestant_id;
+				$score = $this->Contestant->getScores($round_id);
+				$juryscores = $score['scores'][$current_user['id']];
+				$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+				$newscore = $juryscores['total']-$juryscores[-1];
+				foreach($round['Contestant'] as $contestant) {
+					if($contestant['score']==$newscore && $contestant['score']!=$contestant_id) {
+						$this->Session->setFlash("Deze score komt al voor", 'flash_error');
+						$this->redirect('#');
+					}
+				}
+				// unstage
+				$this->Stage->deleteAll(array(
+					'contestant_id' => $contestant_id,
+					'round_id' => $round_id,
+					'user_id' => $current_user['id']
+				));
+				//redirect
+				$this->redirect(array('action'=>'index'));
+				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
+			}else{
+				$submitted_values = $this->request->data['Score'];
+				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
+			}
+		}
 
 		// load data
 		$this->request->data = array('Score' => Set::combine(

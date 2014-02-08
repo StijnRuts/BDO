@@ -112,7 +112,7 @@ function findindices($requestdata, $children){
 			var total = 0;
 			$(fields).each(function(){
 				var val = $.trim( $(this).val() );
-				val = isNaN(val)||val=="" ? 0 : parseInt(val);
+				val = isNaN(val)||val=="" ? 0 : parseFloat(val);
 				total+=val;
 				//if(totalfield=="Total") console.log("0"+$(this).val(), parseInt("0"+$(this).val()));
 			});

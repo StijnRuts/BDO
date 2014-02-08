@@ -69,7 +69,7 @@
 			<?php foreach($round['Contestant'] as $c): ?>
 			<tr>
 				<td><?= h($c['startnr']); ?>: <?= h($c['name']); ?></td>
-				<td class="score"><strong><?= h($c['score']); ?></strong></td>
+				<td class="score"><strong><?= h($c['score']==0 ? '-' : $c['score']); ?></strong></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

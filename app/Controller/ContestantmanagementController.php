@@ -62,17 +62,6 @@ class ContestantmanagementController extends AppController {
 
 	public function editscores($contestant_id = null, $round_id = null, $user_id = null) {
 		$this->loadModel('Score');
-
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if($this->Score->saveAll($this->request->data['Score'])){
-				$this->redirect(array('action'=>'view', $contestant_id, $round_id));
-				$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
-			}else{
-				$submitted_values = $this->request->data['Score'];
-				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
-			}
-		}
-
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
 		$this->loadModel('User');
@@ -82,7 +71,7 @@ class ContestantmanagementController extends AppController {
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 		$this->Round->id = $round_id;
-		$this->set('round', $this->Round->read());
+		$round = $this->Round->read();
 		$this->User->id = $user_id;
 		$this->set('user', $this->User->read());
 
@@ -91,6 +80,40 @@ class ContestantmanagementController extends AppController {
 		$this->Score->setEmptyScores($scores['points'], $round_id, $contestant_id, $user_id);
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
+
+		//load scores
+		foreach($round['Contestant'] as &$contestant){
+			$this->Contestant->id = $contestant['id'];
+			$score = $this->Contestant->getScores($round_id);
+			$juryscores = $score['scores'][$user_id];
+			$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+			$contestant['score'] = $juryscores['total']-$juryscores[-1];
+		}
+		$this->set('round', $round);
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if($this->Score->saveAll($this->request->data['Score'])){
+
+				// check if score equals previous score in same round for same judge
+				$this->Contestant->id = $contestant_id;
+				$score = $this->Contestant->getScores($round_id);
+				$juryscores = $score['scores'][$user_id];
+				$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+				$newscore = $juryscores['total']-$juryscores[-1];
+				foreach($round['Contestant'] as $contestant) {
+					if($contestant['score']==$newscore && $contestant['score']!=$contestant_id) {
+						$this->Session->setFlash("Deze score komt al voor", 'flash_error');
+						$this->redirect("#");
+					}
+				}
+
+				$this->redirect(array('action'=>'view', $contestant_id, $round_id));
+				$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
+			}else{
+				$submitted_values = $this->request->data['Score'];
+				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
+			}
+		}
 
 		// load data
 		$this->request->data = array('Score' => Set::combine(
