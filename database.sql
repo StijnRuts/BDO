@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 );
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(1, 'Admin', '61af2f3b7eeaa23e10b06b8da319d910728abf88', 'admin'),
+(1, 'Admin', '6d2c216b41fa66081a17f39af76d973abbd20726', 'admin'),
 (2, 'Jurylid1', 'd6f0de8070d6f89891727d2fa887b43bd0d8327c', 'jury'),
 (3, 'Jurylid2', '84752f57921402f37fe9745c82d3b59870ce6363', 'jury'),
 (4, 'Jurylid3', 'ebcc6897181de391f18b44d813a4fcc898a7780f', 'jury'),
