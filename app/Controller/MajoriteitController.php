@@ -23,12 +23,16 @@ class MajoriteitController extends AppController {
 
 		$this->set('round', $round);
 
-		$this->set('contest', $this->Contest->find('first', array(
+		$contest = $this->Contest->find('first', array(
 			'conditions' => array('Contest.id'=>$round['Round']['contest_id'])
-		)));
+		));
+		$this->set('contest', $contest);
+
+		$users = array();
+		foreach($contest['User'] as $user) array_push($users, $user);
 
 		$this->set('majoriteit',
-			$this->Majoriteit->getMajoriteit($round['Contestant'])
+			$this->Majoriteit->getMajoriteit($round['Contestant'], $users)
 		);
 	}
 }

@@ -47,9 +47,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Starnr</th>
-					<th>Naam</th>
-					<th>Jury beoordeling</th>
+					<th rowspan="2">Starnr</th>
+					<th rowspan="2">Naam</th>
+					<th colspan="<?= count($contest['User']) ?>">Ranking per jurylid</th>
+				</tr><tr>
+					<?php foreach ($contest['User'] as $user): ?>
+						<th><?= h($user['username']) ?></th>
+					<?php endforeach; ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,17 +61,9 @@
 				<tr>
 					<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
 					<td><?= h($contestant['name']); ?></td>
-					<td>
-						<?php foreach($contestant['scores']['users'] as $user): ?>
-						<span class="filler">
-							<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
-							<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
-						</span>
-						<span class="score">
-							<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
-						</span>
-						<?php endforeach; ?>
-					</td>
+					<?php foreach($contestant['places'] as $place): ?>
+						<td class="score"><?= h($place); ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
