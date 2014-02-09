@@ -44,5 +44,34 @@
 			</tbody>
 		</table>
 
+		<table>
+			<thead>
+				<tr>
+					<th>Starnr</th>
+					<th>Naam</th>
+					<th>Jury beoordeling</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($majoriteit as $contestant): ?>
+				<tr>
+					<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
+					<td><?= h($contestant['name']); ?></td>
+					<td>
+						<?php foreach($contestant['scores']['users'] as $user): ?>
+						<span class="filler">
+							<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
+							<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
+						</span>
+						<span class="score">
+							<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
+						</span>
+						<?php endforeach; ?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+
 	</div>
 </div>

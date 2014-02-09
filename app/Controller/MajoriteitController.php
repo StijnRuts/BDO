@@ -1,5 +1,7 @@
 <?php
 class MajoriteitController extends AppController {
+	public $components = array('Majoriteit');
+
 	public function view($round_id = null) {
 
 		$this->loadModel('Contest');
@@ -25,5 +27,8 @@ class MajoriteitController extends AppController {
 			'conditions' => array('Contest.id'=>$round['Round']['contest_id'])
 		)));
 
+		$this->set('majoriteit',
+			$this->Majoriteit->getMajoriteit($round['Contestant'])
+		);
 	}
 }
