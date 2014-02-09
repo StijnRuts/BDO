@@ -29,6 +29,7 @@
 						<?php foreach($contestant['scores']['users'] as $user): ?>
 						<span class="filler">
 							<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
+							<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
 						</span>
 						<span class="score">
 							<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
