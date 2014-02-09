@@ -41,6 +41,17 @@ class NavigationHelper extends AppHelper
 									'show' => false
 								),
 								array(
+									'name' => 'Majoriteit',
+									'location' => array( 'controller'=>'majoriteit', 'action'=>'view' ),
+									'show' => false,
+									'subitems' => array(
+										array(
+											'name' => '<<< Terug',
+											'location' => array( 'controller'=>'contestmanagement' )
+										),
+									)
+								),
+								array(
 									'name' => 'Beoordeling Aanpassen',
 									'location' => array( 'controller'=>'contestantmanagement', 'action'=>'editscores' ),
 									'show' => false,

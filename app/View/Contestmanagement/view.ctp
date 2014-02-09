@@ -150,6 +150,17 @@
 					</tbody>
 				</table>
 
+
+				<div style="text-align:center">
+				<?= $this->Html->link(
+					'Bereken Majoriteit',
+					array('controller'=>'majoriteit', 'action'=>'view', $round['Round']['id']),
+					array('title'=>'Bereken de Majoriteit voor deze ronde',
+						   'class'=>'large button')
+				); ?>
+				</div>
+
+
 				<?php if( count($stage)==0 ): ?>
 				<h4 style="margin-top:50px">Geen geplande beoordelingen</h4>
 				<?php else: ?>
