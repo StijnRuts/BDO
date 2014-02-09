@@ -9,6 +9,7 @@
 			<?= h($round['Division']['name']); ?>
 		</h3>
 
+		<?php /*
 		<table>
 			<thead>
 				<tr>
@@ -43,17 +44,20 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
+		*/ ?>
 
 		<table>
 			<thead>
 				<tr>
 					<th rowspan="2">Starnr</th>
 					<th rowspan="2">Naam</th>
-					<th colspan="<?= count($contest['User']) ?>">Ranking per jurylid</th>
+					<th rowspan="2" colspan="<?= count($contest['User']) ?>">Ranking per jurylid</th>
+					<th colspan="<?= count($majoriteit) ?>">Plaatsbepaling</th>
+					<th rowspan="2">Uitslag</th>
 				</tr><tr>
-					<?php foreach ($contest['User'] as $user): ?>
-						<th><?= h($user['username']) ?></th>
-					<?php endforeach; ?>
+					<?php for ($i=1; $i<=count($majoriteit); $i++): ?>
+						<th style="text-align:right"><?= ($i==1?"":"1-").h($i) ?></th>
+					<?php endfor; ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,6 +68,18 @@
 					<?php foreach($contestant['places'] as $place): ?>
 						<td class="score"><?= h($place); ?></td>
 					<?php endforeach; ?>
+					<?php for ($i=1; $i<=count($majoriteit); $i++): ?>
+						<td class="score">
+							<?php if($contestant['plaatsing'][$i]['cumulative']==0): ?>
+								-
+							<?php else: ?>
+								<strong><?= h($contestant['plaatsing'][$i]['cumulative']) ?></strong>
+								<?php for($j=0; $j<2-strlen(h($contestant['plaatsing'][$i]['sum'])); $j++) echo "&nbsp;"; ?>
+								<span style="color:#777">(<?= h($contestant['plaatsing'][$i]['sum']) ?>)</span>
+							<?php endif; ?>
+						</td>
+					<?php endfor; ?>
+					<td class="score"><strong>?</strong></td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
