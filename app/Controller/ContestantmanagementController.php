@@ -101,7 +101,7 @@ class ContestantmanagementController extends AppController {
 				$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
 				$newscore = $juryscores['total']-$juryscores[-1];
 				foreach($round['Contestant'] as $contestant) {
-					if($contestant['score']==$newscore && $contestant['score']!=$contestant_id) {
+					if($contestant['score']==$newscore && $contestant['id']!=$contestant_id) {
 						$this->Session->setFlash("Deze score komt al voor", 'flash_error');
 						$this->redirect("#");
 					}
