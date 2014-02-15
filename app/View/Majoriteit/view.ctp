@@ -79,7 +79,7 @@
 							<?php endif; ?>
 						</td>
 					<?php endfor; ?>
-					<td class="score"><strong>?</strong></td>
+					<td class="score"><strong><?= $contestant['place'] ?></strong></td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
