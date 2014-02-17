@@ -64,14 +64,24 @@ echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 					$assignplace++;
 				} else { // er is geen grootste cumulative -> laagste sum
-					//$contestant['plaatsing'][$column]['sum']
-					// nog steeds gelijk -> kijk naar cummulative/sum van volgende plaats
-					// nog steeds gelijk -> deel plaats
-					//  * neem gemiddelde plaats van alle gelijke deelnemers
-					//  * rond af naar boven
-					//  * niet toegekende plaatsen vervallen
-					throw new Exception("Error", 1);
-					
+					$min = 99999999999999;
+					foreach($thisplace as $i) $min = min($min, $contestants[$i]['plaatsing'][$column]['sum']);
+					$thisplace = array_filter($thisplace, function($i) use ($contestants, $column, $min){
+						return $contestants[$i]['plaatsing'][$column]['sum'] <= $min;
+					});
+					if( count($thisplace)==1 ) { // er is kleinste sum -> ken plaats toe
+						$i = array_shift($thisplace);
+						$contestants[$i]['place'] = $assignplace;
+echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+						$assignplace++;
+					} else {
+						// nog steeds gelijk -> kijk naar cummulative/sum van volgende plaats
+						// nog steeds gelijk -> deel plaats
+						//  * neem gemiddelde plaats van alle gelijke deelnemers
+						//  * rond af naar boven
+						//  * niet toegekende plaatsen vervallen
+						throw new Exception("Error", 1);
+					}
 				}
 			}
 		}
