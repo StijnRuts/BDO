@@ -85,5 +85,15 @@
 			</tbody>
 		</table>
 
+
+		<div style="text-align:center">
+		<?= $this->Js->link(
+			'Toon op scorebord',
+			array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id']),
+			array('title'=>'Toon de resultaten op het scorebord',
+				   'class'=>'button')
+		); ?>
+		</div>
+
 	</div>
 </div>

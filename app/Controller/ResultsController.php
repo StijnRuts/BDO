@@ -1,7 +1,7 @@
 <?php
 class ResultsController extends AppController {
 
-	public $components = array('RequestHandler');
+	public $components = array('RequestHandler', 'Majoriteit');
 
 	function beforeFilter(){
 		//$this->Auth->allow('index', 'results'); //uncomment to make result page world accessible
@@ -24,6 +24,7 @@ class ResultsController extends AppController {
 			case 'contestname': $this->contest_name($ini['id']); break;
 			case 'roundname': $this->round_name($ini['id']); break;
 			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
+			case 'majoriteit': $this->majoriteit_results($ini['id']); break;
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
 		}
@@ -85,6 +86,46 @@ class ResultsController extends AppController {
 
 		$this->layout = 'ajax';
 		$this->render('contestant_results');
+	}
+	private function majoriteit_results($round_id = null) {
+		$this->loadModel('Contest');
+		$this->loadModel('Round');
+		$this->loadModel('Contestant');
+
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+
+		$round = $this->Round->find('first', array(
+			'conditions' => array('Round.id'=>$round_id),
+			'order'=>'Round.order',
+			'contain' => array('Category', 'Discipline', 'Division', 'Contest', 'Contestant.Club', 'Contestant'=>array('order'=>'startnrorder'))
+		));
+
+		foreach ($round['Contestant'] as &$contestant){
+			$this->Contestant->id = $contestant['id'];
+			$contestant['scores'] = $this->Contestant->getScores($round_id);
+		}
+
+		$this->set('round', $round);
+
+		$contest = $this->Contest->find('first', array(
+			'conditions' => array('Contest.id'=>$round['Round']['contest_id'])
+		));
+		$this->set('contest', $contest);
+
+		$users = array();
+		foreach($contest['User'] as $user) array_push($users, $user);
+
+		$majoriteit = $this->Majoriteit->getMajoriteit($round['Contestant'], $users);
+
+		usort($majoriteit, function($a,$b){
+			if ($a['place'] == $b['place']) return 0;
+			return ($a['place'] < $b['place']) ? -1 : 1;
+		});
+
+		$this->set('majoriteit', $majoriteit);
+
+		$this->layout = 'ajax';
+		$this->render('majoriteit_results');
 	}
 	private function contest_name($id = null) {
 		$this->loadModel('Contest');
@@ -188,6 +229,10 @@ class ResultsController extends AppController {
 	}
 	public function showcontestantname($id = null, $round_id = null){
 		$this->write_ini("contestantname", $id, $round_id);
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+	}
+	public function showmajoriteit($id = null){
+		$this->write_ini("majoriteit", $id);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 
