@@ -34,57 +34,84 @@ class MajoriteitComponent extends Component {
 		// ken plaatsen toe
 		$maj = ceil(count($users) / 2); // aantal stemmen nodig voor majoriteit
 		$assignplace = 1; // toe te kennen plaats
-		$maxplace = count($contestants); // maximum toe te kennen plaats
-		$column = 1;
-		while ($column <= count($contestants)) {
-			$thisplace = array();
-			// wie heeft majoriteit ?
-			foreach ($contestants as $i => $contestant) {
-				if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  !$contestant['place']){
-					array_push($thisplace, $i);
+		do {
+			$column = 1;
+			while ($column <= count($contestants)) {
+				$thisplace = array();
+				// wie heeft majoriteit ?
+				foreach ($contestants as $i => $contestant) {
+					if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  !$contestant['place']){
+						array_push($thisplace, $i);
+					}
 				}
-			}
-			if( count($thisplace)==0 ) { // er is geen majoriteit -> kijk naar volgende kolom
-				$column++;
-			} elseif( count($thisplace)==1 ) { // er is majoriteit -> ken plaats toe
-				$i = array_shift($thisplace);
-				$contestants[$i]['place'] = $assignplace;
-echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
-				$assignplace++;
-				$column++;
-			} else { // er is dubbele majoriteit -> grootste cumulative
-				$max = 0;
-				foreach($thisplace as $i) $max = max($max, $contestants[$i]['plaatsing'][$column]['cumulative']);
-				$thisplace = array_filter($thisplace, function($i) use ($contestants, $column, $max){
-					return $contestants[$i]['plaatsing'][$column]['cumulative'] >= $max;
-				});
-				if( count($thisplace)==1 ) { // er is grootste cumulative -> ken plaats toe
+				if( count($thisplace)==0 ) { // er is geen majoriteit -> kijk naar volgende kolom
+					$column++;
+				} elseif( count($thisplace)==1 ) { // er is majoriteit -> ken plaats toe
 					$i = array_shift($thisplace);
 					$contestants[$i]['place'] = $assignplace;
-echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 					$assignplace++;
-				} else { // er is geen grootste cumulative -> laagste sum
-					$min = 99999999999999;
-					foreach($thisplace as $i) $min = min($min, $contestants[$i]['plaatsing'][$column]['sum']);
-					$thisplace = array_filter($thisplace, function($i) use ($contestants, $column, $min){
-						return $contestants[$i]['plaatsing'][$column]['sum'] <= $min;
+					$column++;
+				} else { // er is dubbele majoriteit -> grootste cumulative
+					$max = 0;
+					foreach($thisplace as $i) $max = max($max, $contestants[$i]['plaatsing'][$column]['cumulative']);
+					$thisplace = array_filter($thisplace, function($i) use ($contestants, $column, $max){
+						return $contestants[$i]['plaatsing'][$column]['cumulative'] >= $max;
 					});
-					if( count($thisplace)==1 ) { // er is kleinste sum -> ken plaats toe
+					if( count($thisplace)==1 ) { // er is grootste cumulative -> ken plaats toe
 						$i = array_shift($thisplace);
 						$contestants[$i]['place'] = $assignplace;
-echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 						$assignplace++;
-					} else {
-						// nog steeds gelijk -> kijk naar cummulative/sum van volgende plaats
-						// nog steeds gelijk -> deel plaats
-						//  * neem gemiddelde plaats van alle gelijke deelnemers
-						//  * rond af naar boven
-						//  * niet toegekende plaatsen vervallen
-						throw new Exception("Error", 1);
+					} else { // er is geen grootste cumulative -> laagste sum
+						$min = 99999999999999;
+						foreach($thisplace as $i) $min = min($min, $contestants[$i]['plaatsing'][$column]['sum']);
+						$thisplace = array_filter($thisplace, function($i) use ($contestants, $column, $min){
+							return $contestants[$i]['plaatsing'][$column]['sum'] <= $min;
+						});
+						if( count($thisplace)==1 ) { // er is kleinste sum -> ken plaats toe
+							$i = array_shift($thisplace);
+							$contestants[$i]['place'] = $assignplace;
+echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+							$assignplace++;
+						} else { // nog steeds gelijk -> kijk naar volgende kolom
+							$column++;
+							// alle kolommen gelijk -> deel plaats
+							//  * neem gemiddelde plaats van alle gelijke deelnemers
+							//  * rond af naar boven
+							//  * niet toegekende plaatsen vervallen
+						}
 					}
 				}
 			}
-		}
+
+			// zoek de kandidaten met de laagste sum, die nog geen plaats hebben
+			$sharedplace = array();
+			$min = 99999999999999;
+			foreach ($contestants as $i => $contestant) {
+				if(!$contestant['place']) {
+					$sum = end($contestant['plaatsing'])['sum'];
+						if($sum == $min) {
+						$sharedplace[] = $i;
+					} elseif($sum < $min) {
+						$min = $sum;
+						$sharedplace = array($i);
+					}
+				}
+			}
+
+			// er zijn kandidaten met voledig gelijke cumulative en sum in elke kolom
+			// -> ken gedeelde plaats toe aan deze kandidaten
+			$gedeeldeplaats = $assignplace-1 + ceil(count($sharedplace) / 2);
+			foreach($sharedplace as $i) {
+				$contestants[$i]['place'] = $gedeeldeplaats;
+echo "rule4: place $gedeeldeplaats goes to ".$contestants[$i]['startnr']."<br/>";
+			}
+			$assignplace += count($sharedplace);
+
+		} while(count($sharedplace) > 0);
+		// als er een dubbele plaats is toegekend, begin dan opnieuw vanvoorafaan
+		// om eventuele overgebleven plaatsen toe te kennen
 
 		return $contestants;
 	}
