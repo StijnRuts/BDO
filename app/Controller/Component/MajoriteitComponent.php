@@ -49,7 +49,7 @@ class MajoriteitComponent extends Component {
 				} elseif( count($thisplace)==1 ) { // er is majoriteit -> ken plaats toe
 					$i = array_shift($thisplace);
 					$contestants[$i]['place'] = $assignplace;
-echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+//echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 					$assignplace++;
 					$column++;
 				} else { // er is dubbele majoriteit -> grootste cumulative
@@ -61,7 +61,7 @@ echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 					if( count($thisplace)==1 ) { // er is grootste cumulative -> ken plaats toe
 						$i = array_shift($thisplace);
 						$contestants[$i]['place'] = $assignplace;
-echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+//echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 						$assignplace++;
 					} else { // er is geen grootste cumulative -> laagste sum
 						$min = 99999999999999;
@@ -72,7 +72,7 @@ echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 						if( count($thisplace)==1 ) { // er is kleinste sum -> ken plaats toe
 							$i = array_shift($thisplace);
 							$contestants[$i]['place'] = $assignplace;
-echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
+//echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 							$assignplace++;
 						} else { // nog steeds gelijk -> kijk naar volgende kolom
 							$column++;
@@ -105,7 +105,7 @@ echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
 			$gedeeldeplaats = $assignplace-1 + ceil(count($sharedplace) / 2);
 			foreach($sharedplace as $i) {
 				$contestants[$i]['place'] = $gedeeldeplaats;
-echo "rule4: place $gedeeldeplaats goes to ".$contestants[$i]['startnr']."<br/>";
+//echo "rule4: place $gedeeldeplaats goes to ".$contestants[$i]['startnr']."<br/>";
 			}
 			$assignplace += count($sharedplace);
 
