@@ -17,7 +17,7 @@
 	</thead>
 	<tbody>
 		<?php foreach ($majoriteit as $contestant): ?>
-		<tr>
+		<tr <?= $contestant['place']>=$minplace ? "" : 'style="visibility:hidden"' ?>>
 			<td><?= h($contestant['startnr']); ?></td>
 			<td><?= h($contestant['name']); ?></td>
 			<td><?= h($contestant['Club']['name']); ?></td>

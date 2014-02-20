@@ -86,14 +86,61 @@
 		</table>
 
 
+		<?php
+			$places = array();
+			foreach ($majoriteit as $contestant) $places[] = $contestant['place'];
+			$places = array_unique($places);
+			sort($places);
+		?>
+
 		<div style="text-align:center">
-		<?= $this->Js->link(
-			'Toon op scorebord',
-			array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id']),
-			array('title'=>'Toon de resultaten op het scorebord',
-				   'class'=>'button')
-		); ?>
+			<?= $this->Js->link(
+				"Toon leeg scorebord",
+				array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($places)+1),
+				array('title'=>"Toon geen enkel resultaat op het scorebord",
+					   'class'=>'small button', 'id'=>'nothingbutton')
+			); ?>
+			&nbsp;
+			<?= $this->Js->link(
+				"Toon alle resultaten",
+				array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], 1),
+				array('title'=>"Toon alle resultaten op het scorebord",
+					   'class'=>'small button', 'id'=>'allbutton')
+			); ?>
+			&nbsp;
+			<ul id="nextbuttons" style="list-style:none; display:inline-block">
+			<?php foreach ($places as $place): ?>
+				<li style="display:none"><?= $this->Js->link(
+					"Toon volgende plaats op scorebord",
+					array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], $place),
+					array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord",
+						   'class'=>'button')
+				); ?></li>
+			<?php endforeach; ?>
+			</ul>
 		</div>
+
+		<script type="text/javascript">
+		$(function(){
+
+			$("#nextbuttons li").last().show();
+
+			$("#nextbuttons li a").click(function(){
+				$(this).parent().hide();
+				$(this).parent().prev().show();
+			});
+
+			$("#nothingbutton").click(function(){
+				$("#nextbuttons li").hide();
+				$("#nextbuttons li").last().show();
+			});
+
+			$("#allbutton").click(function(){
+				$("#nextbuttons li").hide();
+			});
+
+		});
+		</script>
 
 	</div>
 </div>

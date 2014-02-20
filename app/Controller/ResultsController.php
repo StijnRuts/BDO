@@ -24,7 +24,7 @@ class ResultsController extends AppController {
 			case 'contestname': $this->contest_name($ini['id']); break;
 			case 'roundname': $this->round_name($ini['id']); break;
 			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
-			case 'majoriteit': $this->majoriteit_results($ini['id']); break;
+			case 'majoriteit': $this->majoriteit_results($ini['id'], $ini['minplace']); break;
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
 		}
@@ -87,7 +87,7 @@ class ResultsController extends AppController {
 		$this->layout = 'ajax';
 		$this->render('contestant_results');
 	}
-	private function majoriteit_results($round_id = null) {
+	private function majoriteit_results($round_id = null, $minplace = null) {
 		$this->loadModel('Contest');
 		$this->loadModel('Round');
 		$this->loadModel('Contestant');
@@ -123,6 +123,7 @@ class ResultsController extends AppController {
 		});
 
 		$this->set('majoriteit', $majoriteit);
+		$this->set('minplace', $minplace);
 
 		$this->layout = 'ajax';
 		$this->render('majoriteit_results');
@@ -231,15 +232,16 @@ class ResultsController extends AppController {
 		$this->write_ini("contestantname", $id, $round_id);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
-	public function showmajoriteit($id = null){
-		$this->write_ini("majoriteit", $id);
+	public function showmajoriteit($id = null, $minplace = null){
+		$this->write_ini("majoriteit", $id, null, $minplace);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 
-	private function write_ini($type, $id, $round_id = null) {
+	private function write_ini($type, $id, $round_id = null, $minplace = null) {
 		$fh = fopen($this->inifile, 'w');
 		fwrite($fh,"type=$type\r\nid=$id");
 		if($round_id) fwrite($fh,"\r\nround_id=$round_id");
+		if($minplace) fwrite($fh,"\r\nminplace=$minplace");
 		fclose($fh);
 	}
 
@@ -247,7 +249,12 @@ class ResultsController extends AppController {
 	private function computeRanks($contestants){
 		if( count($contestants)==0 ) return;
 
-		uasort($contestants, 'cmpTotal');
+		uasort($contestants, function($contestant_a, $contestant_b){
+			$a = $contestant_a['scores']['total'];
+			$b = $contestant_b['scores']['total'];
+			if ($a == $b) return 0;
+			return ($a < $b) ? 1 : -1;
+		});
 
 		$rank = 0;
 		$first = reset($contestants);
@@ -267,11 +274,4 @@ class ResultsController extends AppController {
 
 }
 
-
-function cmpTotal($contestant_a, $contestant_b) {
-	$a = $contestant_a['scores']['total'];
-	$b = $contestant_b['scores']['total'];
-	if ($a == $b) return 0;
-	return ($a < $b) ? 1 : -1;
-}
 ?>
