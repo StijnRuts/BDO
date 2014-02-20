@@ -179,6 +179,9 @@ class ResultsController extends AppController {
 			$round['Contestant'] = $this->computeRanks($round['Contestant']);
 		}
 		$this->set('contest', $contest);
+
+		$this->layout = 'pdf/default';
+		$this->response->type('pdf');
 	}
 	public function round_print($id = null) {
 		$this->loadModel('Round');
@@ -194,6 +197,9 @@ class ResultsController extends AppController {
 		}
 		$round['Contestant'] = $this->computeRanks($round['Contestant']);
 		$this->set('round', $round);
+
+		$this->layout = 'pdf/default';
+		$this->response->type('pdf');
 	}
 	public function contestant_print($contestant_id = null, $round_id = null) {
 		$this->loadModel('Contestant');
@@ -205,6 +211,9 @@ class ResultsController extends AppController {
 		$this->set('contestant', $this->Contestant->read());
 		$this->set('round', $this->Round->read());
 		$this->set('scores', $this->Contestant->getScores($round_id));
+
+		$this->layout = 'pdf/default';
+		$this->response->type('pdf');
 	}
 
 

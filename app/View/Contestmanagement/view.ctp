@@ -36,7 +36,7 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'results', 'action'=>'contest_print', 'ext'=>'pdf', $contest['Contest']['id'],
+						array('controller'=>'results', 'action'=>'contest_print',   $contest['Contest']['id'],
 						str_replace('/', '-', $contest['Contest']['name'])),
 						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button',
@@ -65,7 +65,7 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'results', 'action'=>'round_print', 'ext'=>'pdf', $round['Round']['id'],
+						array('controller'=>'results', 'action'=>'round_print',   $round['Round']['id'],
 								str_replace('/', '-', $contest['Contest']['name']." - ".$round['Discipline']['name'].", ".$round['Category']['name'].", ".$round['Division']['name'])),
 						array('title'=>'Print resultaten van deze ronde',
 							   'class'=>'tiny secondary button',
@@ -132,7 +132,7 @@
 								); ?>
 								<?= $this->Html->link(
 									'print',
-									array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
+									array('controller'=>'results', 'action'=>'contestant_print',  
 											$contestant['id'], $round['Round']['id'],
 											str_replace('/', '-', $contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name'])),
 									array('title'=>'Print resultaten van '.h($contestant['name']),

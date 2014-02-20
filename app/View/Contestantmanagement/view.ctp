@@ -43,7 +43,7 @@
 					); ?>
 					<?= $this->Html->link(
 						'print',
-						array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
+						array('controller'=>'results', 'action'=>'contestant_print',  
 								$contestant['Contestant']['id'], $round['Round']['id'],
 								str_replace('/', '-', $contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name'])),
 						array('title'=>'Print resultaten van '.h($contestant['Contestant']['name']),
