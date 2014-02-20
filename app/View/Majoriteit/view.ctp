@@ -94,6 +94,15 @@
 		?>
 
 		<div style="text-align:center">
+			<?= $this->Html->link(
+				'print',
+				array('controller'=>'results', 'action'=>'majoriteit_print',   $round['Round']['id'],
+				str_replace('/', '-', $contest['Contest']['name']." - ".$round['Discipline']['name'].", "
+					                 .$round['Category']['name'].", ".$round['Division']['name']).' (majoriteit)'),
+				array('title'=>'Print majoriteit',
+					   'class'=>'small secondary button', 'target'=>'_blank')
+			); ?>
+			&nbsp;
 			<?= $this->Js->link(
 				"Toon leeg scorebord",
 				array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($places)+1),
