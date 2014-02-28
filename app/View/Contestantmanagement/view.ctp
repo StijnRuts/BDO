@@ -35,12 +35,12 @@
 						array('title'=>'Toon naam van '.h($contestant['Contestant']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
 					); ?>
-					<?= $this->Js->link(
+					<?php /* $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showcontestant', $contestant['Contestant']['id'], $round['Round']['id']),
 						array('title'=>'Toon resultaten van '.h($contestant['Contestant']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
-					); ?>
+					); */ ?>
 					<?= $this->Html->link(
 						'print',
 						array('controller'=>'results', 'action'=>'contestant_print',  
@@ -53,6 +53,7 @@
 					</span>
 				</h2>
 
+				<?php /*
 				<div class="row" id="adminform">
 				<?= $this->Form->create('Adminscore'); ?>
 					<?= $this->Form->input('id', array('type'=>'hidden')); ?>
@@ -61,6 +62,7 @@
 					<?= $this->Form->submit('Opslaan', array('class'=>'small radius button')); ?>
 				<?= $this->Form->end(); ?>
 				</div>
+				*/ ?> <br/>
 
 				<div id="autorefresh"> <div class="load"></div> </div>
 

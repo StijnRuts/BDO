@@ -28,7 +28,7 @@
 						array('title'=>'Toon naam van deze wedstrijd op scorebord',
 							   'class'=>'tiny secondary button')
 					); ?>
-					<?= $this->Js->link(
+					<?php /* $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showcontest', $contest['Contest']['id']),
 						array('title'=>'Toon resultaten van '.h($contest['Contest']['name'].' op scorebord'),
@@ -41,7 +41,7 @@
 						array('title'=>'Print resultaten van '.h($contest['Contest']['name']),
 							   'class'=>'tiny secondary button',
 								'target'=>'_blank')
-					); ?>
+					); */ ?>
 					</span>
 				</h2>
 
@@ -57,7 +57,7 @@
 						array('title'=>'Toon naam van deze ronde op scorebord',
 							   'class'=>'tiny secondary button')
 					); ?>
-					<?= $this->Js->link(
+					<?php /* $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showround', $round['Round']['id']),
 						array('title'=>'Toon resultaten van deze ronde op scorebord',
@@ -70,7 +70,7 @@
 						array('title'=>'Print resultaten van deze ronde',
 							   'class'=>'tiny secondary button',
 							   'target'=>'_blank')
-					); ?>
+					); */ ?>
 					<?= $this->Form->postLink(
 					'wis scores',
 						array('action'=>'clearscores', $round['Round']['id']),
@@ -86,9 +86,11 @@
 							<th>Starnr</th>
 							<th>Naam</th>
 							<th>Jury beoordeling</th>
+							<?php /*
 							<th>Verpl elem</th>
 							<th>Strafp</th>
 							<th>Totaal</th>
+							*/ ?>
 							<th></th>
 						</tr>
 					</thead>
@@ -114,9 +116,11 @@
 								</span>
 								<?php endforeach; ?>
 							</td>
+							<?php /*
 							<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
 							<td class="score"><?= h($contestant['scores']['strafpunten']); ?></td>
 							<td class="score"><strong><?= h($contestant['scores']['total']); ?></strong></td>
+							*/ ?>
 							<td>
 								<?= $this->Js->link(
 									'toon naam',
@@ -124,12 +128,12 @@
 									array('title'=>'Toon naam van '.h($contestant['name']).' op scorebord',
 										   'class'=>'tiny secondary button')
 								); ?>
-								<?= $this->Js->link(
+								<?php /* $this->Js->link(
 									'toon',
 									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id'], $round['Round']['id']),
 									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
 										   'class'=>'tiny secondary button')
-								); ?>
+								); */ ?>
 								<?= $this->Html->link(
 									'print',
 									array('controller'=>'results', 'action'=>'contestant_print',  
