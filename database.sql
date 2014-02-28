@@ -153,7 +153,8 @@ INSERT INTO `defaultpoints` (`id`, `parent_id`, `lft`, `rght`, `name`, `max`) VA
 (13, NULL, 25, 26, 'Omzetten van thema en karakter', 10),
 (14, NULL, 27, 28, 'Creativiteit', 10),
 (15, NULL, 29, 30, 'Danstechniek', 10),
-(16, NULL, 31, 32, 'Uitvoering', 10);
+(16, NULL, 31, 32, 'Uitvoering', 10),
+(17, NULL, 33, 34, 'Verplichte elementen', 15);
 
 
 
