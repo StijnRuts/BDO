@@ -1,4 +1,4 @@
-<h2><?= h($round['Contest']['name']); ?></h2>
+<?php /* <h2><?= h($round['Contest']['name']); ?></h2> */ ?>
 
 <h3>
 	<span class="nowrap"><?= $round['Discipline']['name']; ?>,</span>
@@ -6,7 +6,7 @@
 	<span class="nowrap"><?= $round['Division']['name']; ?></span>
 </h3>
 
-<table>
+<table class="majoriteit">
 	<thead>
 		<tr>
 			<th></th>
