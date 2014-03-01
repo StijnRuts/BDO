@@ -90,8 +90,9 @@ class MajoriteitComponent extends Component {
 			$min = 99999999999999;
 			foreach ($contestants as $i => $contestant) {
 				if(!$contestant['place']) {
-					$sum = end($contestant['plaatsing'])['sum'];
-						if($sum == $min) {
+					$sum = end($contestant['plaatsing']);
+					$sum = $sum['sum'];
+					if($sum == $min) {
 						$sharedplace[] = $i;
 					} elseif($sum < $min) {
 						$min = $sum;
