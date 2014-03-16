@@ -52,6 +52,7 @@
 					<th rowspan="2">Starnr</th>
 					<th rowspan="2">Naam</th>
 					<th rowspan="2" colspan="<?= count($contest['User']) ?>">Ranking per jurylid</th>
+					<th rowspan="2"></th>
 					<th colspan="<?= count($majoriteit) ?>">Plaatsbepaling</th>
 					<th rowspan="2">Uitslag</th>
 				</tr><tr>
@@ -68,6 +69,12 @@
 					<?php foreach($contestant['places'] as $place): ?>
 						<td class="score"><?= h($place); ?></td>
 					<?php endforeach; ?>
+					<td><?= $this->Js->link(
+						'toon',
+						array('controller'=>'results', 'action'=>'showcontestantmajoriteit', $contestant['id'], $round['Round']['id']),
+						array('title'=>'Toon ranking van '.h($contestant['name'].' op scorebord'),
+							   'class'=>'tiny secondary button')
+					); ?></td>
 					<?php for ($i=1; $i<=count($majoriteit); $i++): ?>
 						<td class="score">
 							<?php if($contestant['plaatsing'][$i]['cumulative']==0): ?>
