@@ -7,9 +7,32 @@ class JuryController extends AppController {
 		if($current_user['role']=='jury') $this->Auth->allow('index', 'startjudging', 'judge', 'checkstage', 'checkstaged');
 	}
 
-	public function index() {	}
+	public function index() {
+		$this->loadModel('Contestant');
+		$this->loadModel('Round');
+		if($this->Session->check('round_id')) {
+			$current_user = $this->Auth->user();
+			$round_id = $this->Session->read('round_id');
+			$this->Session->delete('round_id');
+			if($this->Round->exists($round_id)) {
+				$this->Round->id = $round_id;
+				$round = $this->Round->find('first', array(
+					'conditions' => array('Round.id'=>$round_id),
+					'contain' => array('Contestant'=>array('order'=>'startnrorder'))
+				));
+				foreach($round['Contestant'] as &$contestant){
+					$this->Contestant->id = $contestant['id'];
+					$score = $this->Contestant->getScores($round_id);
+					$juryscores = $score['scores'][$current_user['id']];
+					$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+					$contestant['score'] = $juryscores['total']-$juryscores[-1];
+				} unset($contestant);
+				$this->set('round', $round);
+			}
+		}
+	}
 
-	public function startjudging(){
+	public function startjudging() {
 		$this->loadModel('Stage');
 		$current_user = $this->Auth->user();
 		$stage = $this->Stage->findByUser_id($current_user['id']);
@@ -95,6 +118,7 @@ class JuryController extends AppController {
 					'user_id' => $current_user['id']
 				));
 				//redirect
+				$this->Session->write('round_id', $round_id);
 				$this->redirect(array('action'=>'index'));
 				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
 			}else{
