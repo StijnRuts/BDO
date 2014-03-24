@@ -17,7 +17,7 @@
 	</thead>
 	<tbody>
 		<?php foreach ($majoriteit as $contestant): ?>
-		<tr <?= $contestant['place']>=$minplace ? "" : 'style="visibility:hidden"' ?>>
+		<tr <?= $contestant['place']>=$minplace ? "" : 'class="hidden"' ?>>
 			<td><?= h($contestant['startnr']); ?></td>
 			<td><?= h($contestant['name']); ?></td>
 			<td><?= h($contestant['Club']['name']); ?></td>
@@ -26,3 +26,16 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+
+<style> .hidden { display:none; } </style>
+
+<script type="text/javascript">
+	$(function() {
+		$(".hidden").show();
+		$('th').each(function() {
+			$(this).width( $(this).width() );
+		});
+		$(".hidden").hide();
+	});
+</script>
