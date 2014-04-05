@@ -21,6 +21,7 @@
 	<?php endforeach; ?>
 </h1>
 
+<?php /*
 <h1 id="extra">
 	<?php if($scores['verplichtelem'] > 0): ?>
 		<small class="heading">Verplichte elementen:</small>
@@ -32,6 +33,7 @@
 		<span class="score"><?= h($scores['strafpunten']); ?></span>
 	<?php endif; ?>
 </h1>
+*/ ?>
 
 <h1 id="total">
 	<small class="heading">Totaal:</small>

@@ -35,12 +35,12 @@
 						array('title'=>'Toon naam van '.h($contestant['Contestant']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
 					); ?>
-					<?php /* $this->Js->link(
+					<?= $this->Js->link(
 						'toon',
 						array('controller'=>'results', 'action'=>'showcontestant', $contestant['Contestant']['id'], $round['Round']['id']),
 						array('title'=>'Toon resultaten van '.h($contestant['Contestant']['name'].' op scorebord'),
 							   'class'=>'tiny secondary button')
-					); */ ?>
+					); ?>
 					<?= $this->Html->link(
 						'print',
 						array('controller'=>'results', 'action'=>'contestant_print',  
