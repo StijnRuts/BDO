@@ -7,44 +7,16 @@
 			<?= h($round['Discipline']['name']); ?>,
 			<?= h($round['Category']['name']); ?>,
 			<?= h($round['Division']['name']); ?>
-		</h3>
 
-		<?php /*
-		<table>
-			<thead>
-				<tr>
-					<th>Starnr</th>
-					<th>Naam</th>
-					<th>Jury beoordeling</th>
-					<th>Verpl elem</th>
-					<th>Strafp</th>
-					<th>Totaal</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($round['Contestant'] as $contestant): ?>
-				<tr>
-					<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
-					<td><?= h($contestant['name']); ?></td>
-					<td>
-						<?php foreach($contestant['scores']['users'] as $user): ?>
-						<span class="filler">
-							<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
-							<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
-						</span>
-						<span class="score">
-							<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
-						</span>
-						<?php endforeach; ?>
-					</td>
-					<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
-					<td class="score"><?= h($contestant['scores']['strafpunten']); ?></td>
-					<td class="score"><strong><?= h($contestant['scores']['total']); ?></strong></td>
-				</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		*/ ?>
+			<?= $this->Html->link(
+				'print',
+				array('controller'=>'results', 'action'=>'majoriteit_print',   $round['Round']['id'],
+				str_replace('/', '-', $contest['Contest']['name']." - ".$round['Discipline']['name'].", "
+					                 .$round['Category']['name'].", ".$round['Division']['name']).' (majoriteit)'),
+				array('title'=>'Print majoriteit',
+					   'class'=>'tiny secondary button', 'target'=>'_blank')
+			); ?>
+		</h3>
 
 		<table>
 			<thead>
@@ -95,66 +67,67 @@
 
 		<?php
 			$places = array();
-			foreach ($majoriteit as $contestant) $places[] = $contestant['place'];
+			$startnrs = array();
+			foreach ($majoriteit as $contestant) {
+				$places[] = $contestant['place'];
+				$startnrs[] = $contestant['startnr'];
+			}
 			$places = array_unique($places);
+			$startnrs = array_unique($startnrs);
 			sort($places);
+			sort($startnrs);
 		?>
 
-		<div style="text-align:center">
-			<?= $this->Html->link(
-				'print',
-				array('controller'=>'results', 'action'=>'majoriteit_print',   $round['Round']['id'],
-				str_replace('/', '-', $contest['Contest']['name']." - ".$round['Discipline']['name'].", "
-					                 .$round['Category']['name'].", ".$round['Division']['name']).' (majoriteit)'),
-				array('title'=>'Print majoriteit',
-					   'class'=>'small secondary button', 'target'=>'_blank')
-			); ?>
-			&nbsp;
-			<?= $this->Js->link(
-				"Toon leeg scorebord",
-				array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($places)+1),
-				array('title'=>"Toon geen enkel resultaat op het scorebord",
-					   'class'=>'small button', 'id'=>'nothingbutton')
-			); ?>
-			&nbsp;
-			<?= $this->Js->link(
-				"Toon alle resultaten",
-				array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], 1),
-				array('title'=>"Toon alle resultaten op het scorebord",
-					   'class'=>'small button', 'id'=>'allbutton')
-			); ?>
-			&nbsp;
-			<ul id="nextbuttons" style="list-style:none; display:inline-block">
-			<?php foreach ($places as $place): ?>
-				<li style="display:none"><?= $this->Js->link(
-					"Toon volgende plaats op scorebord",
-					array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], $place),
-					array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord",
-						   'class'=>'button')
-				); ?></li>
-			<?php endforeach; ?>
-			</ul>
-		</div>
+		<div style="text-align:center"><div style="display:inline-block; text-align:left">
+			<div id="placebuttons">
+				<span style="display: inline-block; width:8em;">
+					Toon op plaats:
+				</span>
+				<?= $this->Js->link(
+					"leeg",
+					array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($places)+1),
+					array('title'=>"Toon geen enkel resultaat op het scorebord",
+						   'class'=>'small secondary button nothingbutton')
+				); ?>
+				<?php foreach (array_reverse($places) as $place): ?>
+					<?= $this->Js->link(
+						$place,
+						array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], $place),
+						array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord",
+							   'class'=>'small secondary button')
+					); ?>
+				<?php endforeach; ?>
+			</div>
+			<br/>
+			<div id="startnrbuttons">
+				<span style="display: inline-block; width:8em;">
+					Toon op startnr:
+				</span>
+				<?= $this->Js->link(
+					"leeg",
+					array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($startnrs)+1),
+					array('title'=>"Toon geen enkel resultaat op het scorebord",
+						   'class'=>'small secondary button nothingbutton')
+				); ?>
+				<?php foreach ($startnrs as $startnr): ?>
+					<?= $this->Js->link(
+						$startnr,
+						array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], $startnr),
+						array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord",
+							   'class'=>'small secondary button')
+					); ?>
+				<?php endforeach; ?>
+			</div>
+		</div></div>
 
 		<script type="text/javascript">
 		$(function(){
-
-			$("#nextbuttons li").last().show();
-
-			$("#nextbuttons li a").click(function(){
-				$(this).parent().hide();
-				$(this).parent().prev().show();
+			$("#placebuttons a, #startnrbuttons a").click(function() {
+				$("#placebuttons a, #startnrbuttons a").addClass("secondary");
+				$(this).removeClass("secondary");
+				$(this).prevAll().removeClass("secondary");
+				$(".nothingbutton").addClass("secondary");
 			});
-
-			$("#nothingbutton").click(function(){
-				$("#nextbuttons li").hide();
-				$("#nextbuttons li").last().show();
-			});
-
-			$("#allbutton").click(function(){
-				$("#nextbuttons li").hide();
-			});
-
 		});
 		</script>
 
