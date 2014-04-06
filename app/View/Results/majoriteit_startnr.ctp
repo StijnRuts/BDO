@@ -16,8 +16,8 @@
 <table class="majoriteit">
 	<thead>
 		<tr>
-			<th></th>
-			<th>Deelnemer</th>
+			<th>Startnr</th>
+			<?php /* <th>Deelnemer</th> */ ?>
 			<?php foreach($users as $user): ?>
 				<th><?= h($user['username']) ?></th>
 			<?php endforeach; ?>
@@ -26,10 +26,10 @@
 	<tbody>
 		<?php foreach ($majoriteit as $contestant): ?>
 		<tr <?= $contestant['startnrorder']<=$startnr ? "" : 'class="hidden"' ?>>
-			<td><?= h($contestant['startnr']); ?></td>
-			<td><?= h($contestant['name']); ?></td>
+			<td><strong><?= h($contestant['startnr']); ?></strong></td>
+			<?php /* <td><?= h($contestant['name']); ?></td> */ ?>
 			<?php foreach($contestant['places'] as $place): ?>
-				<td class="place"><strong><?= h($place); ?></strong></td>
+				<td class="place"><?= h($place); ?></td>
 			<?php endforeach; ?>
 		</tr>
 		<?php endforeach; ?>
@@ -46,5 +46,13 @@
 			$(this).width( $(this).width() );
 		});
 		$(".hidden").hide();
+
+		//hide the first rows to make shure the last row fits on the screen
+		while(true) {
+			var rowBottom = $("tr:visible").last().offset().top + $("tr:visible").last().height();
+			var windowBottom = $(window).scrollTop() + $(window).height();
+			if(rowBottom < windowBottom) break;
+			$("tr:visible").first().hide();
+		}
 	});
 </script>
