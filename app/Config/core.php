@@ -186,7 +186,8 @@ Configure::write('debug', 2);
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+		'timeout' => '1500',
 	));
 
 /**
