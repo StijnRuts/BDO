@@ -19,14 +19,6 @@
 			<small>(<?= $contestant['Club']['name']; ?>)</small>
 		</h2>
 
-		<?php
-		$users = $contest['User'];
-		usort($users, function($a, $b){
-			if ($a['username'] == $b['username']) return 0;
-			return ($a['username'] < $b['username']) ? -1 : 1;
-		});
-		?>
-
 <br/><br/>
 
 		<table>

@@ -25,6 +25,7 @@ class ResultsController extends AppController {
 			case 'roundname': $this->round_name($ini['id']); break;
 			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
 			case 'majoriteit': $this->majoriteit_results($ini['id'], $ini['minplace']); break;
+			case 'majoriteitstartnr': $this->majoriteit_startnr($ini['id'], $ini['startnr']); break;
 			case 'contestantmajoriteit': $this->majoriteit_contestant($ini['id'], $ini['round_id']); break;
 			case 'welcome': $this->welcome(); break;
 			default: echo "Error"; break;
@@ -107,6 +108,11 @@ class ResultsController extends AppController {
 
 		$users = array();
 		foreach($contest['User'] as $user) array_push($users, $user);
+		usort($users, function($a, $b){
+			if ($a['username'] == $b['username']) return 0;
+			return ($a['username'] < $b['username']) ? -1 : 1;
+		});
+		$this->set('users', $users);
 
 		$majoriteit = $this->Majoriteit->getMajoriteit($round['Contestant'], $users);
 		return $majoriteit;
@@ -128,6 +134,24 @@ class ResultsController extends AppController {
 
 		$this->layout = 'ajax';
 		$this->render('majoriteit_results');
+	}
+	private function majoriteit_startnr($round_id = null, $startnr = null) {
+		$this->loadModel('Contest');
+		$this->loadModel('Round');
+		$this->loadModel('Contestant');
+
+		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+		$majoriteit = $this->_majoriteit_part($round_id);
+
+		usort($majoriteit, function($a,$b){
+			if ($a['startnrorder'] == $b['startnrorder']) return 0;
+			return ($a['startnrorder'] < $b['startnrorder']) ? -1 : 1;
+		});
+		$this->set('majoriteit', $majoriteit);
+		$this->set('startnr', $startnr);
+
+		$this->layout = 'ajax';
+		$this->render('majoriteit_startnr');
 	}
 	private function majoriteit_contestant($contestant_id = null, $round_id = null) {
 		$this->loadModel('Contest');
@@ -296,16 +320,21 @@ class ResultsController extends AppController {
 		$this->write_ini("majoriteit", $id, null, $minplace);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
+	public function showmajoriteitstartnr($id = null, $startnr = null){
+		$this->write_ini("majoriteitstartnr", $id, null, null, $startnr);
+		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+	}
 	public function showcontestantmajoriteit($id = null, $round_id = null){
 		$this->write_ini("contestantmajoriteit", $id, $round_id);
 		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
 	}
 
-	private function write_ini($type, $id, $round_id = null, $minplace = null) {
+	private function write_ini($type, $id, $round_id = null, $minplace = null, $startnr=null) {
 		$fh = fopen($this->inifile, 'w');
 		fwrite($fh,"type=$type\r\nid=$id");
 		if($round_id) fwrite($fh,"\r\nround_id=$round_id");
 		if($minplace) fwrite($fh,"\r\nminplace=$minplace");
+		if($startnr) fwrite($fh,"\r\nstartnr=$startnr");
 		fclose($fh);
 	}
 

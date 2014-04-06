@@ -70,12 +70,11 @@
 			$startnrs = array();
 			foreach ($majoriteit as $contestant) {
 				$places[] = $contestant['place'];
-				$startnrs[] = $contestant['startnr'];
+				$startnrs[ $contestant['startnrorder'] ] = $contestant['startnr'];
 			}
 			$places = array_unique($places);
-			$startnrs = array_unique($startnrs);
 			sort($places);
-			sort($startnrs);
+			ksort($startnrs);
 		?>
 
 		<div style="text-align:center"><div style="display:inline-block; text-align:left">
@@ -105,15 +104,15 @@
 				</span>
 				<?= $this->Js->link(
 					"leeg",
-					array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], end($startnrs)+1),
+					array('controller'=>'results', 'action'=>'showmajoriteitstartnr', $round['Round']['id'], end($startnrs)+1),
 					array('title'=>"Toon geen enkel resultaat op het scorebord",
 						   'class'=>'small secondary button nothingbutton')
 				); ?>
-				<?php foreach ($startnrs as $startnr): ?>
+				<?php foreach ($startnrs as $order=>$startnr): ?>
 					<?= $this->Js->link(
 						$startnr,
-						array('controller'=>'results', 'action'=>'showmajoriteit', $round['Round']['id'], $startnr),
-						array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord",
+						array('controller'=>'results', 'action'=>'showmajoriteitstartnr', $round['Round']['id'], $order),
+						array('title'=>"Toon de resultaten tot startnr $startnr op het scorebord",
 							   'class'=>'small secondary button')
 					); ?>
 				<?php endforeach; ?>
