@@ -104,7 +104,7 @@ class ContestantmanagementController extends AppController {
 
 				$this->Contestant->id = $contestant_id;
 				$newscore = $this->Contestant->getScores($round_id);
-				$newscore = ['scores'][$user_id]['total'];
+				$newscore = $newscore['scores'][$user_id]['total'];
 
 				if( in_array($newscore, $otherscores) ) {
 					$this->Session->setFlash("Deze score komt al voor", 'flash_error');
