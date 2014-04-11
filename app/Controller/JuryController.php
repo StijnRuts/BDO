@@ -104,8 +104,8 @@ class JuryController extends AppController {
 				}
 
 				$this->Contestant->id = $contestant_id;
-				$newscore = $this->Contestant->getScores($round_id)
-								['scores'][$current_user['id']]['total'];
+				$newscore = $this->Contestant->getScores($round_id);
+				$newscore = ['scores'][$current_user['id']]['total'];
 
 				if( in_array($newscore, $otherscores) ) {
 					$this->Session->setFlash("Deze score komt al voor", 'flash_error');
