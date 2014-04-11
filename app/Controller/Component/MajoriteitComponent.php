@@ -40,23 +40,27 @@ class MajoriteitComponent extends Component {
 		// ken plaatsen toe
 		$maj = ceil(count($users) / 2); // aantal stemmen nodig voor majoriteit
 		$assignplace = 1; // toe te kennen plaats
+		$recalculate_maj = true;
 		do {
 			$column = 1;
 			while ($column <= count($contestants)) {
-				$thisplace = array();
 				// wie heeft majoriteit ?
-				foreach ($contestants as $i => $contestant) {
-					if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  !$contestant['place']){
-						array_push($thisplace, $i);
+				if($recalculate_maj) {
+					$thisplace = array();
+					foreach ($contestants as $i => $contestant) {
+						if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  !$contestant['place']){
+							array_push($thisplace, $i);
+						}
 					}
 				}
+				$recalculate_maj = true;
 				if( count($thisplace)==0 ) { // er is geen majoriteit -> kijk naar volgende kolom
 					$column++;
 				} elseif( count($thisplace)==1 ) { // er is majoriteit -> ken plaats toe
 					$i = array_shift($thisplace);
 					$contestants[$i]['place'] = $assignplace;
 //echo "rule1: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
-					$assignplace++;
+					$assignplace++; $column = 1;
 					$column++;
 				} else { // er is dubbele majoriteit -> grootste cumulative
 					$max = 0;
@@ -68,7 +72,7 @@ class MajoriteitComponent extends Component {
 						$i = array_shift($thisplace);
 						$contestants[$i]['place'] = $assignplace;
 //echo "rule2: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
-						$assignplace++;
+						$assignplace++; $column = 1;
 					} else { // er is geen grootste cumulative -> laagste sum
 						$min = 99999999999999;
 						foreach($thisplace as $i) $min = min($min, $contestants[$i]['plaatsing'][$column]['sum']);
@@ -79,9 +83,10 @@ class MajoriteitComponent extends Component {
 							$i = array_shift($thisplace);
 							$contestants[$i]['place'] = $assignplace;
 //echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']."<br/>";
-							$assignplace++;
+							$assignplace++; $column = 1;
 						} else { // nog steeds gelijk -> kijk naar volgende kolom
 							$column++;
+							$recalculate_maj = false;
 							// alle kolommen gelijk -> deel plaats
 							//  * neem gemiddelde plaats van alle gelijke deelnemers
 							//  * rond af naar boven
