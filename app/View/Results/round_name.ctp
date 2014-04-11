@@ -1,6 +1,6 @@
 <div id="infopage"></div>
 
-<h2><?= h($round['Contest']['name']); ?></h2>
+<h2><?= str_replace("  "," nbsp;",h($contest['Contest']['name'])); ?></h2>
 
 <h3>
 	<span class="nowrap"><?= $round['Discipline']['name']; ?>,</span>
