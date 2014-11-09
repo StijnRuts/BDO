@@ -184,3 +184,15 @@ CakeLog::config('error', array(
  * Load Plugins
  */
 CakePlugin::load('DebugKit');
+
+
+/**
+ * Debugging
+ */
+function diedump($data) {
+	echo "<b>Debug</b>";
+	echo "<pre>";
+	var_dump($data);
+	echo "</pre>";
+	exit;
+}
