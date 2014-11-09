@@ -16,4 +16,17 @@
 	</div><div class="four columns"></div>
 </div>
 
+<form action="" method="POST"  style="margin-top: 60px;">
+	<div class="row">
+		<div class="six columns offset-by-one">
+			<?= $this->Form->input('message', array('label'=>false) ); ?>
+		</div>
+	<div class="row">
+	</div>
+		<div class="six columns offset-by-one">
+			<?= $this->Form->submit('Stuur naar beamer', array('class'=>'radius button')); ?>
+		</div>
+	</div>
+</form>
+
 <style> body { min-height: 100%; background: url('/css/bdo/bg.png') no-repeat right top; } </style>

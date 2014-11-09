@@ -1,6 +1,11 @@
 <?php
 class AdminController extends AppController {
 	public function index() {
+		if(isset($this->data['message'])) {
+			App::import('Controller', 'Results');
+			$Results = new ResultsController;
+			$Results->showmessage($this->data['message']);
+		}
 	}
 	public function wedstrijdbeheer() {
 		$this->redirect(array('controller'=>'contests'));
