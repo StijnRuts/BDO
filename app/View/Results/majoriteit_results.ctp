@@ -9,7 +9,7 @@
 <table class="majoriteit">
 	<thead>
 		<tr>
-			<th></th>
+			<th>Startnr</th>
 			<th>Deelnemer</th>
 			<th>Club</th>
 			<th>Plaats</th>

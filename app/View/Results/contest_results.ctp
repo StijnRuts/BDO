@@ -11,7 +11,7 @@
 <table>
 	<thead>
 		<tr>
-			<th></th>
+			<th>Startnr</th>
 			<th>Deelnemer</th>
 			<th>Club</th>
 			<th>Punten</th>
