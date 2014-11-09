@@ -53,7 +53,7 @@ if($debug) echo "<pre>";
 				if($recalculate_maj) {
 					$thisplace = array();
 					foreach ($contestants as $i => $contestant) {
-						if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  !$contestant['place']){
+						if($contestant['plaatsing'][$column]['cumulative'] >= $maj  &&  $contestant['place'] === false){
 							array_push($thisplace, $i);
 if($debug) echo $contestant['startnr'].", ";
 						}
@@ -103,6 +103,7 @@ if($debug) echo "rule3: place $assignplace goes to ".$contestants[$i]['startnr']
 					}
 				}
 			}
+			$recalculate_maj = true;
 
 			// zoek de kandidaten met de laagste sum, die nog geen plaats hebben
 			$sharedplace = array();
