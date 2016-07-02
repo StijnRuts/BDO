@@ -62,9 +62,9 @@ class DATABASE_CONFIG {
 	public $development = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
+		'host' => 'mysql',
+		'login' => 'dev',
+		'password' => 'dev',
 		'database' => 'bdo',
 		'prefix' => '',
 		//'encoding' => 'utf8',
@@ -81,22 +81,11 @@ class DATABASE_CONFIG {
 		//'encoding' => 'utf8',
 	);
 
-	public $test = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'bdo_test',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
-
 	function __construct(){
-		if( isset($_SERVER['SERVER_ADDR']) ){
-			$this->default = ($_SERVER['SERVER_ADDR'] == '127.0.0.1') ?	$this->development : $this->production;
-		}else{
+		if (getenv('CAKE_ENV') == 'docker'){
 			$this->default = $this->development;
+		} else {
+			$this->default = $this->production;
 		}
 	}
 
