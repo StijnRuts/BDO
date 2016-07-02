@@ -18,6 +18,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+// Set default timezone
+date_default_timezone_set('Europe/Brussels');
+
 /**
  * Use the DS to separate the directories in other defines
  */

@@ -1,0 +1,31 @@
+app:
+    image: busybox
+    volumes:
+        - ./app:/var/www/app
+        - ./lib:/var/www/lib
+    tty: true
+
+nginx:
+    build: docker/nginx
+    links:
+        - php
+    volumes_from:
+        - app
+
+php:
+    build: docker/php
+    working_dir: /var/www/app
+    volumes_from:
+        - app
+    links:
+       - mysql
+    environment:
+        CAKE_ENV: docker
+
+mysql:
+    image: mariadb
+    environment:
+        MYSQL_ROOT_PASSWORD: admin
+        MYSQL_USER: dev
+        MYSQL_PASSWORD: dev
+        MYSQL_DATABASE: bdo
