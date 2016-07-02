@@ -95,6 +95,10 @@ class NavigationHelper extends AppHelper
 							'location' => array( 'controller'=>'users' )
 						),
 						array(
+							'name' => 'Beamer',
+							'location' => array( 'controller'=>'beamer' )
+						),
+						array(
 							'name' => 'Instellingen',
 							'location' => array( 'controller'=>'admin', 'action'=>'instellingen' ),
 							'subitems' => array(
@@ -196,4 +200,3 @@ class NavigationHelper extends AppHelper
 	 	return $returnObj;
 	}
 }
-?>

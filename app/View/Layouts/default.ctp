@@ -11,6 +11,7 @@
 		echo $this->Html->css( Configure::read('debug')>0 ? 'foundation' : 'foundation.min');
 		echo $this->Html->css('foundation_icons');
 		echo $this->Html->css('tablesorter/style');
+		echo $this->Html->css('dropzone');
 		echo $this->Html->css('bdo/all');
 
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-1.9.0' : 'jquery-1.9.0.min');
@@ -19,6 +20,7 @@
 		echo $this->Html->script('foundation/app.js');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-ui-1.10.0' : 'jquery-ui-1.10.0.min');
 		echo $this->Html->script( Configure::read('debug')>0 ? 'jquery-tablesorter' : 'jquery-tablesorter.min');
+		echo $this->Html->script( Configure::read('debug')>0 ? 'dropzone' : 'dropzone.min');
 		echo $this->Html->script('bdo/alerts');
 		echo $this->Html->script('bdo/input_focus');
 		echo $this->Html->script('bdo/close_dropdown');
