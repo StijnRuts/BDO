@@ -40,6 +40,8 @@ class ScoreboardImageController extends AppController
       }
     }
 
+    Cache::delete('logos');
+
     if ($this->request->isAjax()) {
       exit;
     }
@@ -54,6 +56,8 @@ class ScoreboardImageController extends AppController
 			$this->ScoreboardImage->id = $value;
 			$this->ScoreboardImage->saveField("order", $key+1);
 		}
+
+    Cache::delete('logos');
 
 		exit;
 	}
