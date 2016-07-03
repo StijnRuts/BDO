@@ -27,6 +27,19 @@
 				<li id="ScoreboardImage_<?php echo $scoreboardImage['ScoreboardImage']['id']; ?>"
 					class="image_preview scoreboard">
 					<img src="/images/scoreboard/<?php echo $scoreboardImage['ScoreboardImage']['name']; ?>" />
+					<?php echo $this->Form->postLink(
+						'<i class="f-icon-remove"></i>',
+						array(
+							'controller' => 'ScoreboardImage',
+							'action' => 'delete',
+							$scoreboardImage['ScoreboardImage']['id'],
+						),
+						array(
+							'escape' => false,
+							'title' => 'Verwijder afbeelding',
+							'style' => 'position:relative',
+						)
+					); ?>
 				</li>
 			<?php endforeach; ?>
 		</ul>

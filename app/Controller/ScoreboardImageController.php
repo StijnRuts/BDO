@@ -50,16 +50,27 @@ class ScoreboardImageController extends AppController
 
   public function reorder()
   {
-		$this->request->onlyAllow('post');
+    $this->request->onlyAllow('post');
 
-		foreach ($this->data['ScoreboardImage'] as $key => $value) {
-			$this->ScoreboardImage->id = $value;
-			$this->ScoreboardImage->saveField("order", $key+1);
-		}
+    foreach ($this->data['ScoreboardImage'] as $key => $value) {
+      $this->ScoreboardImage->id = $value;
+      $this->ScoreboardImage->saveField("order", $key+1);
+    }
 
     Cache::delete('logos');
+    exit;
+  }
 
-		exit;
-	}
+  public function delete($id = null) {
+    if (!$this->ScoreboardImage->exists($id)) {
+      throw new NotFoundException();
+    }
+    $this->request->onlyAllow('post', 'delete');
+
+    $this->ScoreboardImage->delete($id);
+
+    Cache::delete('logos');
+    $this->redirect(array('controller' => 'beamer'));
+  }
 
 }
