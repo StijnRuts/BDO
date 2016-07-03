@@ -24,6 +24,7 @@
 		echo $this->Html->script('bdo/alerts');
 		echo $this->Html->script('bdo/input_focus');
 		echo $this->Html->script('bdo/close_dropdown');
+		echo $this->Html->script('bdo/dropzone_options');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');

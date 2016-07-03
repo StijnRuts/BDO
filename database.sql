@@ -186,3 +186,12 @@ CREATE TABLE IF NOT EXISTS `stages` (
   `contestant_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS `scoreboard_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `order` int(10) unsigned,
+  PRIMARY KEY (`id`)
+);

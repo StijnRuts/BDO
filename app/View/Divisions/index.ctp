@@ -36,4 +36,4 @@
 	</tfoot>
 </table>
 
-<?php $this->Sortable->init(); ?>
+<?php $this->Sortable->init(null, '#sortable tbody'); ?>

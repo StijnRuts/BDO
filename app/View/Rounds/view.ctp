@@ -72,7 +72,7 @@
 					</tfoot>
 				</table>
 
-				<?php $this->Sortable->init('rounds'); ?>
+				<?php $this->Sortable->init('rounds', '#sortable tbody'); ?>
 
 			</div>
 		</div>
