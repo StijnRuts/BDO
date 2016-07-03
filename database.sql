@@ -95,23 +95,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `image` varchar(100),
   `role` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 );
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'Admin', '6d2c216b41fa66081a17f39af76d973abbd20726', 'admin'),
-(2, 'Jurylid1', 'd6f0de8070d6f89891727d2fa887b43bd0d8327c', 'jury'),
-(3, 'Jurylid2', '84752f57921402f37fe9745c82d3b59870ce6363', 'jury'),
-(4, 'Jurylid3', 'ebcc6897181de391f18b44d813a4fcc898a7780f', 'jury'),
-(5, 'Jurylid4', 'fa24910cb71d2f407364e475f42765a2bf2856c6', 'jury'),
-(6, 'Jurylid5', 'f31ed7e128a3b0a53ea842caa9d5cbe123e15e96', 'jury'),
-(7, 'Jurylid6', '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
-(8, 'Jurylid7', 'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
+(2, 'Alice', 'd6f0de8070d6f89891727d2fa887b43bd0d8327c', 'jury'),
+(3, 'Bob', '84752f57921402f37fe9745c82d3b59870ce6363', 'jury'),
+(4, 'Charlie', 'ebcc6897181de391f18b44d813a4fcc898a7780f', 'jury'),
+(5, 'Dave', 'fa24910cb71d2f407364e475f42765a2bf2856c6', 'jury'),
+(6, 'Erin', 'f31ed7e128a3b0a53ea842caa9d5cbe123e15e96', 'jury'),
+(7, 'Frank', '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
+(8, 'Grace', 'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
 
 CREATE TABLE IF NOT EXISTS `contests_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contest_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
+  `order` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 );
 

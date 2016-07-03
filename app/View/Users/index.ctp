@@ -1,8 +1,8 @@
 <table>
 	<thead>
 		<tr>
-			<th>Gebruikersnaam</th>
-			<th>Gebruikersrol</th>
+			<th>Naam</th>
+			<th>Rol</th>
 			<th></th>
 		</tr>
 	</thead>

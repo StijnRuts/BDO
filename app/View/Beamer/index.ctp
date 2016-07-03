@@ -21,7 +21,7 @@
 <h2>Kies logo's voor de beamer</h2>
 
 <div class="row">
-	<div class="ten columns offset-by-one">
+	<div class="ten columns centered">
 		<ul id="sortable" class="image_previews">
 			<?php foreach ($scoreboardImages as $scoreboardImage): ?>
 				<li id="ScoreboardImage_<?php echo $scoreboardImage['ScoreboardImage']['id']; ?>"
