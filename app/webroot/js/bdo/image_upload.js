@@ -3,11 +3,6 @@ function readURL(input) {
     var reader = new FileReader();
 
     reader.onload = function (e) {
-
-console.log($(input));
-console.log($(input).closest('.image-upload'));
-console.log($(input).closest('.image-upload').find('img.image-preview'));
-
       $(input).closest('.image-upload')
         .find('img.image-preview')
         .attr('src', e.target.result);

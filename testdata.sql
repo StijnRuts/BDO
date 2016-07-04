@@ -126,3 +126,43 @@ INSERT INTO `contestants` (`id`, `club_id`, `discipline_id`, `category_id`, `div
 (111, 2, 10, 5, 3, '1', 199, 'Vibrations'),
 (112, 3, 10, 5, 3, '2', 299, 'Silverstars'),
 (113, 4, 12, 5, 3, '1', 199, 'Pirates');
+
+
+INSERT INTO `contests` (`id`, `name`, `date`) VALUES
+(1,	'TestWedstrijd',	'2016-07-01');
+
+INSERT INTO `points` (`id`, `contest_id`, `parent_id`, `lft`, `rght`, `name`, `max`) VALUES
+(1,	1,	NULL,	1,	2,	'Presentatie',	10),
+(2,	1,	NULL,	3,	4,	'Houding',	10),
+(3,	1,	NULL,	5,	6,	'Synchroniteit',	10),
+(4,	1,	NULL,	7,	8,	'Spreiding',	10),
+(5,	1,	NULL,	9,	20,	'Choreografie Gardedansen',	25),
+(6,	1,	5,	10,	11,	'Formaties',	5),
+(7,	1,	5,	12,	13,	'Danspassen',	5),
+(8,	1,	5,	14,	15,	'Formatiewissel',	5),
+(9,	1,	5,	16,	17,	'Danselementen',	5),
+(10,	1,	5,	18,	19,	'Muziekomzetting',	5),
+(11,	1,	NULL,	21,	22,	'Passen en danselementen',	10),
+(12,	1,	NULL,	23,	24,	'Tilfiguren',	10),
+(13,	1,	NULL,	25,	26,	'Omzetten van thema en karakter',	10),
+(14,	1,	NULL,	27,	28,	'Creativiteit',	10),
+(15,	1,	NULL,	29,	30,	'Danstechniek',	10),
+(16,	1,	NULL,	31,	32,	'Uitvoering',	10),
+(17,	1,	NULL,	33,	34,	'Verplichte elementen',	15);
+
+INSERT INTO `contests_users` (`id`, `contest_id`, `user_id`, `order`) VALUES
+(1,	1,	2,	0),
+(2,	1,	3,	1),
+(3,	1,	4,	2);
+
+INSERT INTO `rounds` (`id`, `order`, `contest_id`, `discipline_id`, `category_id`, `division_id`) VALUES
+(1,	1,	1,	2,	3,	2),
+(2,	2,	1,	8,	5,	4);
+
+INSERT INTO `contestants_rounds` (`id`, `round_id`, `contestant_id`) VALUES
+(1,	1,	10),
+(2,	1,	11),
+(3,	1,	12),
+(4,	2,	2),
+(5,	2,	3),
+(6,	2,	4);
