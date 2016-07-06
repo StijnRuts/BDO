@@ -34,6 +34,7 @@ class ResultsController extends AppController {
       case 'majoriteit': $this->majoriteit_results($ini['id'], $ini['minplace']); break;
       case 'majoriteitstartnr': $this->majoriteit_startnr($ini['id'], $ini['startnr']); break;
       case 'contestantmajoriteit': $this->majoriteit_contestant($ini['id'], $ini['round_id']); break;
+      case 'contestusers': $this->contest_users($ini['id']); break;
       case 'message': $this->message($ini['message']); break;
       default: echo "Error"; break;
     }
@@ -193,6 +194,21 @@ class ResultsController extends AppController {
 
     $this->layout = 'results_ajax';
     $this->render('majoriteit_contestant');
+  }
+  private function contest_users($id = null) {
+    $this->loadModel('Contest');
+    if (!$this->Contest->exists($id)) throw new NotFoundException();
+
+    $contest = $this->Contest->find('first', array(
+      'conditions' => array('Contest.id' => $id),
+      'contain' => array(
+        'User' => array('order' => array('order' => 'asc')),
+      ),
+    ));
+    $this->set('contest', $contest);
+
+    $this->layout = 'results_ajax';
+    $this->render('contest_users');
   }
 
   private function contest_name($id = null) {
@@ -373,6 +389,13 @@ class ResultsController extends AppController {
       'type' => "contestantmajoriteit",
       'id' => $id,
       'round_id' => $round_id
+    ));
+    if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+  }
+  public function showcontestusers($id = null){
+    $this->write_ini(array(
+      'type' => "contestusers",
+      'id' => $id,
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }

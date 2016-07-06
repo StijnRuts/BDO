@@ -19,6 +19,14 @@
         <h2>
           Jurysamenstelling voor <?php echo h($contest['Contest']['name']); ?>
           <small>(<?php echo h($contest['Contest']['date']); ?>)</small>
+          <span class="nowrap">
+            <?php echo $this->Js->link(
+              'toon',
+              array('controller'=>'results', 'action'=>'showcontestusers', $contest['Contest']['id']),
+              array('title'=>'Toon jurysamenstelling van '.h($contest['Contest']['name'].' op scorebord'),
+                   'class'=>'tiny secondary button')
+            ); ?>
+          </span>
         </h2>
 
         <div class="row">
@@ -34,6 +42,7 @@
                     <ul id="jury_selected" class="connectedSortable main">
                       <?php foreach ($contest['User'] as $user): ?>
                         <li id="<?php echo $user['id']; ?>">
+                          <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
                           <?php echo $user['username']; ?>
                         </li>
                       <?php endforeach; ?>
@@ -45,6 +54,7 @@
                       <?php foreach ($users as $user): ?>
                         <?php if (!in_array($user['User']['id'], $selected)): ?>
                           <li id="<?php echo $user['User']['id']; ?>">
+                            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
                             <?php echo $user['User']['username']; ?>
                           </li>
                         <?php endif; ?>

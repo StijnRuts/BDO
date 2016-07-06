@@ -67,3 +67,14 @@ table.selectable tbody tr:hover td {
 .level3 .name { padding-left: 55px; } .level3 .name:before { content: '- '; }
 .level4 .name { padding-left: 70px; } .level4 .name:before { content: '. '; }
 .level5 .name { padding-left: 85px; }
+
+
+ul.connectedSortable li {
+	list-style: none;
+	padding: 8px 15px;
+	margin-bottom: 5px;
+	background-color: #ededed;
+}
+ul.connectedSortable li .ui-icon {
+	display: inline-block;
+}
