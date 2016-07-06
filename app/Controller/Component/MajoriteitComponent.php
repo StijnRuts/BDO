@@ -2,12 +2,11 @@
 class MajoriteitComponent extends Component {
 	public function getMajoriteit($contestants, $users) {
 
-		// sorteer juryleden op naam
+		// sorteer juryleden op order
 		usort($users, function($a, $b){
-			if ($a['username'] == $b['username']) return 0;
-			return ($a['username'] < $b['username']) ? -1 : 1;
+			return $a["ContestsUser"]["order"] - $b["ContestsUser"]["order"];
 		});
-		
+
 		// bepaal juryplaatsen
 		foreach($users as $user) {
 			$scores = array();

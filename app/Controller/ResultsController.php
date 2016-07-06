@@ -129,16 +129,14 @@ class ResultsController extends AppController {
     $this->set('round', $round);
 
     $contest = $this->Contest->find('first', array(
-      'conditions' => array('Contest.id'=>$round['Round']['contest_id'])
+      'conditions' => array('Contest.id'=>$round['Round']['contest_id']),
+      'contain' => array(
+        'User' => array('order' => array('order' => 'asc')),
+      ),
     ));
     $this->set('contest', $contest);
 
-    $users = array();
-    foreach($contest['User'] as $user) array_push($users, $user);
-    usort($users, function($a, $b){
-      if ($a['username'] == $b['username']) return 0;
-      return ($a['username'] < $b['username']) ? -1 : 1;
-    });
+    $users = $contest['User'];
     $this->set('users', $users);
 
     $majoriteit = $this->Majoriteit->getMajoriteit($round['Contestant'], $users);

@@ -18,8 +18,8 @@
 		<tr>
 			<th>Startnr</th>
 			<?php /* <th>Deelnemer</th> */ ?>
-			<?php foreach($users as $user): ?>
-				<th><?= h($user['username']) ?></th>
+			<?php foreach($users as $key => $user): ?>
+				<th><?php echo 'Jury '.($key+1); /*h($user['username']);*/ ?></th>
 			<?php endforeach; ?>
 		</tr>
 	</thead>

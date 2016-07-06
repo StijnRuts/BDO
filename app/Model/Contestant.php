@@ -93,7 +93,7 @@ class Contestant extends AppModel {
 			'contain'=>array(
 				'User'=>array(
 					'conditions' => array('User.role'=>'jury'),
-					'order' => array('User.username'=>'asc'),
+					'order' => array('order'=>'asc'),
 					'fields' => array('User.id', 'User.username')
 				)
 			)
@@ -227,4 +227,3 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 }
-?>
