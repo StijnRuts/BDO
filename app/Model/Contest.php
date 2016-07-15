@@ -57,8 +57,23 @@ class Contest extends AppModel {
 	public function initUsers(){
 		$User = ClassRegistry::init('User');
 		$User->recursive = 0;
-		$users = $User->find('list',array('conditions' => array('role'=>'jury')) );
-		foreach($users as $key=>$value) $users[$key] = $key;
-		$this->save(array( 'User'=>$users ));
+
+		$users = $User->find('list', array(
+			'conditions' => array('User.role' => 'jury'),
+			'fields' => array('User.id'),
+			'order' => 'User.username',
+		));
+		$users = array_values($users);
+		array_walk($users, function(&$user, $key) {
+			$user = array(
+				'id' => $user,
+				'ContestsUser' => array(
+					'user_id' => $user,
+					'order' => $key,
+				)
+			);
+		});
+
+		$this->save(array('User' => $users));
 	}
 }
