@@ -9,13 +9,29 @@ class UsersController extends AppController {
 
   public function index() {
     $this->User->recursive = 0;
-    $this->set('users', $this->User->find('all', array(
-      'order' => array('User.role'=>'asc', 'User.username'=>'asc'),
-    )));
+    $users = $this->User->find('all');
+
+    usort($users, function($a, $b) {
+      if ($a['User']['role']=="admin" && $b['User']['role']!="admin") {
+        return -1;
+      }
+      if ($a['User']['role']!="admin" && $b['User']['role']=="admin") {
+        return 1;
+      }
+      $numberCmp = strnatcmp($a['User']['number'], $b['User']['number']);
+      $nameCmp = strcmp($a['User']['username'], $b['User']['username']);
+      return ($numberCmp!=0) ? $numberCmp : $nameCmp;
+    });
+
+    $this->set('users', $users);
   }
 
   public function add() {
     if ($this->request->is('post')) {
+      if (!empty($this->request->data['User']['image']['tmp_name'])) {
+        $images = $this->uploadFiles($this->request->data['User']['image'], 'users');
+        $this->request->data['User']['image'] = $images[0];
+      }
       $this->User->create();
       if ($this->User->save($this->request->data)) {
         $this->Session->setFlash('De gebruiker is opgeslaan', 'flash_success');
@@ -24,6 +40,7 @@ class UsersController extends AppController {
         $this->Session->setFlash('De gebruiker kon niet worden opgeslaan', 'flash_error');
       }
     }
+    $this->render('edit');
   }
 
   public function edit($id = null) {

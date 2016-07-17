@@ -1,6 +1,7 @@
 <table>
 	<thead>
 		<tr>
+			<th>Nummer</th>
 			<th>Naam</th>
 			<th>Rol</th>
 			<th></th>
@@ -9,19 +10,20 @@
 	<tbody>
 		<?php foreach ($users as $user): ?>
 		<tr>
-			<td><?= h($user['User']['username']); ?></td>
+			<td><?php echo h($user['User']['number']); ?></td>
+			<td><?php echo h($user['User']['username']); ?></td>
 			<td><?php switch($user['User']['role']){
 				case 'admin': echo 'Beheerder'; break;
 				case 'jury':  echo 'Jurylid'; break;
 				default: echo '<div class="alert label">!!! Onbekend !!!</div>'; break;
 			} ?></td>
 			<td>
-				<?= $this->Html->link(
+				<?php echo $this->Html->link(
 					'<i class="f-icon-tools"></i>',
 					array('action'=>'edit', $user['User']['id']),
 					array('escape'=>false, 'title'=>'Bewerk '.h($user['User']['username']))
 				); ?>
-				<?= $this->Form->postLink(
+				<?php echo $this->Form->postLink(
 					'<i class="f-icon-remove"></i>',
 					array('action'=>'delete', $user['User']['id']),
 					array('escape'=>false, 'title'=>'Verwijder '.h($user['User']['username'])),
@@ -33,8 +35,8 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="3" class="tablebutton">
-				<?= $this->Html->link('Gebruiker toevoegen', array('action'=>'add'), array('class'=>'small secondary radius button')); ?>
+			<td colspan="4" class="tablebutton">
+				<?php echo $this->Html->link('Gebruiker toevoegen', array('action'=>'add'), array('class'=>'small secondary radius button')); ?>
 			</td>
 		</tr>
 	</tfoot>

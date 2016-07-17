@@ -2,7 +2,7 @@
 	<div class="ten columns centered">
 		<?php echo $this->Form->create('User', array('enctype'=>"multipart/form-data")); ?>
 			<fieldset>
-				<legend>Gebruiker bewerken</legend>
+				<legend><?php echo isset($this->data['User']['id']) ? 'Gebruiker bewerken' : 'Gebruiker toevoegen'; ?></legend>
 				<div class="three columns image-upload" style="text-align:center">
 					<?php
 						$src = $this->data['User']['image'];
@@ -24,6 +24,7 @@
 				<div class="nine columns">
 					<?php echo $this->Form->input('id'); ?>
 					<div class="row">
+						<div class="twelve columns"><?php echo $this->Form->input('number', array('label'=>'Nummer')); ?></div>
 						<div class="twelve columns"><?php echo $this->Form->input('username', array('label'=>'Naam')); ?></div>
 						<div class="twelve columns"><?php echo $this->Form->input('password', array('label'=>'Paswoord', 'value'=>'', 'required'=>false)); ?></div>
 						<div class="twelve columns"><?php echo $this->Form->input('role', array(
