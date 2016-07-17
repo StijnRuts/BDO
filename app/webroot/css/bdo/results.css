@@ -86,3 +86,18 @@ table.contest_users { table-layout: fixed; border: none; margin: 0 30px; }
 table.contest_users td { text-align: center; width: 2%; }
 table.contest_users tbody tr { background: none; }
 table.contest_users img { max-height: 250px; }
+
+table.places_large {
+	margin-top: 100px;
+}
+table.places_large .place {
+	font-size: 100px;
+	line-height: 120px;
+}
+table.places_large .place strong {
+	display: inline-block;
+	min-width: 120px;
+	min-height: 120px;
+	padding: 0 15px;
+	border: 2px solid white;
+}

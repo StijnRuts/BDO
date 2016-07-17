@@ -19,9 +19,7 @@
 			<small>(<?= $contestant['Club']['name']; ?>)</small>
 		</h2>
 
-<br/><br/>
-
-		<table>
+		<table class="places_large">
 			<thead>
 				<tr>
 					<?php foreach($users as $key => $user): ?>

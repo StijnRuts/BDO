@@ -9,19 +9,19 @@
 <table class="majoriteit">
 	<thead>
 		<tr>
-			<th>Startnr</th>
+			<th>Plaats</th>
 			<th>Deelnemer</th>
 			<th>Club</th>
-			<th>Plaats</th>
+			<th>Startnr</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($majoriteit as $contestant): ?>
 		<tr <?= $contestant['place']>=$minplace ? "" : 'class="hidden"' ?>>
-			<td><?= h($contestant['startnr']); ?></td>
+			<td class="score"><strong><?= $contestant['place'] ?></strong></td>
 			<td><?= h($contestant['name']); ?></td>
 			<td><?= h($contestant['Club']['name']); ?></td>
-			<td class="score"><strong><?= $contestant['place'] ?></strong></td>
+			<td><?= h($contestant['startnr']); ?></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
