@@ -31,35 +31,41 @@
 
         <div class="row">
           <div class="ten columns centered">
-            <?php echo $this->Form->create('Contest'); ?>
+            <?php echo $this->Form->create('Contest', array('autocomplete' => 'off')); ?>
               <fieldset>
                 <legend>Jurysamenstelling bewerken</legend>
                 <?php echo $this->Form->input('id'); ?>
-                <div class="row">
+                <div class="row" id="ContestUsers">
 
                   <div class="six columns">
                     <h3>Jurysamenstelling</h3>
-                    <ul id="jury_selected" class="connectedSortable main">
+                    <ul id="jury_selected" class="sortable">
                       <?php foreach ($contest['User'] as $user): ?>
                         <li id="<?php echo $user['id']; ?>">
                           <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-                          <?php echo $user['username']; ?>
+                          <strong><?php echo h($user['number']); ?></strong> -
+                          <?php echo h($user['username']); ?>
                         </li>
                       <?php endforeach; ?>
                     </ul>
                   </div>
                   <div class="six columns">
                     <h3>Beschikbare juryleden</h3>
-                    <ul id="jury_available" class="connectedSortable">
-                      <?php foreach ($users as $user): ?>
-                        <?php if (!in_array($user['User']['id'], $selected)): ?>
-                          <li id="<?php echo $user['User']['id']; ?>">
-                            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-                            <?php echo $user['User']['username']; ?>
-                          </li>
-                        <?php endif; ?>
-                      <?php endforeach; ?>
-                    </ul>
+                    <?php foreach ($users as $user): ?>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="<?php echo $user['User']['id']; ?>"
+                              <?php if(in_array($user['User']['id'], $selected)) { echo 'checked'; } ?>
+                              data-label="
+                                <span class=&quot;ui-icon ui-icon-arrowthick-2-n-s&quot;></span>
+                                <strong><?php echo h($user['User']['number']); ?></strong> -
+                                <?php echo h($user['User']['username']); ?>
+                              "/>
+                          <strong><?php echo h($user['User']['number']); ?></strong> -
+                          <?php echo h($user['User']['username']); ?>
+                        </label>
+                      </div>
+                    <?php endforeach; ?>
                   </div>
 
                   <?php echo $this->Form->hidden('Contest.User', array(

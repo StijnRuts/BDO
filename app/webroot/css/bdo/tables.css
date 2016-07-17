@@ -69,12 +69,12 @@ table.selectable tbody tr:hover td {
 .level5 .name { padding-left: 85px; }
 
 
-ul.connectedSortable li {
+ul.sortable li {
 	list-style: none;
 	padding: 8px 15px;
 	margin-bottom: 5px;
 	background-color: #ededed;
 }
-ul.connectedSortable li .ui-icon {
+ul.sortable li .ui-icon {
 	display: inline-block;
 }

@@ -1,16 +1,22 @@
 $(function() {
 
-  $('.connectedSortable').sortable({
-    connectWith: '.connectedSortable',
-    update: function() {
-      var selected = $('.connectedSortable.main').sortable('toArray');
-      console.log(selected);
-      $(this).closest('form').find('.sortable.input').val(JSON.stringify(selected));
+  $('#ContestUsers .sortable').sortable().disableSelection();
+
+  $('#ContestUsers .sortable').on('sortupdate', function() {
+    var selected = $('.sortable').sortable('toArray');
+    $(this).closest('form').find('.sortable.input').val(JSON.stringify(selected));
+  });
+
+  $('#ContestUsers input[type="checkbox"]').change(function(){
+    var id = $(this).val();
+    if ($(this).is(':checked')) {
+      $('#ContestUsers .sortable').append(
+        '<li id="'+id+'">'+ $(this).attr('data-label') +'</li>'
+      )
+    } else {
+      $('#ContestUsers .sortable li#'+id).remove();
     }
-  }).disableSelection();
+    $('#ContestUsers .sortable').trigger('sortupdate');
+  });
 
 });
-
-
-//var url = $(this).closest('form').attr('action');
-//$.post(url, $('.connectedSortable.main').sortable('serialize'));

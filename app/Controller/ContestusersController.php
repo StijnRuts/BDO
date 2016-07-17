@@ -25,6 +25,7 @@ class ContestusersController extends AppController
   public function edit($contest_id = null)
   {
     $this->loadModel('Contest');
+    $this->loadModel('User');
     if (!$this->Contest->exists($contest_id)) {
       throw new NotFoundException();
     }
@@ -73,8 +74,8 @@ class ContestusersController extends AppController
 
     $users = $this->Contest->User->find('all', array(
       'conditions' => array('role' => 'jury'),
-      'order' => array('username' => 'asc'),
     ));
+    usort($users, array($this->User, 'cmp'));
     $this->set('users', $users);
 
     $selected = Set::extract('/User/id', $contest);

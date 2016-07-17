@@ -40,4 +40,23 @@ class User extends AppModel {
 		}
 		return true;
 	}
+
+	public static function cmp($a, $b)
+	{
+		if (isset($a['User'])) { $a = $a['User']; }
+		if (isset($b['User'])) { $b = $b['User']; }
+
+		if ($a['role']=="admin" && $b['role']!="admin") {
+			return -1;
+		}
+		if ($a['role']!="admin" && $b['role']=="admin") {
+			return 1;
+		}
+
+		$numberCmp = strnatcmp($a['number'], $b['number']);
+		$nameCmp = strcmp($a['username'], $b['username']);
+
+		return ($numberCmp!=0) ? $numberCmp : $nameCmp;
+	}
+
 }

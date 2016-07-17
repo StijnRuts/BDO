@@ -11,17 +11,7 @@ class UsersController extends AppController {
     $this->User->recursive = 0;
     $users = $this->User->find('all');
 
-    usort($users, function($a, $b) {
-      if ($a['User']['role']=="admin" && $b['User']['role']!="admin") {
-        return -1;
-      }
-      if ($a['User']['role']!="admin" && $b['User']['role']=="admin") {
-        return 1;
-      }
-      $numberCmp = strnatcmp($a['User']['number'], $b['User']['number']);
-      $nameCmp = strcmp($a['User']['username'], $b['User']['username']);
-      return ($numberCmp!=0) ? $numberCmp : $nameCmp;
-    });
+    usort($users, array($this->User, 'cmp'));
 
     $this->set('users', $users);
   }
