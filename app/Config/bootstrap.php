@@ -196,3 +196,5 @@ function diedump($data) {
 	echo "</pre>";
 	exit;
 }
+
+require_once(APP.'Vendor'.DS.'kint'.DS.'Kint.class.php');
