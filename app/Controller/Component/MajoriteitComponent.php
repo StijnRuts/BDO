@@ -4,7 +4,7 @@ class MajoriteitComponent extends Component {
 
 		// sorteer juryleden op order
 		usort($users, function($a, $b){
-			return $a["ContestsUser"]["order"] - $b["ContestsUser"]["order"];
+			return $a["RoundsUser"]["order"] - $b["RoundsUser"]["order"];
 		});
 
 		// bepaal juryplaatsen

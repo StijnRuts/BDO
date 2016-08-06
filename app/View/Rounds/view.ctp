@@ -3,8 +3,8 @@
 	<div class="three columns">
 		<ul class="nav-bar vertical">
 			<?php foreach ($contests as $c): ?>
-			<li class="<?= $c['Contest']['id']==$contest['Contest']['id'] ? 'active' : ''; ?>">
-				<?= $this->Html->link(
+			<li class="<?php echo $c['Contest']['id']==$contest['Contest']['id'] ? 'active' : ''; ?>">
+				<?php echo $this->Html->link(
 					$c['Contest']['name'],
 					array('action'=>'view', $c['Contest']['id'])
 				); ?>
@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="twelve columns">
 
-				<h2>Rondes voor <?= h($contest['Contest']['name']); ?> <small>(<?= h($contest['Contest']['date']); ?>)</small></h2>
+				<h2>Rondes voor <?php echo h($contest['Contest']['name']); ?> <small>(<?php echo h($contest['Contest']['date']); ?>)</small></h2>
 				<table id="sortable">
 					<thead>
 						<tr>
@@ -31,26 +31,32 @@
 					</thead>
 					<tbody>
 						<?php foreach ($contest['Round'] as $round): ?>
-							<tr id="Round_<?= $round['id']; ?>">
+							<tr id="Round_<?php echo $round['id']; ?>">
 								<td class="sorthandle"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></td>
-								<td class="sorthandle"><?= $round['Discipline']['name']; ?></td>
-								<td class="sorthandle"><?= $round['Category']['name']; ?></td>
-								<td class="sorthandle"><?= $round['Division']['name']; ?></td>
+								<td class="sorthandle"><?php echo $round['Discipline']['name']; ?></td>
+								<td class="sorthandle"><?php echo $round['Category']['name']; ?></td>
+								<td class="sorthandle"><?php echo $round['Division']['name']; ?></td>
 								<td>
-									<?= $this->Html->link(
+									<?php echo $this->Html->link(
 										'deelnemers',
-										array('controller'=>'rounds', 'action'=>'contestants', $round['id']),
+										array('action'=>'contestants', $round['id']),
 										array('title'=>'Beheer deelnemers voor deze ronde',
+											   'class'=>'tiny button')
+									); ?>
+									<?php echo $this->Html->link(
+										'jurysamenstelling',
+										array('action'=>'users', $round['id']),
+										array('title'=>'Beheer jurysamenstelling voor deze ronde',
 											   'class'=>'tiny button')
 									); ?>
 								</td>
 								<td>
-									<?= $this->Html->link(
+									<?php echo $this->Html->link(
 										'<i class="f-icon-tools"></i>',
 										array('controller'=>'rounds', 'action'=>'edit', $round['id']),
 										array('escape'=>false, 'title'=>'Bewerk ronde')
 									); ?>
-									<?= $this->Form->postLink(
+									<?php echo $this->Form->postLink(
 										'<i class="f-icon-remove"></i>',
 										array('controller'=>'rounds', 'action'=>'delete', $round['id']),
 										array('escape'=>false, 'title'=>'Verwijder ronde'),
@@ -63,7 +69,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="6" class="tablebutton">
-								<?= $this->Html->link('Ronde toevoegen',
+								<?php echo $this->Html->link('Ronde toevoegen',
 									array('controller'=>'rounds','action'=>'add', $contest['Contest']['id']),
 									array('class'=>'small secondary radius  button')
 								); ?>

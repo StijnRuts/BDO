@@ -93,25 +93,13 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	// @TODO
-	private function get_users($round_id)
+	public function get_users($round_id)
 	{
 		$Round = ClassRegistry::init('Round');
 		$Round->id = $round_id;
 		$round = $Round->read();
 
-		$Contest = ClassRegistry::init('Contest');
-		$contest = $Contest->find('first', array(
-			'conditions' => array('id'=>$round['Contest']['id']),
-			'contain'=>array(
-				'User'=>array(
-					'conditions' => array('User.role'=>'jury'),
-					'order' => array('order'=>'asc'),
-					'fields' => array('User.id', 'User.username')
-				)
-			)
-		));
-		return $contest['User'];
+		return $round['User'];
 	}
 
 	private function get_points($round_id)

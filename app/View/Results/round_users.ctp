@@ -1,16 +1,18 @@
 <h2>
-  Jurysamenstelling
-  <?php echo h($contest['Contest']['name']); ?>
+  Jurysamenstelling<br>
+  <?php echo h($round['Discipline']['name']); ?>
+  <?php echo h($round['Category']['name']); ?>
+  <?php echo h($round['Division']['name']); ?>
 </h2>
 
 <table class="contest_users">
   <tbody>
 	  <tr>
-      <?php foreach($contest['User'] as $key => $user): ?>
+      <?php foreach($round['User'] as $key => $user): ?>
 			  <td>Jury <?php echo $key+1; ?></td>
       <?php endforeach; ?>
     </tr><tr>
-      <?php foreach($contest['User'] as $user): ?>
+      <?php foreach($round['User'] as $user): ?>
 			  <td>
           <?php if (!empty($user['image'])): ?>
             <img src="/images/users/<?php echo $user['image']; ?>"/>
@@ -18,7 +20,7 @@
         </td>
       <?php endforeach; ?>
     </tr><tr>
-      <?php foreach($contest['User'] as $user): ?>
+      <?php foreach($round['User'] as $user): ?>
 			  <td><?php echo h($user['username']); ?></td>
       <?php endforeach; ?>
 	  </tr>

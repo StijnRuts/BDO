@@ -32,10 +32,6 @@ class NavigationHelper extends AppHelper
 									'location' => array( 'controller'=>'points' )
 								),
 								array(
-									'name' => 'Jurysamenstelling',
-									'location' => array( 'controller'=>'contestusers' )
-								),
-								array(
 									'name' => 'Wedstrijdverloop',
 									'location' => array( 'controller'=>'contestmanagement' ),
 									'show' => false

@@ -29,7 +29,7 @@ class MajoriteitController extends AppController {
 		$this->set('contest', $contest);
 
 		$users = array();
-		foreach($contest['User'] as $user) array_push($users, $user);
+		foreach($round['User'] as $user) array_push($users, $user);
 
 		$this->set('majoriteit',
 			$this->Majoriteit->getMajoriteit($round['Contestant'], $users)

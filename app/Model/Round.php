@@ -17,7 +17,6 @@ class Round extends AppModel {
 
 	public $hasAndBelongsToMany = array('Contestant', 'User');
 
-	// @TODO
 	// initializes the users for this contest with the values for users with role 'jury'
 	public function initUsers()
 	{
@@ -34,7 +33,7 @@ class Round extends AppModel {
 		array_walk($users, function(&$user, $key) {
 			$user = array(
 				'id' => $user,
-				'ContestsUser' => array(
+				'RoundsUser' => array(
 					'user_id' => $user,
 					'order' => $key,
 				)

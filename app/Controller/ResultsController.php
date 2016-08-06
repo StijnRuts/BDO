@@ -17,7 +17,6 @@ class ResultsController extends AppController {
     $this->layout = 'results';
   }
 
-
   public function results() {
     $this->request->onlyAllow('ajax');
 
@@ -34,7 +33,7 @@ class ResultsController extends AppController {
       case 'majoriteit': $this->majoriteit_results($ini['id'], $ini['minplace']); break;
       case 'majoriteitstartnr': $this->majoriteit_startnr($ini['id'], $ini['startnr']); break;
       case 'contestantmajoriteit': $this->majoriteit_contestant($ini['id'], $ini['round_id']); break;
-      case 'contestusers': $this->contest_users($ini['id']); break;
+      case 'roundusers': $this->round_users($ini['id']); break;
       case 'message': $this->message($ini['message']); break;
       default: echo "Error"; break;
     }
@@ -62,6 +61,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('message');
   }
+
   private function contest_results($id = null) {
     $this->loadModel('Contest');
     $this->loadModel('Contestant');
@@ -87,6 +87,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('contest_results');
   }
+
   private function round_results($id = null) {
     $this->loadModel('Round');
     $this->loadModel('Contestant');
@@ -104,6 +105,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('round_results');
   }
+
   private function contestant_results($contestant_id = null, $round_id = null) {
     $this->loadModel('Contestant');
     $this->loadModel('Round');
@@ -120,7 +122,10 @@ class ResultsController extends AppController {
   private function _majoriteit_part($round_id) {
     $round = $this->Round->find('first', array(
       'conditions' => array('Round.id'=>$round_id),
-      'contain' => array('Category', 'Discipline', 'Division', 'Contest', 'Contestant.Club', 'Contestant')
+      'contain' => array(
+        'Category', 'Discipline', 'Division', 'Contest', 'Contestant.Club', 'Contestant',
+        'User' => array('order' => array('order' => 'asc')),
+      )
     ));
     foreach ($round['Contestant'] as &$contestant){
       $this->Contestant->id = $contestant['id'];
@@ -129,19 +134,18 @@ class ResultsController extends AppController {
     $this->set('round', $round);
 
     $contest = $this->Contest->find('first', array(
-      'conditions' => array('Contest.id'=>$round['Round']['contest_id']),
-      'contain' => array(
-        'User' => array('order' => array('order' => 'asc')),
-      ),
+      'conditions' => array('Contest.id' => $round['Round']['contest_id']),
+      'contain' => false,
     ));
     $this->set('contest', $contest);
 
-    $users = $contest['User'];
+    $users = $round['User'];
     $this->set('users', $users);
 
     $majoriteit = $this->Majoriteit->getMajoriteit($round['Contestant'], $users);
     return $majoriteit;
   }
+
   private function majoriteit_results($round_id = null, $minplace = null) {
     $this->loadModel('Contest');
     $this->loadModel('Round');
@@ -160,6 +164,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('majoriteit_results');
   }
+
   private function majoriteit_startnr($round_id = null, $startnr = null) {
     $this->loadModel('Contest');
     $this->loadModel('Round');
@@ -178,6 +183,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('majoriteit_startnr');
   }
+
   private function majoriteit_contestant($contestant_id = null, $round_id = null) {
     $this->loadModel('Contest');
     $this->loadModel('Round');
@@ -193,20 +199,21 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('majoriteit_contestant');
   }
-  private function contest_users($id = null) {
-    $this->loadModel('Contest');
-    if (!$this->Contest->exists($id)) throw new NotFoundException();
 
-    $contest = $this->Contest->find('first', array(
-      'conditions' => array('Contest.id' => $id),
+  private function round_users($id = null) {
+    $this->loadModel('Round');
+    if (!$this->Round->exists($id)) throw new NotFoundException();
+
+    $round = $this->Round->find('first', array(
+      'conditions' => array('Round.id' => $id),
       'contain' => array(
         'User' => array('order' => array('order' => 'asc')),
       ),
     ));
-    $this->set('contest', $contest);
+    $this->set('round', $round);
 
     $this->layout = 'results_ajax';
-    $this->render('contest_users');
+    $this->render('round_users');
   }
 
   private function contest_name($id = null) {
@@ -218,6 +225,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('contest_name');
   }
+
   private function round_name($id = null) {
     $this->loadModel('Round');
     if (!$this->Round->exists($id)) throw new NotFoundException();
@@ -230,6 +238,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('round_name');
   }
+
   private function contestant_name($contestant_id = null, $round_id = null) {
     $this->loadModel('Contestant');
     $this->loadModel('Round');
@@ -241,6 +250,7 @@ class ResultsController extends AppController {
     $this->layout = 'results_ajax';
     $this->render('contestant_name');
   }
+
   public function contest_print($id = null) {
     $this->loadModel('Contest');
     $this->loadModel('Contestant');
@@ -264,6 +274,7 @@ class ResultsController extends AppController {
     $this->layout = 'pdf/default';
     $this->response->type('pdf');
   }
+
   public function round_print($id = null) {
     $this->loadModel('Round');
     $this->loadModel('Contestant');
@@ -282,6 +293,7 @@ class ResultsController extends AppController {
     $this->layout = 'pdf/default';
     $this->response->type('pdf');
   }
+
   public function contestant_print($contestant_id = null, $round_id = null) {
     $this->loadModel('Contestant');
     $this->loadModel('Round');
@@ -296,6 +308,7 @@ class ResultsController extends AppController {
     $this->layout = 'pdf/default';
     $this->response->type('pdf');
   }
+
   public function majoriteit_print($round_id = null) {
     $this->loadModel('Contest');
     $this->loadModel('Round');
@@ -322,6 +335,7 @@ class ResultsController extends AppController {
       'message' => $message,
     ));
   }
+
   public function showcontest($id = null){
     $this->write_ini(array(
       'type' => "contest",
@@ -329,6 +343,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showround($id = null){
     $this->write_ini(array(
       'type' => "round",
@@ -336,6 +351,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showcontestant($id = null, $round_id = null){
     $this->write_ini(array(
       'type' => "contestant",
@@ -344,6 +360,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showcontestname($id = null){
     $this->write_ini(array(
       'type' => "contestname",
@@ -351,6 +368,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showroundname($id = null){
     $this->write_ini(array(
       'type' => "roundname",
@@ -358,6 +376,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showcontestantname($id = null, $round_id = null){
     $this->write_ini(array(
       'type' => "contestantname",
@@ -366,6 +385,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showmajoriteit($id = null, $minplace = null){
     $this->write_ini(array(
       'type' => "majoriteit",
@@ -374,6 +394,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showmajoriteitstartnr($id = null, $startnr = null){
     $this->write_ini(array(
       'type' => "majoriteitstartnr",
@@ -382,6 +403,7 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
+
   public function showcontestantmajoriteit($id = null, $round_id = null){
     $this->write_ini(array(
       'type' => "contestantmajoriteit",
@@ -390,9 +412,10 @@ class ResultsController extends AppController {
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
-  public function showcontestusers($id = null){
+
+  public function showroundusers($id = null){
     $this->write_ini(array(
-      'type' => "contestusers",
+      'type' => "roundusers",
       'id' => $id,
     ));
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
