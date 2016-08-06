@@ -110,9 +110,9 @@ INSERT INTO `users` (`id`, `number`, `username`, `password`, `role`) VALUES
 (7, '6', 'Frank',   '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
 (8, '7', 'Grace',   'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
 
-CREATE TABLE IF NOT EXISTS `contests_users` (
+CREATE TABLE IF NOT EXISTS `rounds_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `contest_id` int(10) unsigned NOT NULL,
+  `round_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `order` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)

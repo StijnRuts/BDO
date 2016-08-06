@@ -15,7 +15,7 @@ class ContestsController extends AppController {
 			$this->Contest->create();
 			if ($this->Contest->save($this->request->data)) {
 				$this->Contest->initPoints();
-				$this->Contest->initUsers();
+				$this->Contest->initUsers(); // @TODO, this is now part of Round
 				$this->Session->setFlash('De wedstrijd is opgeslaan', 'flash_success');
 				$this->Session->write('recent.contest', $this->Contest->getLastInsertID());
 				$this->redirect(array('action'=>'index'));

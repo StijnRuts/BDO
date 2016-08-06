@@ -33,7 +33,9 @@ class Contestant extends AppModel {
 	);
 	public $hasAndBelongsToMany = array('Round');
 
-	public function beforeSave($options = array()) {
+
+	public function beforeSave($options = array())
+	{
 		if (isset($this->data['Contestant']['startnr'])) {
 			$startnr = strtoupper(trim( $this->data['Contestant']['startnr'] ));
 			$nrzeros = strlen( $this->firstmatch('/^0*/', $startnr) );
@@ -43,15 +45,16 @@ class Contestant extends AppModel {
 			$this->data['Contestant']['startnrorder'] = -1000000*$nrzeros + ($nrzeros>0 ? -1 : 1)*(100*$number + $letter);
 		}
 	}
-	private function firstmatch($pattern, $subject){
+
+	private function firstmatch($pattern, $subject)
+	{
 		$matches = array();
 		preg_match($pattern, $subject, $matches);
 		return count($matches)>0 ? $matches[0] : '';
 	}
 
-
-
-	public function getScores($round_id) {
+	public function getScores($round_id)
+	{
 		$scores = $this->get_scores($round_id);
 		$users = $this->get_users($round_id);
 		$points = $this->get_points($round_id);
@@ -71,18 +74,28 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	private function get_scores($round_id){
+	private function get_scores($round_id)
+	{
 		$contestant = $this->read();
 
 		$scores = array();
 		$Score = ClassRegistry::init('Score');
 		$s = $Score->find('all', array(
-			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
-		foreach($s as $score) $scores[$score['Score']['user_id']][$score['Score']['point_id']] = $score['Score']['score'];
+			'conditions' => array(
+				'contestant_id' => $contestant['Contestant']['id'],
+				'round_id' => $round_id,
+			)
+		));
+		foreach ($s as $score) {
+			$scores[$score['Score']['user_id']][$score['Score']['point_id']] = $score['Score']['score'];
+		}
 
 		return $scores;
 	}
-	private function get_users($round_id){
+
+	// @TODO
+	private function get_users($round_id)
+	{
 		$Round = ClassRegistry::init('Round');
 		$Round->id = $round_id;
 		$round = $Round->read();
@@ -100,7 +113,9 @@ class Contestant extends AppModel {
 		));
 		return $contest['User'];
 	}
-	private function get_points($round_id){
+
+	private function get_points($round_id)
+	{
 		$Round = ClassRegistry::init('Round');
 		$Round->id = $round_id;
 		$round = $Round->read();
@@ -109,34 +124,39 @@ class Contestant extends AppModel {
 		$Point->recursive = 0;
 		$points = $Point->find('threaded', array(
 			'conditions' => array('Contest.id'=>$round['Contest']['id']),
-			'order'=>'lft',
-			'fields'=>array('id', 'parent_id', 'name', 'max')
+			'fields' => array('id', 'parent_id', 'name', 'max'),
+			'order' => 'lft',
 		));
 
 		return $points;
 	}
 
-	private function add_verplichtelem($round_id, &$scores, &$users, &$points){
+	private function add_verplichtelem($round_id, &$scores, &$users, &$points)
+	{
 		/*
 		$Adminscore = ClassRegistry::init('Adminscore');
 		$contestant = $this->read();
 
 		$s = $Adminscore->find('first', array(
-			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
+			'conditions' => array(
+				'contestant_id' => $contestant['Contestant']['id'],
+				'round_id' => $round_id,
+			)
+		));
 
 		$verplichtelem = isset($s['Adminscore']['verplichtelem']) ? $s['Adminscore']['verplichtelem'] : 0;
 
-		if($verplichtelem > 0){
+		if ($verplichtelem > 0) {
 			$points[] = array(
-				'Point'=>array(
-					'id'=>-1,
-					'parent_id'=>null,
-					'name'=>'Verplichte elementen',
-					'max'=>15
+				'Point' => array(
+					'id' => -1,
+					'parent_id' => null,
+					'name' => 'Verplichte elementen',
+					'max' => 15
 				),
-				'children'=>array()
+				'children' => array(),
 			);
-			foreach($users as $user){
+			foreach ($users as $user) {
 				$scores[$user['id']][-1] = $verplichtelem;
 			}
 		}
@@ -144,13 +164,18 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	private function calculate_jurytotals($scores, $users, $points, $group){
-		foreach($users as $user) $scores[$user['id']][$group] = 0;
+	private function calculate_jurytotals($scores, $users, $points, $group)
+	{
+		foreach ($users as $user) {
+			$scores[$user['id']][$group] = 0;
+		}
 
-		foreach($points as $point){
-			if(count($point['children'])>0) $scores = $this->calculate_jurytotals($scores, $users, $point['children'], $point['Point']['id']);
-			foreach($users as $user){
-				if( isset($scores[$user['id']][$point['Point']['id']]) ){
+		foreach ($points as $point) {
+			if (count($point['children']) > 0) {
+				$scores = $this->calculate_jurytotals($scores, $users, $point['children'], $point['Point']['id']);
+			}
+			foreach ($users as $user) {
+				if (isset($scores[$user['id']][$point['Point']['id']])) {
 					$scores[$user['id']][$group] += $scores[$user['id']][$point['Point']['id']];
 				}
 			}
@@ -159,25 +184,35 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	private function calculate_categorytotals($scores){
+	private function calculate_categorytotals($scores)
+	{
 		$scores['maxtotal'] = $this->sum_of_max($scores['points']);
 		return $scores;
 	}
-	private function sum_of_max(&$points){
+
+	private function sum_of_max(&$points)
+	{
 		$sum = 0;
-		foreach($points as &$point){
-			if(count($point['children'])>0) $point['Point']['max'] = $this->sum_of_max($point['children']);
+		foreach ($points as &$point) {
+			if (count($point['children']) > 0) {
+				$point['Point']['max'] = $this->sum_of_max($point['children']);
+			}
 			$sum += $point['Point']['max'];
 		}
 		return $sum;
 	}
 
-	private function calculate_adminscores($scores, $round_id){
+	private function calculate_adminscores ($scores, $round_id)
+	{
 		$Adminscore = ClassRegistry::init('Adminscore');
 		$contestant = $this->read();
 
 		$s = $Adminscore->find('first', array(
-			'conditions' => array('contestant_id'=>$contestant['Contestant']['id'], 'round_id'=>$round_id) ));
+			'conditions' => array(
+				'contestant_id' => $contestant['Contestant']['id'],
+				'round_id' => $round_id,
+			)
+		));
 
 		$scores['strafpunten'] = isset($s['Adminscore']['strafpunten']) ? $s['Adminscore']['strafpunten'] : 0;
 		$scores['verplichtelem'] = isset($s['Adminscore']['verplichtelem']) ? $s['Adminscore']['verplichtelem'] : 0;
@@ -185,12 +220,13 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
-	private function calculate_minmax($scores){
+	private function calculate_minmax($scores)
+	{
 		$min = $scores['scores'][$scores['users'][0]['id']]['total'];
 		$min_id = $scores['users'][0]['id'];
 
-		foreach($scores['users'] as $user){
-			if($scores['scores'][$user['id']]['total'] <= $min){
+		foreach ($scores['users'] as $user) {
+			if ($scores['scores'][$user['id']]['total'] <= $min) {
 				$min = $scores['scores'][$user['id']]['total'];
 				$min_id = $user['id'];
 			}
@@ -199,8 +235,8 @@ class Contestant extends AppModel {
 		$max = $scores['scores'][$scores['users'][0]['id']]['total'];
 		$max_id = $scores['users'][0]['id'];
 
-		foreach($scores['users'] as $user){
-			if($scores['scores'][$user['id']]['total'] >= $max && $user['id']!=$min_id){
+		foreach ($scores['users'] as $user) {
+			if ($scores['scores'][$user['id']]['total'] >= $max && $user['id'] != $min_id) {
 				$max = $scores['scores'][$user['id']]['total'];
 				$max_id = $user['id'];
 			}
@@ -208,15 +244,18 @@ class Contestant extends AppModel {
 
 		$scores['min'] = $min_id;
 		$scores['max'] = $max_id;
+
 		return $scores;
 	}
 
-	private function calculate_total($scores){
+	private function calculate_total($scores)
+	{
 		$total = 0;
 		$min_id = $scores['min'];
 		$max_id = $scores['max'];
-		foreach($scores['users'] as $user){
-			if( ($user['id']!=$min_id) && ($user['id']!=$max_id) ){
+
+		foreach ($scores['users'] as $user) {
+			if (($user['id'] != $min_id) && ($user['id'] != $max_id)) {
 				$total += $scores['scores'][$user['id']]['total'];
 			}
 		}
