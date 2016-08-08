@@ -144,34 +144,31 @@ class ContestantmanagementController extends AppController {
 	// stage jurylid voor beoordeling van deelemer
 	public function stage($contestant_id = null, $round_id = null, $user = 'all') {
 		$this->loadModel('Stage');
-		if($user=='all'){
+		if ($user == 'all') {
 			$this->loadModel('Round');
-			$this->loadModel('Contest');
 			$this->Round->id = $round_id;
 			$round = $this->Round->read();
-			$contest = $this->Contest->find('first', array(
-				'conditions' => array('id'=>$round['Contest']['id']),
-				'contain'=>array(	'User' => array(
-					'conditions' => array('User.role'=>'jury'),
-					'fields' => array('User.id')
-				))
-			));
-		 	foreach($contest['User'] as $u) $this->savestage($contestant_id, $round_id, $u['id']);
+		 	foreach ($round['User'] as $u) {
+				$this->savestage($contestant_id, $round_id, $u['id']);
+			}
 		} else {
 			$this->savestage($contestant_id, $round_id, $user);
 		}
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+		if (!$this->request->isAjax()) {
+			$this->redirect($this->referer());
+		}
+		exit();
 	}
-	private function savestage($contestant_id, $round_id, $user_id){
+
+	private function savestage($contestant_id, $round_id, $user_id) {
 		$data = array(
 			'contestant_id' => $contestant_id,
 			'round_id' => $round_id,
 			'user_id' => $user_id
 		);
-		if( !$this->Stage->hasAny($data)) {
+		if (!$this->Stage->hasAny($data)) {
 			$this->Stage->create();
 			$this->Stage->save($data);
 		}
 	}
 }
-?>

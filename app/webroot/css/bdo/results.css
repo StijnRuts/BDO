@@ -82,7 +82,7 @@ h3 {
 	max-height: 70px;
 }
 
-table.contest_users { table-layout: fixed; border: none; margin: 0 30px; }
+table.contest_users { table-layout: fixed; border: none; margin: 30px 30px 0; }
 table.contest_users td { text-align: center; width: 2%; }
 table.contest_users tbody tr { background: none; }
 table.contest_users img { max-height: 250px; }

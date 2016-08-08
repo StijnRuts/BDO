@@ -53,10 +53,10 @@ class AdminController extends AppController {
 		$scores = array();
 
 		foreach ($contest['Point'] as $point) {
-			foreach ($contest['User'] as $user) {
-				foreach ($contest['Round'] as $round) {
-					$round = $this->Round->findById($round['id']);
-					foreach ($round['Contestant'] as $contestant) {
+			foreach ($contest['Round'] as $round) {
+				$round = $this->Round->findById($round['id']);
+				foreach ($round['Contestant'] as $contestant) {
+					foreach ($round['User'] as $user) {
 
 						$scores[] = array(
 							'point_id' => $point['id'],

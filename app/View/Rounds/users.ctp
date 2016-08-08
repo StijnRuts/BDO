@@ -1,30 +1,36 @@
 <div class="row">
 
   <div class="three columns">
-    <ul class="nav-bar vertical">
-      <?php foreach ($contests as $c): ?>
-        <li class="<?php echo $c['Contest']['id']==$contest['Contest']['id'] ? 'active' : ''; ?>">
-          <?php echo $this->Html->link(
-            $c['Contest']['name'],
-            array('action'=>'edit', $c['Contest']['id'])
-          ); ?>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
+		<ul class="nav-bar vertical">
+			<?php foreach ($rounds as $r): ?>
+			<li class="<?php echo $r['Round']['id'] == $round['Round']['id'] ? 'active' : ''; ?>">
+				<?php echo $this->Html->link(
+					$r['Discipline']['name'].', '.$r['Category']['name'].', '.$r['Division']['name'],
+					array('action'=>'users', $r['Round']['id'])
+				); ?>
+			</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
 
   <div class="nine columns">
     <div class="row">
       <div class="twelve columns">
         <h2>
-          Jurysamenstelling voor <?php echo h($contest['Contest']['name']); ?>
-          <small>(<?php echo h($contest['Contest']['date']); ?>)</small>
+          Jurysamenstelling voor<br>
+          <?php echo h($round['Discipline']['name']); ?>
+          <?php echo h($round['Category']['name']); ?>
+          <?php echo h($round['Division']['name']); ?>
           <span class="nowrap">
             <?php echo $this->Js->link(
               'toon',
-              array('controller'=>'results', 'action'=>'showcontestusers', $contest['Contest']['id']),
-              array('title'=>'Toon jurysamenstelling van '.h($contest['Contest']['name'].' op scorebord'),
-                   'class'=>'tiny secondary button')
+              array('controller'=>'results', 'action'=>'showroundusers', $round['Round']['id']),
+              array(
+                'title' => sprintf(
+                  'Toon jurysamenstelling van %s op scorebord',
+                  h($round['Discipline']['name']).' '.h($round['Category']['name']).' '.h($round['Division']['name'])
+                ),
+                'class'=>'tiny secondary button')
             ); ?>
           </span>
         </h2>
@@ -35,12 +41,12 @@
               <fieldset>
                 <legend>Jurysamenstelling bewerken</legend>
                 <?php echo $this->Form->input('id'); ?>
-                <div class="row" id="ContestUsers">
+                <div class="row" id="RoundUsers">
 
                   <div class="six columns">
                     <h3>Jurysamenstelling</h3>
                     <ul id="jury_selected" class="sortable">
-                      <?php foreach ($contest['User'] as $user): ?>
+                      <?php foreach ($round['User'] as $user): ?>
                         <li id="<?php echo $user['id']; ?>">
                           <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
                           <strong><?php echo h($user['number']); ?></strong> -
@@ -68,7 +74,7 @@
                     <?php endforeach; ?>
                   </div>
 
-                  <?php echo $this->Form->hidden('Contest.User', array(
+                  <?php echo $this->Form->hidden('Round.User', array(
                     'class' => 'sortable input',
                     'value' => json_encode($selected),
                   )); ?>
@@ -83,7 +89,7 @@
                 </div>
                 <div class="six columns">
                   <?php echo $this->Html->link('Anuleren',
-                    array('controller'=>'contests', 'action'=>'index'),
+                    array('action'=>'view', $round['Round']['contest_id']),
                     array('class'=>'radius secondary button')
                   ); ?>
                 </div>

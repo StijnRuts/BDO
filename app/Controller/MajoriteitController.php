@@ -13,7 +13,10 @@ class MajoriteitController extends AppController {
 		$round = $this->Round->find('first', array(
 			'conditions' => array('Round.id'=>$round_id),
 			'order'=>'Round.order',
-			'contain' => array('Category', 'Discipline', 'Division', 'Contestant'=>array('order'=>'startnrorder'))
+			'contain' => array(
+				'Category', 'Discipline', 'Division', 'User',
+				'Contestant' => array('order' => 'startnrorder'),
+			)
 		));
 
 		foreach ($round['Contestant'] as &$contestant){
@@ -29,7 +32,9 @@ class MajoriteitController extends AppController {
 		$this->set('contest', $contest);
 
 		$users = array();
-		foreach($contest['User'] as $user) array_push($users, $user);
+		foreach ($round['User'] as $user) {
+			array_push($users, $user);
+		}
 
 		$this->set('majoriteit',
 			$this->Majoriteit->getMajoriteit($round['Contestant'], $users)

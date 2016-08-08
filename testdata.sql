@@ -150,14 +150,14 @@ INSERT INTO `points` (`id`, `contest_id`, `parent_id`, `lft`, `rght`, `name`, `m
 (16,	1,	NULL,	31,	32,	'Uitvoering',	10),
 (17,	1,	NULL,	33,	34,	'Verplichte elementen',	15);
 
-INSERT INTO `contests_users` (`id`, `contest_id`, `user_id`, `order`) VALUES
-(1,	1,	2,	0),
-(2,	1,	3,	1),
-(3,	1,	4,	2);
-
 INSERT INTO `rounds` (`id`, `order`, `contest_id`, `discipline_id`, `category_id`, `division_id`) VALUES
 (1,	1,	1,	2,	3,	2),
 (2,	2,	1,	8,	5,	4);
+
+INSERT INTO `rounds_users` (`id`, `round_id`, `user_id`, `order`) VALUES
+(1,	1,	2,	0),
+(2,	1,	3,	1),
+(3,	1,	4,	2);
 
 INSERT INTO `contestants_rounds` (`id`, `round_id`, `contestant_id`) VALUES
 (1,	1,	10),
