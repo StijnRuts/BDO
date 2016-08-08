@@ -207,6 +207,7 @@ class ResultsController extends AppController {
     $round = $this->Round->find('first', array(
       'conditions' => array('Round.id' => $id),
       'contain' => array(
+        'Discipline', 'Category', 'Division',
         'User' => array('order' => array('order' => 'asc')),
       ),
     ));

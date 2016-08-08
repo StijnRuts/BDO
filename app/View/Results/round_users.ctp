@@ -7,13 +7,13 @@
 
 <table class="contest_users">
   <tbody>
-	  <tr>
+    <tr>
       <?php foreach($round['User'] as $key => $user): ?>
-			  <td>Jury <?php echo $key+1; ?></td>
+        <td>Jury <?php echo $key+1; ?></td>
       <?php endforeach; ?>
     </tr><tr>
       <?php foreach($round['User'] as $user): ?>
-			  <td>
+        <td>
           <?php if (!empty($user['image'])): ?>
             <img src="/images/users/<?php echo $user['image']; ?>"/>
           <?php endif; ?>
@@ -21,8 +21,8 @@
       <?php endforeach; ?>
     </tr><tr>
       <?php foreach($round['User'] as $user): ?>
-			  <td><?php echo h($user['username']); ?></td>
+        <td><?php echo h($user['username']); ?></td>
       <?php endforeach; ?>
-	  </tr>
-	</tbody>
+    </tr>
+  </tbody>
 </table>
