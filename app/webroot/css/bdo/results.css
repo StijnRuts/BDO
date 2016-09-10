@@ -75,12 +75,16 @@ h3 {
 	/*border-top: 3px solid #BBB;*/
 }
 
-.logos {
-	text-align: center;
+.logos img {
+	max-width: 20vw;
+	max-height: 25vh;
+	position: absolute;
+	z-index: -99;
+	top: 50px;
 }
-.logo {
-	max-height: 70px;
-}
+.logos img.left { left: 5vw; }
+.logos img.middle { left: 0; right: 0; margin: 0 auto; }
+.logos img.right { right: 5vw; }
 
 table.contest_users { table-layout: fixed; border: none; margin: 30px 30px 0; }
 table.contest_users td { text-align: center; width: 2%; }
