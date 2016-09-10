@@ -1,8 +1,3 @@
-<p style="text-align:center; font-size:1.5em;">
-  <?php echo date('d-m-Y'); ?> &nbsp;
-  <?php echo date('H:i'); ?>
-</p>
-
 <?php $grid_classes = array(
   0 => '',
   1 => 'one-up',
