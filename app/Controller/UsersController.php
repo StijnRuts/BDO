@@ -21,6 +21,8 @@ class UsersController extends AppController {
       if (!empty($this->request->data['User']['image']['tmp_name'])) {
         $images = $this->uploadFiles($this->request->data['User']['image'], 'users');
         $this->request->data['User']['image'] = $images[0];
+      } else {
+        $this->request->data['User']['image'] = '';
       }
       $this->User->create();
       if ($this->User->save($this->request->data)) {
