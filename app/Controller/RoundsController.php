@@ -175,7 +175,7 @@ class RoundsController extends AppController {
 
       if (
         $this->RoundsUser->deleteAll(array('RoundsUser.round_id' => $id)) &&
-        $this->RoundsUser->saveAll($roundsUsers)
+        (empty($roundsUsers) || $this->RoundsUser->saveAll($roundsUsers))
       ) {
         $this->Session->setFlash('De jurysamenstelling is opgeslaan', 'flash_success');
         $this->redirect(array('action'=>'view', $round['Round']['contest_id']));
