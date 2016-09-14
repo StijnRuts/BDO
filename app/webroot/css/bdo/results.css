@@ -92,7 +92,16 @@ table.contest_users tbody tr { background: none; }
 table.contest_users img { max-height: 250px; }
 
 table.places_large {
+	width: 100%;
 	margin-top: 100px;
+	border: none;
+}
+table.places_large thead {
+	background: none;
+}
+table.places_large th {
+	text-align: center;
+	padding-bottom: 20px;
 }
 table.places_large .place {
 	padding: 0;
