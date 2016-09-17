@@ -186,7 +186,7 @@ Configure::write('debug', isset($_GET['yt']) ? 2 : 0);
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php',
+		'defaults' => 'database',
 		'timeout' => '1500',
 	));
 

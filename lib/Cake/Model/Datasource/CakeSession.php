@@ -579,7 +579,7 @@ class CakeSession {
 				'ini' => array(
 					'session.use_trans_sid' => 0,
 					'url_rewriter.tags' => '',
-					'session.auto_start' => 0,
+					//'session.auto_start' => 0,
 					'session.use_cookies' => 1,
 					'session.cookie_path' => self::$path,
 					'session.save_handler' => 'user',

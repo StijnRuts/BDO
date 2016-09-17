@@ -1,3 +1,11 @@
+CREATE TABLE `cake_sessions` (
+  `id` varchar(255) NOT NULL,
+  `data` text,
+  `expires` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+
 CREATE TABLE IF NOT EXISTS `clubs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
