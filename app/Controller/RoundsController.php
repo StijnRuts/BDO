@@ -177,6 +177,14 @@ class RoundsController extends AppController {
         $this->RoundsUser->deleteAll(array('RoundsUser.round_id' => $id)) &&
         (empty($roundsUsers) || $this->RoundsUser->saveAll($roundsUsers))
       ) {
+
+        if ($this->data['type'] == 'show_results') {
+          App::import('Controller', 'Results');
+          $Results = new ResultsController;
+          $Results->showroundusers($id, false);
+          $this->redirect(array('action'=>'users', $id));
+        }
+
         $this->Session->setFlash('De jurysamenstelling is opgeslaan', 'flash_success');
         $this->redirect(array('action'=>'view', $round['Round']['contest_id']));
       } else {

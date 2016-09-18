@@ -13,31 +13,31 @@
 		</ul>
 	</div>
 
-  <div class="nine columns">
-    <div class="row">
-      <div class="twelve columns">
-        <h2>
-          Jurysamenstelling voor<br>
-          <?php echo h($round['Discipline']['name']); ?>
-          <?php echo h($round['Category']['name']); ?>
-          <?php echo h($round['Division']['name']); ?>
-          <span class="nowrap">
-            <?php echo $this->Js->link(
-              'toon',
-              array('controller'=>'results', 'action'=>'showroundusers', $round['Round']['id']),
-              array(
+  <?php echo $this->Form->create('Contest', array('autocomplete' => 'off')); ?>
+
+    <div class="nine columns">
+      <div class="row">
+        <div class="twelve columns">
+          <h2>
+            Jurysamenstelling voor<br>
+            <?php echo h($round['Discipline']['name']); ?>
+            <?php echo h($round['Category']['name']); ?>
+            <?php echo h($round['Division']['name']); ?>
+            <span class="nowrap">
+              <?php echo $this->Html->tag('button', 'toon', array(
                 'title' => sprintf(
                   'Toon jurysamenstelling van %s op scorebord',
                   h($round['Discipline']['name']).' '.h($round['Category']['name']).' '.h($round['Division']['name'])
                 ),
-                'class'=>'tiny secondary button')
-            ); ?>
-          </span>
-        </h2>
+                'class' => 'tiny secondary button',
+                'name' => 'type',
+                'value' => 'show_results',
+              )); ?>
+            </span>
+          </h2>
 
-        <div class="row">
-          <div class="ten columns centered">
-            <?php echo $this->Form->create('Contest', array('autocomplete' => 'off')); ?>
+          <div class="row">
+            <div class="ten columns centered">
               <fieldset>
                 <legend>Jurysamenstelling bewerken</legend>
                 <?php echo $this->Form->input('id'); ?>
@@ -94,12 +94,13 @@
                   ); ?>
                 </div>
               </div>
-            <?php echo $this->Form->end(); ?>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
+
+  <?php echo $this->Form->end(); ?>
 
 </div>

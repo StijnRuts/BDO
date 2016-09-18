@@ -414,12 +414,14 @@ class ResultsController extends AppController {
     if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
   }
 
-  public function showroundusers($id = null){
+  public function showroundusers($id = null, $redirection = true){
     $this->write_ini(array(
       'type' => "roundusers",
       'id' => $id,
     ));
-    if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    if ($redirection) {
+      if (!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
   }
 
   private function write_ini($data) {
