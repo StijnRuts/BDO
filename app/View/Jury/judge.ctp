@@ -156,19 +156,25 @@ function findindices($requestdata, $children){
 		calculate();
 	}
 
-	$(document).ready(checkStage);
-	function checkStage(){
-		$.get("<?= Router::url(array('action'=>'checkstaged', $contestant['Contestant']['id'], $round['Round']['id'])) ?>")
-		 .done(function(staged){
-			if(!staged) window.location.href = "<?= Router::url(array('action'=>'index')) ?>";
-			$("#error").html('');
-		 })
-		 .fail(function(){
-			$("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
-		 });
-		setTimeout(checkStage, 5000);
-	}
-	$(window).bind('beforeunload', function() {
-		$("#error").hide();
-	});
+  $(document).ready(checkStage);
+  function checkStage() {
+    $.get("<?php echo Router::url(array('action' => 'checkstaged', $contestant['Contestant']['id'], $round['Round']['id'])); ?>")
+      .done(function(data) {
+        data = JSON.parse(data);
+        if (data.user_id != <?php echo intval($current_user['id']); ?>) {
+          window.location.href = "<?php echo Router::url(array('action' => 'index')); ?>";
+        }
+        if (data.stage != true) {
+          window.location.href = "<?php echo Router::url(array('action' => 'index')); ?>";
+        }
+        $("#error").html('');
+      })
+      .fail(function() {
+        $("#error").html('<div class="alert-box alert">Kan geen verbinding maken</div>');
+      });
+    setTimeout(checkStage, 5000);
+  }
+  $(window).bind('beforeunload', function() {
+    $("#error").hide();
+  });
 </script>

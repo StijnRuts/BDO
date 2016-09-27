@@ -177,29 +177,32 @@ class JuryController extends AppController {
   }
 
   public function checkstage() {
-    $this->request->onlyAllow('ajax');
-    $this->loadModel('Stage');
-    $current_user = $this->Auth->user();
-    if (!$current_user) { echo false; exit; }
-    $stage = $this->Stage->findByUser_id($current_user['id']);
-    echo (count($stage) > 0);
-    exit;
-  }
-  public function checkstaged($contestant_id = null, $round_id = null) {
-    $this->request->onlyAllow('ajax');
-    $this->loadModel('Stage');
-    $current_user = $this->Auth->user();
-    if (!$current_user) { echo false; exit; }
-    $stage = $this->Stage->find('first', array(
-      'conditions' => array(
-        'user_id' => $current_user['id'],
-        'round_id' => $round_id,
-        'contestant_id' => $contestant_id
-      )
-    ));
-    echo (count($stage) > 0);
-    exit;
+    $this->checkStageWithConditions();
   }
 
+  public function checkstaged($contestant_id = null, $round_id = null) {
+    $this->checkStageWithConditions(array(
+      'round_id' => $round_id,
+      'contestant_id' => $contestant_id
+    ));
+  }
+
+  private function checkStageWithConditions($conditions = array()) {
+    $this->request->onlyAllow('ajax');
+    $this->loadModel('Stage');
+    $current_user = $this->Auth->user();
+
+    if ($current_user) {
+      $conditions['user_id'] = $current_user['id'];
+      $stage = $this->Stage->find('first', array('conditions' => $conditions));
+    } else {
+      $stage = array();
+    }
+
+    echo json_encode(array(
+      'user_id' => intval($current_user['id']),
+      'stage' => (count($stage) > 0),
+    ));
+    exit;
+  }
 }
-?>
