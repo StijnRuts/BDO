@@ -76,6 +76,7 @@ class UsersController extends AppController {
     if ($this->request->is('post')) {
        if ($this->Auth->login()) {
          $this->Session->delete('Message.auth');
+         $this->Session->delete('PCnumber');
         $this->redirect($this->Auth->redirect());
       } else {
         $this->Session->setFlash('Inloggen mislukt', 'flash_error');
@@ -90,6 +91,7 @@ class UsersController extends AppController {
   }
 
   public function logout() {
+    $this->Session->delete('PCnumber');
     $this->Session->setFlash('U bent uitgelogd', 'flash_info');
     $this->redirect($this->Auth->logout());
   }

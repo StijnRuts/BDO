@@ -110,13 +110,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 );
 INSERT INTO `users` (`id`, `number`, `username`, `password`, `role`) VALUES
 (1, '',  'Admin',   '6d2c216b41fa66081a17f39af76d973abbd20726', 'admin'),
-(2, '1', 'Alice',   'd6f0de8070d6f89891727d2fa887b43bd0d8327c', 'jury'),
-(3, '2', 'Bob',     '84752f57921402f37fe9745c82d3b59870ce6363', 'jury'),
-(4, '3', 'Charlie', 'ebcc6897181de391f18b44d813a4fcc898a7780f', 'jury'),
-(5, '4', 'Dave',    'fa24910cb71d2f407364e475f42765a2bf2856c6', 'jury'),
-(6, '5', 'Erin',    'f31ed7e128a3b0a53ea842caa9d5cbe123e15e96', 'jury'),
-(7, '6', 'Frank',   '5faf4830f979c309b7564f9de08c3f11986311ba', 'jury'),
-(8, '7', 'Grace',   'a3ab51535d6c153a168ef52bd99f01c68e908acf', 'jury');
+(2, '1', 'Alice',   '', 'jury'),
+(3, '2', 'Bob',     '', 'jury'),
+(4, '3', 'Charlie', '', 'jury'),
+(5, '4', 'Dave',    '', 'jury'),
+(6, '5', 'Erin',    '', 'jury'),
+(7, '6', 'Frank',   '', 'jury'),
+(8, '7', 'Grace',   '', 'jury');
 
 CREATE TABLE IF NOT EXISTS `rounds_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

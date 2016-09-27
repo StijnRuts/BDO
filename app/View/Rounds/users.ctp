@@ -54,6 +54,18 @@
                         </li>
                       <?php endforeach; ?>
                     </ul>
+                    <?php echo $this->Html->tag('button', 'Jury inloggen', array(
+                      'class' => 'radius small success button',
+                      'style' => 'float:none',
+                      'name' => 'type',
+                      'value' => 'login_jury',
+                    )); ?>
+                    <?php echo $this->Html->tag('button', 'Jury uitloggen', array(
+                      'class' => 'radius small alert button',
+                      'style' => 'float:none',
+                      'name' => 'type',
+                      'value' => 'logout_jury',
+                    )); ?>
                   </div>
                   <div class="six columns">
                     <h3>Beschikbare juryleden</h3>

@@ -43,15 +43,8 @@
 	<div id="header">
 		<?php $navigation = $this->Navigation->get() ?>
 		<nav id="breadcrumbbar">
-			<?= $navigation['breadcrumbs'] ?>
-			<?= $logged_in ?
-				$this->Html->Link('Log uit '.$current_user['username'],
-											array('controller'=>'users', 'action'=>'logout'),
-											array('class'=>'small button', 'id'=>'login')
-										) :
-				$this->Html->Link('Log in', array('controller'=>'users', 'action'=>'login'),
-													 array('class'=>'small button', 'id'=>'login'))
-			; ?>
+			<?php echo $navigation['breadcrumbs']; ?>
+			<?php echo $this->element('login'); ?>
 		</nav>
 		<nav id="menubar"><?= $navigation['menu'] ?></nav>
 	</div>

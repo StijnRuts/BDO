@@ -185,6 +185,23 @@ class RoundsController extends AppController {
           $this->redirect(array('action'=>'users', $id));
         }
 
+        if ($this->data['type'] == 'login_jury') {
+          if ($this->loginJury($users)) {
+            $this->Session->setFlash('De juryleden zijn ingelogd', 'flash_success');
+          } else {
+            $this->Session->setFlash('De juryleden konden niet worden ingelogd', 'flash_error');
+          }
+          $this->redirect(array('action'=>'users', $id));
+        }
+        if ($this->data['type'] == 'logout_jury') {
+          if ($this->logoutJury()) {
+            $this->Session->setFlash('De juryleden zijn uitgelogd', 'flash_success');
+          } else {
+            $this->Session->setFlash('De juryleden konden niet worden uitgelogd', 'flash_error');
+          }
+          $this->redirect(array('action'=>'users', $id));
+        }
+
         $this->Session->setFlash('De jurysamenstelling is opgeslaan', 'flash_success');
         $this->redirect(array('action'=>'view', $round['Round']['contest_id']));
       } else {
@@ -212,4 +229,44 @@ class RoundsController extends AppController {
     $this->set('selected', $selected);
   }
 
+  private function loginJury($userIds)
+  {
+    $this->loadModel('User');
+    $this->User->recursive = -1;
+    $users = $this->User->findAllById($userIds);
+    $users = Set::combine($users, '/User/id', '/User');
+
+    $this->loadModel('CustomSession');
+    $sessions = $this->CustomSession->find('all');
+
+    $sessions = array_map(function($session) use ($userIds, $users) {
+      if (isset($session['CustomSession']['data']['PCnumber'])) {
+        $PCnumber = $session['CustomSession']['data']['PCnumber'];
+        $userId = $userIds[$PCnumber - 1];
+        if (isset($users[$userId])) {
+          $session['CustomSession']['data']['Auth']['User'] = $users[$userId]['User'];
+        } else {
+          unset($session['CustomSession']['data']['Auth']);
+        }
+      }
+      return $session;
+    }, $sessions);
+
+    return $this->CustomSession->saveAll($sessions);
+  }
+
+  private function logoutJury()
+  {
+    $this->loadModel('CustomSession');
+    $sessions = $this->CustomSession->find('all');
+
+    $sessions = array_map(function($session) {
+      if ($session['CustomSession']['data']['Auth']['User']['role'] != 'admin') {
+        unset($session['CustomSession']['data']['Auth']);
+      }
+      return $session;
+    }, $sessions);
+
+    return $this->CustomSession->saveAll($sessions);
+  }
 }
