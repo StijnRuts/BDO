@@ -56,6 +56,7 @@ class AppController extends Controller
   {
     $this->set('logged_in', $this->Auth->LoggedIn());
     $this->set('current_user', $this->Auth->user());
+    $this->set('PCnumber', $this->Session->read('PCnumber'));
   }
 
   public function uploadFiles($files, $uploadFolder = '', $allowedExtentions = array('jpg', 'jpeg', 'png'))
