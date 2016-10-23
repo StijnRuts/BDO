@@ -24,6 +24,9 @@ class UsersController extends AppController {
       } else {
         $this->request->data['User']['image'] = '';
       }
+      if ($this->request->data['User']['role'] != 'admin') {
+        unset($this->User->validate['password']['notempty']);
+      }
       $this->User->create();
       if ($this->User->save($this->request->data)) {
         $this->Session->setFlash('De gebruiker is opgeslaan', 'flash_success');

@@ -26,7 +26,9 @@
 					<div class="row">
 						<div class="twelve columns"><?php echo $this->Form->input('number', array('label'=>'Nummer')); ?></div>
 						<div class="twelve columns"><?php echo $this->Form->input('username', array('label'=>'Naam')); ?></div>
-						<div class="twelve columns"><?php echo $this->Form->input('password', array('label'=>'Paswoord', 'value'=>'', 'required'=>false)); ?></div>
+						<div class="twelve columns" id="password" style="display:none">
+							<?php echo $this->Form->input('password', array('label'=>'Paswoord', 'value'=>'', 'required'=>false)); ?>
+						</div>
 						<div class="twelve columns"><?php echo $this->Form->input('role', array(
 							'label' => 'Rol',
 							'options' => array('jury'=>'Jurylid', 'admin'=>'Beheerder')
@@ -41,3 +43,16 @@
 		<?php echo $this->Form->end(); ?>
 	</div>
 </div>
+
+<script>
+	$(function(){
+		$('select#UserRole').on('change', function() {
+			if ($(this).val() == 'admin') {
+				$('#password').show();
+			} else {
+				$('#password').hide();
+			}
+		});
+		$('select#UserRole').trigger('change');
+	});
+</script>
