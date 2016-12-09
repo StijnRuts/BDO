@@ -86,10 +86,21 @@ h3 {
 .logos img.middle { left: 0; right: 0; margin: 0 auto; }
 .logos img.right { right: 5vw; }
 
-table.contest_users { table-layout: fixed; border: none; margin: 30px 30px 0; }
-table.contest_users td { text-align: center; width: 2%; }
+table.contest_users { table-layout: fixed; border: none; width: 90%; }
+table.contest_users td { text-align: center; }
 table.contest_users tbody tr { background: none; }
-table.contest_users img { max-height: 250px; }
+table.contest_users .jury-image {
+	width: 100%;
+	max-width: 300px;
+	margin: auto;
+}
+table.contest_users .jury-image div {
+	width: 100%;
+	padding-bottom : 130%;
+	background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+}
 
 table.places_large {
 	width: 100%;

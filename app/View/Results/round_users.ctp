@@ -15,7 +15,9 @@
       <?php foreach($round['User'] as $user): ?>
         <td>
           <?php if (!empty($user['image'])): ?>
-            <img src="/images/users/<?php echo $user['image']; ?>"/>
+            <div class="jury-image">
+            	<div style="background-image:url(/images/users/<?php echo $user['image']; ?>)"></div>
+            </span>
           <?php endif; ?>
         </td>
       <?php endforeach; ?>
