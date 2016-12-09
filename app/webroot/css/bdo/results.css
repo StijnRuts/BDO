@@ -75,16 +75,26 @@ h3 {
 	/*border-top: 3px solid #BBB;*/
 }
 
-.logos img {
-	max-width: 20vw;
-	max-height: 25vh;
-	position: absolute;
-	z-index: -99;
-	top: 50px;
+#clock {
+	margin-bottom: 5px;
+	text-align:center;
+	font-size:1em;
 }
-.logos img.left { left: 5vw; }
-.logos img.middle { left: 0; right: 0; margin: 0 auto; }
-.logos img.right { right: 5vw; }
+
+.logos { width: 100%; border: none; table-layout: fixed; }
+.logos td { padding-top: 0; padding-bottom: 0; }
+.logos .image {
+	width: 100%;
+	height: 100px;
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.logos td { padding-left: 3vw; padding-right: 3vw; }
+.logos td.img-left { padding-left: 4vw; padding-right: 2vw; }
+.logos td.img-right { padding-left: 2vw; padding-right: 4vw; }
+.logos td.img-left .image { background-position: left center; }
+.logos td.img-right .image { background-position: right center; }
 
 table.contest_users { table-layout: fixed; border: none; width: 90%; }
 table.contest_users td { text-align: center; }

@@ -1,5 +1,5 @@
 <div id="error"></div>
-<p id="clock" style="text-align:center; font-size:1.5em;"></p>
+<p id="clock"></p>
 <div id="autorefresh"></div>
 
 <script>

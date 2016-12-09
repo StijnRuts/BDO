@@ -7,11 +7,18 @@
   );
   $logoClasses = $logoClasses[count($logos)];
 ?>
-<div class="logos">
-  <?php foreach ($logos as $k => $logo): ?>
-    <img class="<?php echo $logoClasses[$k]; ?>"
-  	   src="/images/scoreboard/<?php echo $logo['ScoreboardImage']['name']; ?>"/>
-  <?php endforeach; ?>
-</div>
+<?php if (!empty($logos)): ?>
+  <table class="logos">
+    <tr>
+      <?php foreach ($logos as $k => $logo): ?>
+        <td class="img-<?php echo $logoClasses[$k]; ?>">
+          <div class="image"
+               style="background-image:url(/images/scoreboard/<?php echo $logo['ScoreboardImage']['name']; ?>)">
+          </div>
+        </td>
+      <?php endforeach; ?>
+    </tr>
+  </table>
+<?php endif; ?>
 
 <?php echo $this->fetch('content'); ?>
