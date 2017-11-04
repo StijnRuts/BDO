@@ -13,4 +13,7 @@
 	</div><div class="four columns"></div>
 </div>
 
-<style> body { min-height: 100%; background: url('/css/bdo/bg.png') no-repeat right top; } </style>
+<style>
+  html, body { min-height: 100%; }
+  body { background: url('/css/bdo/bg.png') no-repeat right bottom; }
+</style>
