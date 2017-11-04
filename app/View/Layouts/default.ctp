@@ -24,6 +24,7 @@
 		echo $this->Html->script('bdo/close_dropdown');
 		echo $this->Html->script('bdo/jquery.inputmask.bundle');
 		echo $this->Html->script('bdo/masked_inputs');
+		echo $this->Html->script('bdo/comment_shortcuts');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');

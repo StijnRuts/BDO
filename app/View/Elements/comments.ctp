@@ -22,9 +22,11 @@
   foreach ($comments as $shortcut => $comment) {
     echo sprintf(
       '<span title="%s" class="has-tip tip-top">'.
-        '<button class="secondary button shortcut">%s</button>'.
+        '<button class="secondary button shortcut" data-comment="%s">'.
+          '%s'.
+        '</button>'.
       '</span>',
-      $comment, $shortcut
+      $comment, $comment, $shortcut
     );
   }
   ?>
@@ -33,5 +35,6 @@
 <?php echo $this->Form->input('Comments', array(
   'type'=>'textarea',
   'label'=>false,
+  'rows'=>12,
 )); ?>
 

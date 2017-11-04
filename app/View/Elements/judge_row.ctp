@@ -5,7 +5,6 @@
 		<?= $this->Form->input('Score.'.$form_id.'.score', array(
 			'type'=>'text',
 			'size'=>4,
-			'data-inputmask-regex'=>"\d*",
 			'label'=>false,
 			'autocomplete'=>"off",
 			'data-plus-as-tab'=>"true",
