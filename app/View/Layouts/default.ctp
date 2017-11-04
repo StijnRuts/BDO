@@ -27,6 +27,8 @@
 		echo $this->Html->script('bdo/dropzone_options');
 		echo $this->Html->script('bdo/image_upload');
 		echo $this->Html->script('bdo/sortable');
+		echo $this->Html->script('bdo/jquery.inputmask.bundle');
+		echo $this->Html->script('bdo/masked_inputs');
 		echo $this->Js->writeBuffer(array('cache'=>true));
 
 		echo $this->fetch('meta');
