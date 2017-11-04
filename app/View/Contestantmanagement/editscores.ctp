@@ -9,9 +9,9 @@
 	</small>
 </h2>
 
+<?= $this->Form->create('Score'); ?>
 <div class="row">
-	<div class="ten columns centered">
-		<?= $this->Form->create('Score'); ?>
+	<div class="eight columns">
 			<table>
 				<thead>
 					<tr>
@@ -52,9 +52,12 @@
 				); ?></div>
 				<div class="four columns"></div>
 			</div>
-		<?= $this->Form->end(); ?>
 	</div>
+  <div class="four columns">
+    <?php echo $this->element('comments', array('title' => false)); ?>
+  </div>
 </div>
+<?= $this->Form->end(); ?>
 
 <?php
 function output_rows($list, $level, $user_id, $scores, $t){

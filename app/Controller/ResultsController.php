@@ -298,6 +298,7 @@ class ResultsController extends AppController {
   public function contestant_print($contestant_id = null, $round_id = null) {
     $this->loadModel('Contestant');
     $this->loadModel('Round');
+    $this->loadModel('Comment');
     if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
     if (!$this->Round->exists($round_id)) throw new NotFoundException();
     $this->Contestant->id = $contestant_id;
@@ -305,6 +306,15 @@ class ResultsController extends AppController {
     $this->set('contestant', $this->Contestant->read());
     $this->set('round', $this->Round->read());
     $this->set('scores', $this->Contestant->getScores($round_id));
+
+    $comments = $this->Comment->find('all', array(
+        'conditions' => array(
+            'Comment.round_id' => $round_id,
+            'Comment.contestant_id' => $contestant_id,
+        ),
+    ));
+    $comments = Set::combine($comments, '{n}.Comment.user_id', '{n}.Comment');
+    $this->set('comments', $comments);
 
     $this->layout = 'pdf/default';
     $this->response->type('pdf');

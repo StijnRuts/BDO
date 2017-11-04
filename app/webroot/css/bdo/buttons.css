@@ -21,3 +21,15 @@
 .button.secondary.dropdown:after {
 	border-color: #1d1d1d transparent transparent transparent;
 }
+
+.shortcuts {
+	text-align: center;
+	margin-bottom: 15px;
+}
+.shortcut.button {
+	display: inline;
+	width: 23%;
+	margin-bottom: 3px;
+	margin-right: 3px;
+	padding: 10px 5px;
+}

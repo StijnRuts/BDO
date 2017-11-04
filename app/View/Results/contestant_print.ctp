@@ -25,12 +25,25 @@
 	</thead>
 	<tbody>
 		<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
+
 		<tr id="total">
 			<th class="important name">Totaal</th>
 			<?php foreach($scores['users'] as $user): ?>
 				<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
 			<?php endforeach; ?>
 			<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
+		</tr>
+
+		<tr>
+			<th class="important name">Commentaar</th>
+				<?php foreach($scores['users'] as $user): ?>
+					<td><?php
+						$comment = nl2br(h($comments[$user['id']]['comment']));
+						if (empty($comment)) { $comment = '/'; }
+						echo $comment;
+					?></td>
+				<?php endforeach; ?>
+			<th></th>
 		</tr>
 	</tbody>
 </table>

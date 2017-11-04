@@ -188,6 +188,14 @@ CREATE TABLE IF NOT EXISTS `adminscores` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `contestant_id` int(10) unsigned NOT NULL,
+  `round_id` int(10) unsigned NOT NULL,
+  `comment` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
 
 
 CREATE TABLE IF NOT EXISTS `stages` (

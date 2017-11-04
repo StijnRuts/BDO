@@ -46,10 +46,21 @@ class ContestantmanagementController extends AppController {
 
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
+		$this->loadModel('Comment');
 		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
 		if (!$this->Round->exists($round_id)) throw new NotFoundException();
+
 		$this->Contestant->id = $contestant_id;
 		$this->set('scores', $this->Contestant->getScores($round_id));
+
+        $comments = $this->Comment->find('all', array(
+            'conditions' => array(
+                'Comment.round_id' => $round_id,
+                'Comment.contestant_id' => $contestant_id,
+            ),
+        ));
+        $comments = Set::combine($comments, '{n}.Comment.user_id', '{n}.Comment');
+        $this->set('comments', $comments);
 
 		$this->loadModel('Stage');
 		$this->set('staged', $this->Stage->find('all', array(
@@ -60,14 +71,18 @@ class ContestantmanagementController extends AppController {
 		)));
 	}
 
-	public function editscores($contestant_id = null, $round_id = null, $user_id = null) {
+	public function editscores($contestant_id = null, $round_id = null, $user_id = null)
+	{
 		$this->loadModel('Score');
+		$this->loadModel('Comment');
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
 		$this->loadModel('User');
+
 		if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
 		if (!$this->Round->exists($round_id)) throw new NotFoundException();
 		if (!$this->User->exists($user_id)) throw new NotFoundException();
+
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
 		$this->Round->id = $round_id;
@@ -92,7 +107,9 @@ class ContestantmanagementController extends AppController {
 		$this->set('round', $round);
 
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if($this->Score->saveAll($this->request->data['Score'])){
+			if ($this->Score->saveAll($this->request->data['Score']) &&
+			    $this->Comment->saveAll($this->request->data['Comment'])
+		  ) {
 
 				// check if score equals previous score in same round for same judge
 				$otherscores = array();
@@ -119,17 +136,43 @@ class ContestantmanagementController extends AppController {
 			}
 		}
 
-		// load data
-		$this->request->data = array('Score' => Set::combine(
-			$this->Score->find('all', array(
-				'conditions'=>array(
-					'user_id'=>$user_id,
-					'contestant_id'=>$contestant_id,
-					'round_id'=>$round_id
-				)
-			)),
-			'{n}.Score.id', '{n}.Score'
-		));
+		// create empty comment
+    $comment = $this->Comment->find('first', array(
+        'conditions' => array(
+            'user_id' => $user_id,
+            'contestant_id' => $contestant_id,
+            'round_id' => $round_id,
+        )
+    ));
+    if (!$comment) {
+        $this->Comment->save(array(
+            'user_id' => $user_id,
+            'contestant_id' => $contestant_id,
+            'round_id' => $round_id,
+            'comment' => '',
+        ));
+    }
+
+    // load data
+    $scores = $this->Score->find('all', array(
+        'conditions' => array(
+            'user_id' => $user_id,
+            'contestant_id' => $contestant_id,
+            'round_id' => $round_id,
+        )
+    ));
+    $scores = Set::combine($scores, '{n}.Score.id', '{n}.Score');
+    $comment = $this->Comment->find('first', array(
+        'conditions' => array(
+            'user_id' => $user_id,
+            'contestant_id' => $contestant_id,
+            'round_id' => $round_id,
+        )
+    ));
+    $this->request->data = array(
+        'Score' => $scores,
+        'Comment' => $comment['Comment'],
+    );
 
 		// show submitted scores if validation failed
 		if ($this->request->is('post') || $this->request->is('put')) {

@@ -1,3 +1,3 @@
 $(function(){
-  $(":input").inputmask();
+  $('.scoreinput input').inputmask({regex:'\\d*\\.?\\d*'});
 });

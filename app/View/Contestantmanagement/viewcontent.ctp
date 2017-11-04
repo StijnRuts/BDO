@@ -32,6 +32,27 @@
 	</tbody>
 </table>
 
+<table>
+  <thead>
+    <tr>
+      <th>Jurylid</th>
+      <th>Commentaar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($scores['users'] as $user): ?>
+      <tr>
+        <th><?php echo h($user['username']); ?></th>
+        <td><?php
+          $comment = nl2br(h($comments[$user['id']]['comment']));
+          if (empty($comment)) { $comment = '/'; }
+          echo $comment;
+        ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
 <p id="judgedby"><?php
 	if( count($staged)>0 ){
 		$users = array();
