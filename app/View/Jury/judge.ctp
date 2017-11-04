@@ -61,8 +61,12 @@
 	<?= $this->Form->end(); ?>
 
 </div>
-<div class="four columns" id="previousscores">
 
+<div class="four columns">
+  <?php echo $this->element('comments'); ?>
+</div>
+
+<div class="four columns" id="previousscores">
 	<h3>Eerdere beoordelingen</h3>
 	<table>
 		<tbody>
