@@ -44,20 +44,26 @@ class JuryController extends AppController {
 		$current_user = $this->Auth->user();
 		$this->loadModel('Score');
 		$this->loadModel('Stage');
+		$this->loadModel('Comment');
 
 		// redirect if not staged
-		if( count( $this->Stage->find('first', array(
+		$staged = $this->Stage->find('first', array(
 			'conditions' => array(
 				'user_id' => $current_user['id'],
 				'round_id' => $round_id,
 				'contestant_id' => $contestant_id
 			)
-		))) == 0 )  $this->redirect(array('action'=>'index'));
+		));
+		if (count($staged) == 0) {
+			$this->redirect(array('action'=>'index'));
+		}
 
 		// if post
 		if ($this->request->is('post') || $this->request->is('put')) {
 			// save data
-			if($this->Score->saveAll($this->request->data['Score'])){
+			if ($this->Score->saveAll($this->request->data['Score']) &&
+				$this->Comment->saveAll($this->request->data['Comment'])
+			) {
 				$this->loadModel('Stage');
 				// unstage
 				$this->Stage->deleteAll(array(
@@ -65,11 +71,11 @@ class JuryController extends AppController {
 					'round_id' => $round_id,
 					'user_id' => $current_user['id']
 				));
-				//redirect
+				// redirect
 				$this->Session->write('round_id', $round_id);
-				$this->redirect(array('action'=>'index'));
-				//$this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
-			}else{
+				$this->redirect(array('action' => 'index'));
+				// $this->Session->setFlash("De scores zijn opgeslaan", 'flash_success');
+			} else {
 				$submitted_values = $this->request->data['Score'];
 				$this->Session->setFlash("Deze scores konden niet worden opgeslaan", 'flash_error');
 			}
@@ -77,14 +83,14 @@ class JuryController extends AppController {
 
 		$this->loadModel('Contestant');
 		$this->loadModel('Round');
-		if (!$this->Contestant->exists($contestant_id) || !$this->Round->exists($round_id)){
-			//unstage and redirect
+		if (!$this->Contestant->exists($contestant_id) || !$this->Round->exists($round_id)) {
+			// unstage and redirect
 			$this->Stage->deleteAll(array(
 				'contestant_id' => $contestant_id,
 				'round_id' => $round_id,
-				'user_id' => $current_user['id']
+				'user_id' => $current_user['id'],
 			));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action' => 'index'));
 		}
 		$this->Contestant->id = $contestant_id;
 		$this->set('contestant', $this->Contestant->read());
@@ -95,13 +101,30 @@ class JuryController extends AppController {
 		$scores = $this->Contestant->getScores($round_id);
 		$this->set('scores', $scores);
 
-		//load scores
+        // create empty comment
+        $comment = $this->Comment->find('first', array(
+            'conditions' => array(
+                'user_id' => $current_user['id'],
+                'contestant_id' => $contestant_id,
+                'round_id' => $round_id,
+            )
+        ));
+        if (!$comment) {
+            $this->Comment->save(array(
+                'user_id' => $current_user['id'],
+                'contestant_id' => $contestant_id,
+                'round_id' => $round_id,
+                'comment' => '',
+            ));
+        }
+
+		// load scores
 		$this->Round->id = $round_id;
 		$round = $this->Round->find('first', array(
-			'conditions' => array('Round.id'=>$round_id),
-			'contain' => array('Contestant'=>array('order'=>'startnrorder'))
+			'conditions' => array('Round.id' => $round_id),
+			'contain' => array('Contestant' => array('order' => 'startnrorder')),
 		));
-		foreach($round['Contestant'] as &$contestant){
+		foreach ($round['Contestant'] as &$contestant) {
 			$this->Contestant->id = $contestant['id'];
 			$score = $this->Contestant->getScores($round_id);
 			$juryscores = $score['scores'][$current_user['id']];
@@ -109,22 +132,31 @@ class JuryController extends AppController {
 		}
 		$this->set('round', $round);
 
-		// load data
-		$this->request->data = array('Score' => Set::combine(
-			$this->Score->find('all', array(
-				'conditions'=>array(
-					'user_id'=>$current_user['id'],
-					'contestant_id'=>$contestant_id,
-					'round_id'=>$round_id
-				)
-			)),
-			'{n}.Score.id', '{n}.Score'
-		));
+        // load data
+        $scores = $this->Score->find('all', array(
+            'conditions' => array(
+                'user_id' => $current_user['id'],
+                'contestant_id' => $contestant_id,
+                'round_id' => $round_id,
+            )
+        ));
+        $scores = Set::combine($scores, '{n}.Score.id', '{n}.Score');
+        $comment = $this->Comment->find('first', array(
+            'conditions' => array(
+                'user_id' => $current_user['id'],
+                'contestant_id' => $contestant_id,
+                'round_id' => $round_id,
+            )
+        ));
+        $this->request->data = array(
+            'Score' => $scores,
+            'Comment' => $comment['Comment'],
+        );
 
 		// show submitted scores if validation failed
 		if ($this->request->is('post') || $this->request->is('put')) {
-			foreach($this->request->data['Score'] as $key=>&$score){
-				if( isset($submitted_values[$key]['score']) ){
+			foreach ($this->request->data['Score'] as $key => &$score) {
+				if (isset($submitted_values[$key]['score'])) {
 					$score['score'] = $submitted_values[$key]['score'];
 				}
 			}

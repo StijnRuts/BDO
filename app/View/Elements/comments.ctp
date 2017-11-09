@@ -32,9 +32,9 @@
   ?>
 </div>
 
-<?php echo $this->Form->input('Comments', array(
+<?php echo $this->Form->input('Comment.comment', array(
   'type'=>'textarea',
   'label'=>false,
   'rows'=>12,
 )); ?>
-
+<?php echo $this->Form->hidden('Comment.id'); ?>

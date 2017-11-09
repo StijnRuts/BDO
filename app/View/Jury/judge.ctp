@@ -6,6 +6,8 @@
 
 <div id="error"></div>
 
+<?= $this->Form->create('Score'); ?>
+
 <div class="row" style="position:relative;">
 <div class="eight columns">
 
@@ -21,7 +23,6 @@
 		</small>
 	</h2>
 
-	<?= $this->Form->create('Score'); ?>
 	<table>
 		<thead>
 			<tr>
@@ -58,8 +59,6 @@
 		<div class="four columns"><?= $this->Form->submit('Verstuur', array('class'=>'radius button')); ?></div>
 		<div class="four columns"></div>
 	</div>
-	<?= $this->Form->end(); ?>
-
 </div>
 
 <div class="four columns">
@@ -81,6 +80,8 @@
 
 </div>
 </div>
+
+<?= $this->Form->end(); ?>
 
 
 <?php
