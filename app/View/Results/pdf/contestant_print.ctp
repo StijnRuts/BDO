@@ -38,6 +38,19 @@
 <p><strong>Strafpunten: </strong><?= $scores['strafpunten'] ?></p>
 <p><strong>Totaal: </strong><?= $scores['total'] ?></p>
 
+<br/>
+<h3>Commentaar</h3>
+<table>
+  <tbody>
+  <?php foreach ($scores['users'] as $user): ?>
+    <tr>
+      <th><?php echo h($user['username']); ?></th>
+      <td><?php echo nl2br(h($comments[$user['id']]['comment'])); ?></td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
 <?php
 function output_rows($list, $level, $users, $scores, $t){
 	foreach($list as $item){
