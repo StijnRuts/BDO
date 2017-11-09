@@ -62,7 +62,7 @@
 </div>
 
 <div class="four columns">
-  <?php echo $this->element('comments'); ?>
+  <?php echo $this->element('comments', array('title' => true)); ?>
 </div>
 
 <div class="four columns" id="previousscores">

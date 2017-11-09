@@ -15,7 +15,9 @@
     'VS' => 'Voeten sluiten',
 ); ?>
 
-<h3>Opmerkingen</h3>
+<?php if ($title): ?>
+  <h3>Opmerkingen</h3>
+<?php endif; ?>
 
 <div class="shortcuts">
   <?php
