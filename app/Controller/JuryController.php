@@ -24,8 +24,9 @@ class JuryController extends AppController {
 					$this->Contestant->id = $contestant['id'];
 					$score = $this->Contestant->getScores($round_id);
 					$juryscores = $score['scores'][$current_user['id']];
-					$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
-					$contestant['score'] = $juryscores['total']-$juryscores[-1];
+					$contestant['scores'] = $juryscores;
+					$contestant['points'] = $score['points'];
+					$contestant['maxtotal'] = $score['maxtotal'];
 				} unset($contestant);
 				$this->set('round', $round);
 			}
@@ -128,7 +129,7 @@ class JuryController extends AppController {
 			$this->Contestant->id = $contestant['id'];
 			$score = $this->Contestant->getScores($round_id);
 			$juryscores = $score['scores'][$current_user['id']];
-			$contestant['score'] = ($juryscores['total']==0) ? '-' : $juryscores['total']-$juryscores[-1];
+			$contestant['scores'] = $juryscores;
 		}
 		$this->set('round', $round);
 
