@@ -9,5 +9,6 @@
 		</td>
 	<?php endforeach; ?>
 
-	<td class="subfield score"><?= h($point['Point']['max']); ?></td>
+  <?php $field = $print ? 'th' : 'td'; ?>
+	<<?= $field; ?> class="subfield score"><?= h($point['Point']['max']); ?></<?= $field; ?>>
 </tr>

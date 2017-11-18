@@ -14,15 +14,17 @@
 </h2>
 
 <table>
+  <?php /*
 	<thead>
 		<tr>
 			<th></th>
 			<?php foreach($scores['users'] as $user): ?>
-				<th><?= h($user['username']); ?></th>
+				<th><?php echo h($user['username']); ?></th>
 			<?php endforeach; ?>
 			<th>Max</th>
 		</tr>
 	</thead>
+ */ ?>
 	<tbody>
 		<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
 		<tr id="total">
@@ -30,7 +32,7 @@
 			<?php foreach($scores['users'] as $user): ?>
 				<td class="important score"><?= h($scores['scores'][$user['id']]['total']); ?></td>
 			<?php endforeach; ?>
-			<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
+			<th class="important subfield score"><?= h($scores['maxtotal']) ?></th>
 		</tr>
 	</tbody>
 </table>
@@ -62,7 +64,8 @@ function output_rows($list, $level, $users, $scores, $t){
 			'point'=>$item,
 			'level'=>$level,
 			'users'=>$users,
-			'scores'=>$scores
+			'scores'=>$scores,
+			'print' => true,
 		));
 		if( count($item['children'])>0 ) output_rows($item['children'], $level+1, $users, $scores, $t);
 	}
