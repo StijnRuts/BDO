@@ -295,17 +295,25 @@ class ResultsController extends AppController {
     $this->response->type('pdf');
   }
 
-  public function contestant_print($contestant_id = null, $round_id = null) {
+  public function contestant_print($contestant_id = null, $round_id = null, $showJury = true) {
     $this->loadModel('Contestant');
     $this->loadModel('Round');
     $this->loadModel('Comment');
+
     if (!$this->Contestant->exists($contestant_id)) throw new NotFoundException();
     if (!$this->Round->exists($round_id)) throw new NotFoundException();
+
     $this->Contestant->id = $contestant_id;
     $this->Round->id = $round_id;
     $this->set('contestant', $this->Contestant->read());
     $this->set('round', $this->Round->read());
-    $this->set('scores', $this->Contestant->getScores($round_id));
+
+    $scores = $this->Contestant->getScores($round_id);
+    if (!$showJury) {
+      $scores = $this->Contestant->sortScores($scores);
+    }
+    $this->set('showJury', $showJury);
+    $this->set('scores', $scores);
 
     $comments = $this->Comment->find('all', array(
         'conditions' => array(

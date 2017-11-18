@@ -74,6 +74,26 @@ class Contestant extends AppModel {
 		return $scores;
 	}
 
+	/**
+	 * Sorts scores and users by total score
+	 * @param $scores
+	 */
+	public function sortScores($scores)
+	{
+			uasort($scores['scores'], function ($a, $b) {
+					return $b['total'] - $a['total'];
+			});
+
+			$ordering = array_keys($scores['scores']);
+			usort($scores['users'], function ($a, $b) use ($ordering) {
+					$a = array_search($a['id'], $ordering);
+					$b = array_search($b['id'], $ordering);
+					return $a - $b;
+			});
+
+			return $scores;
+	}
+
 	private function get_scores($round_id)
 	{
 		$contestant = $this->read();

@@ -31,24 +31,61 @@
 					<span class="nowrap">
 					<?= $this->Js->link(
 						'toon naam',
-						array('controller'=>'results', 'action'=>'showcontestantname', $contestant['Contestant']['id'], $round['Round']['id']),
-						array('title'=>'Toon naam van '.h($contestant['Contestant']['name'].' op scorebord'),
-							   'class'=>'tiny secondary button')
+						array(
+							'controller' => 'results',
+							'action' => 'showcontestantname',
+							$contestant['Contestant']['id'],
+							$round['Round']['id'],
+						),
+						array(
+							'title' => 'Toon naam van '.h($contestant['Contestant']['name'].' op scorebord'),
+							'class' => 'tiny secondary button',
+						)
 					); ?>
 					<?= $this->Js->link(
 						'toon',
-						array('controller'=>'results', 'action'=>'showcontestant', $contestant['Contestant']['id'], $round['Round']['id']),
-						array('title'=>'Toon resultaten van '.h($contestant['Contestant']['name'].' op scorebord'),
-							   'class'=>'tiny secondary button')
+						array(
+							'controller' => 'results',
+							'action' => 'showcontestant',
+							$contestant['Contestant']['id'],
+							$round['Round']['id'],
+						),
+						array(
+							'title' => 'Toon resultaten van '.h($contestant['Contestant']['name'].' op scorebord'),
+							'class' => 'tiny secondary button',
+						)
 					); ?>
 					<?= $this->Html->link(
-						'print',
-						array('controller'=>'results', 'action'=>'contestant_print',  
-								$contestant['Contestant']['id'], $round['Round']['id'],
-								str_replace('/', '-', $contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name'])),
-						array('title'=>'Print resultaten van '.h($contestant['Contestant']['name']),
-							   'class'=>'tiny secondary button',
-							   'target'=>'_blank')
+						'print [-]',
+						array(
+							'controller' => 'results',
+							'action' => 'contestant_print',
+							$contestant['Contestant']['id'],
+							$round['Round']['id'],
+							0,
+							str_replace('/', '-', $contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name']),
+						),
+						array(
+							'title' => 'Print resultaten van '.h($contestant['Contestant']['name'].', zonder jurynamen'),
+							'class' => 'tiny secondary button',
+							'target' => '_blank',
+						)
+					); ?>
+					<?= $this->Html->link(
+						'print [+]',
+						array(
+							'controller' => 'results',
+							'action' => 'contestant_print',
+							$contestant['Contestant']['id'],
+							$round['Round']['id'],
+							1,
+							str_replace('/', '-', $contestant['Contestant']['startnr']." - ".$contestant['Contestant']['name']." - ".$contestant['Club']['name']),
+						),
+						array(
+							'title' => 'Print resultaten van '.h($contestant['Contestant']['name'].', met jurynamen'),
+							'class' => 'tiny secondary button',
+							'target' => '_blank',
+						)
 					); ?>
 					</span>
 				</h2>
