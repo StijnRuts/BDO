@@ -104,7 +104,7 @@
 				</span>
 				<?php echo $this->Js->link(
 					"leeg",
-					array('controller'=>'results', 'action'=>'showmajoriteitstartnr', $round['Round']['id'], end($startnrs)+1),
+					array('controller'=>'results', 'action'=>'showmajoriteitstartnr', $round['Round']['id'], array_shift(array_keys($startnrs))-1),
 					array('title'=>"Toon geen enkel resultaat op het scorebord",
 						   'class'=>'small secondary button nothingbutton')
 				); ?>
