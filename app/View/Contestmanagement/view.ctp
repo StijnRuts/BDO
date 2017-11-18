@@ -181,6 +181,11 @@
 				</table>
 				<?php endif; ?>
 
+        <h4 style="margin-top:50px">Toon resultaten</h4>
+        <?php echo $this->element('place_buttons', array(
+            'contestants' => $round['Contestant'],
+        )); ?>
+
 			</div>
 		</div>
 	</div>

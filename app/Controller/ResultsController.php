@@ -8,10 +8,12 @@ class ResultsController extends AppController {
 		$this->inifile =  TMP."scorebord.ini";
 	}
 
-	public function index() {
-		$this->write_ini("welcome", null);
-		$this->layout = 'results';
-	}
+    public function index() {
+        $this->write_ini(array(
+            'type' => "welcome",
+        ));
+        $this->layout = 'results';
+    }
 
 
 	public function results() {
@@ -24,8 +26,10 @@ class ResultsController extends AppController {
 			case 'contestname': $this->contest_name($ini['id']); break;
 			case 'roundname': $this->round_name($ini['id']); break;
 			case 'contestantname': $this->contestant_name($ini['id'], $ini['round_id']); break;
+			case 'place': $this->place($ini['round_id'], $ini['minplace']); break;
+			case 'startnr': $this->startnr($ini['round_id'], $ini['startnr']); break;
 			case 'welcome': $this->welcome(); break;
-			default: echo "Error"; break;
+			default: echo "Error"; exit;
 		}
 	}
 
@@ -126,6 +130,54 @@ class ResultsController extends AppController {
 		$this->render('contestant_name');
 	}
 
+    private function place($round_id, $minplace) {
+        $this->loadModel('Round');
+        $this->loadModel('Contestant');
+        if (!$this->Round->exists($round_id)) throw new NotFoundException();
+        $round = $this->Round->find('first', array(
+            'conditions' => array('Round.id'=>$round_id),
+            'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
+        ));
+        foreach($round['Contestant'] as &$contestant){
+            $this->Contestant->id = $contestant['id'];
+            $contestant['scores'] = $this->Contestant->getScores($round_id);
+            $places[] = $contestant['scores']['total'];
+        }
+        $this->set('round', $round);
+
+        $places = array_unique($places);
+        rsort($places);
+        $keys = array_map(
+            function($a){ return $a+1; },
+            array_keys($places)
+        );
+        $places = array_combine($places, $keys);
+        $this->set('places', $places);
+        $this->set('minplace', $minplace);
+
+        $this->layout = 'ajax';
+        $this->render('place');
+    }
+
+    private function startnr($round_id, $startnr) {
+        $this->loadModel('Round');
+        $this->loadModel('Contestant');
+        if (!$this->Round->exists($round_id)) throw new NotFoundException();
+        $round = $this->Round->find('first', array(
+            'conditions' => array('Round.id'=>$round_id),
+            'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
+        ));
+        foreach($round['Contestant'] as &$contestant){
+            $this->Contestant->id = $contestant['id'];
+            $contestant['scores'] = $this->Contestant->getScores($round_id);
+        }
+        $this->set('round', $round);
+        $this->set('startnr', $startnr);
+
+        $this->layout = 'ajax';
+        $this->render('startnr');
+    }
+
 	public function contest_print($id = null) {
 		$this->loadModel('Contest');
 		$this->loadModel('Contestant');
@@ -191,42 +243,81 @@ class ResultsController extends AppController {
     }
 
 
-	public function showcontest($id = null){
-		$this->write_ini("contest", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showcontest($id = null){
+        $this->write_ini(array(
+            'type' => "contest",
+            'id' => $id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	public function showround($id = null){
-		$this->write_ini("round", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showround($id = null){
+        $this->write_ini(array(
+            'type' => "round",
+            'id' => $id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	public function showcontestant($id = null, $round_id = null){
-		$this->write_ini("contestant", $id, $round_id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showcontestant($id = null, $round_id = null){
+        $this->write_ini(array(
+            'type' => "contestant",
+            'id' => $id,
+            'round_id' => $round_id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	public function showcontestname($id = null){
-		$this->write_ini("contestname", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showcontestname($id = null){
+        $this->write_ini(array(
+            'type' => "contestname",
+            'id' => $id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	public function showroundname($id = null){
-		$this->write_ini("roundname", $id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showroundname($id = null){
+        $this->write_ini(array(
+            'type' => "roundname",
+            'id' => $id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	public function showcontestantname($id = null, $round_id = null){
-		$this->write_ini("contestantname", $id, $round_id);
-		if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
-	}
+    public function showcontestantname($id = null, $round_id = null){
+        $this->write_ini(array(
+            'type' => "contestantname",
+            'id' => $id,
+            'round_id' => $round_id,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
 
-	private function write_ini($type, $id, $round_id = null) {
-		$fh = fopen($this->inifile, 'w');
-		fwrite($fh,"type=$type\r\nid=$id");
-		if($round_id) fwrite($fh,"\r\nround_id=$round_id");
-		fclose($fh);
-	}
+    public function showplace($round_id = null, $minplace = null){
+        $this->write_ini(array(
+            'type' => "place",
+            'round_id' => $round_id,
+            'minplace' => $minplace,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
+
+    public function showstartnr($round_id = null, $startnr = null){
+        $this->write_ini(array(
+            'type' => "startnr",
+            'round_id' => $round_id,
+            'startnr' => $startnr,
+        ));
+        if(!$this->request->isAjax()) $this->redirect($this->referer()); else exit();
+    }
+
+    private function write_ini($data) {
+        $fh = fopen($this->inifile, 'w');
+        foreach($data as $key => $value) {
+            fwrite($fh, $key."=".$value."\r\n");
+        }
+        fclose($fh);
+    }
 
 
 	private function computeRanks($contestants){
