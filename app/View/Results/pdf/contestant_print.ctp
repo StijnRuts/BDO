@@ -45,7 +45,11 @@
   <?php foreach ($scores['users'] as $user): ?>
     <tr>
       <th><?php echo h($user['username']); ?></th>
-      <td><?php echo nl2br(h($comments[$user['id']]['comment'])); ?></td>
+      <td><?php
+        $comment = nl2br(h($comments[$user['id']]['comment']));
+        if (empty($comment)) { $comment = '/'; }
+        echo $comment;
+      ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>
