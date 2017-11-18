@@ -12,6 +12,7 @@
 	<span class="nowrap"><?= $contestant['Division']['name']; ?></span>
 </h3>
 
+<?php /*
 <h1 id="scores">
 	<small class="heading">Punten:</small>
 	<?php foreach($scores['users'] as $user): ?>
@@ -20,6 +21,7 @@
 		</span>
 	<?php endforeach; ?>
 </h1>
+ */ ?>
 
 <h1 id="extra">
 	<?php if($scores['verplichtelem'] > 0): ?>
