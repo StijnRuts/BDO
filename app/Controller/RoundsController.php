@@ -106,6 +106,21 @@ class RoundsController extends AppController {
 			foreach($this->request->data['Contestant'] as $contestant){
 				$this->request->data['ContestantsRound'][] = array('round_id'=>$id, 'contestant_id'=>$contestant);
 			}
+
+            if ($this->request->data['generate_startnrs']) {
+                $contestants = array_values($this->request->data['Contestant']);
+                shuffle($contestants);
+                array_walk($contestants, function (&$item, $startnr) {
+                    $item = array(
+                        'id' => $item,
+                        'startnr' => $startnr + 1,
+                    );
+                });
+
+                $this->loadModel('Contestant');
+                $this->Contestant->saveAll($contestants);
+            }
+
 			unset($this->request->data['Contestant']);
 			unset($this->request->data['Round']);
 
