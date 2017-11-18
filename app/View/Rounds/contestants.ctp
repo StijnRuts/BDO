@@ -69,6 +69,19 @@
 					</tfoot>
 				</table>
 				<div class="row">
+					<div class="twelve columns" style="text-align:center;">
+						<label for="generate_startnrs" class="small secondary button radius">
+							<?= $this->Form->checkbox('', array(
+								'checked' => false,
+								'hiddenField' => false,
+								'name' => 'generate_startnrs',
+								'id' => 'generate_startnrs'
+							)); ?>
+							Automatisch startnummers toekennen
+						</label>
+					</div>
+				</div>
+				<div class="row">
 					<div class="six columns"><?= $this->Form->submit('Opslaan', array('class'=>'radius button')); ?></div>
 					<div class="six columns"><?= $this->Html->link('Anuleren',
 						array( 'action'=>'view', $round['Round']['contest_id']),
