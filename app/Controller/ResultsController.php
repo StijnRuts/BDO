@@ -143,6 +143,19 @@ class ResultsController extends AppController {
             $contestant['scores'] = $this->Contestant->getScores($round_id);
             $places[] = $contestant['scores']['total'];
         }
+
+        usort($round['Contestant'], function ($a, $b) {
+            $aTotal = $a['scores']['total'];
+            $bTotal = $b['scores']['total'];
+            if ($aTotal != $bTotal) {
+                return $bTotal - $aTotal;
+            }
+
+            $aOrder = $a['startnrorder'];
+            $bOrder = $b['startnrorder'];
+            return $aOrder - $bOrder;
+        });
+
         $this->set('round', $round);
 
         $places = array_unique($places);
