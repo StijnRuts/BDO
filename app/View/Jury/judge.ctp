@@ -1,15 +1,34 @@
-<style>
-	@media only screen and (min-width: 768px) {
-		#previousscores { position:absolute; bottom:0; right:0; margin-bottom:56px; }
-	}
-</style>
-
 <div id="error"></div>
 
 <?= $this->Form->create('Score'); ?>
 
 <div class="row" style="position:relative;">
-<div class="eight columns">
+
+<div class="three columns" id="previousscores">
+  <h3>Eerdere beoordelingen</h3>
+  <table>
+    <tbody>
+    <?php foreach($round['Contestant'] as $c): ?>
+      <tr>
+        <td><?= h($c['startnr']); ?>: <?= h($c['name']); ?></td>
+        <td class="score">
+            <?php if ($c['scores']['total'] == 0): ?>
+              <strong>-</strong>
+            <?php else: ?>
+              <a href="" data-reveal-id="scoresModal-<?php echo $c['id'] ?>">
+                  <?php $c['scores'][-1] = isset($c['scores'][-1]) ? $c['scores'][-1] : 0; ?>
+                  <?php $score = $c['scores']['total'] - $c['scores'][-1]; ?>
+                <strong><?= h($score); ?></strong>
+              </a>
+            <?php endif; ?>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
+
+<div class="five columns">
 
 	<h2>
 		<?= h($contestant['Contestant']['startnr']); ?>:
@@ -63,30 +82,6 @@
 
 <div class="four columns">
   <?php echo $this->element('comments', array('title' => true)); ?>
-</div>
-
-<div class="four columns" id="previousscores">
-  <h3>Eerdere beoordelingen</h3>
-  <table>
-    <tbody>
-      <?php foreach($round['Contestant'] as $c): ?>
-        <tr>
-          <td><?= h($c['startnr']); ?>: <?= h($c['name']); ?></td>
-          <td class="score">
-            <?php if ($c['scores']['total'] == 0): ?>
-              <strong>-</strong>
-            <?php else: ?>
-              <a href="" data-reveal-id="scoresModal-<?php echo $c['id'] ?>">
-                <?php $c['scores'][-1] = isset($c['scores'][-1]) ? $c['scores'][-1] : 0; ?>
-                <?php $score = $c['scores']['total'] - $c['scores'][-1]; ?>
-                <strong><?= h($score); ?></strong>
-              </a>
-            <?php endif; ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
 </div>
 
 </div>
