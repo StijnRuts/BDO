@@ -27,6 +27,7 @@
  */ ?>
 	<tbody>
 		<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
+
 		<tr id="total">
 			<th class="important name">Totaal</th>
 			<?php foreach($scores['users'] as $user): ?>
@@ -34,28 +35,23 @@
 			<?php endforeach; ?>
 			<th class="important subfield score"><?= h($scores['maxtotal']) ?></th>
 		</tr>
+
+		<tr>
+			<th class="important name">Commentaar</th>
+				<?php foreach($scores['users'] as $user): ?>
+					<td><?php
+						$comment = nl2br(h($comments[$user['id']]['comment']));
+						if (empty($comment)) { $comment = '/'; }
+						echo $comment;
+					?></td>
+				<?php endforeach; ?>
+			<th></th>
+		</tr>
 	</tbody>
 </table>
 
 <p><strong>Strafpunten: </strong><?= $scores['strafpunten'] ?></p>
 <p><strong>Totaal: </strong><?= $scores['total'] ?></p>
-
-<br/>
-<h3>Commentaar</h3>
-<table>
-  <tbody>
-  <?php foreach ($scores['users'] as $user): ?>
-    <tr>
-      <th><?php echo h($user['username']); ?></th>
-      <td><?php
-        $comment = nl2br(h($comments[$user['id']]['comment']));
-        if (empty($comment)) { $comment = '/'; }
-        echo $comment;
-      ?></td>
-    </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
 
 <?php
 function output_rows($list, $level, $users, $scores, $t){
