@@ -133,7 +133,9 @@ class ResultsController extends AppController {
     private function place($round_id, $minplace) {
         $this->loadModel('Round');
         $this->loadModel('Contestant');
+
         if (!$this->Round->exists($round_id)) throw new NotFoundException();
+
         $round = $this->Round->find('first', array(
             'conditions' => array('Round.id'=>$round_id),
             'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
@@ -143,6 +145,7 @@ class ResultsController extends AppController {
             $contestant['scores'] = $this->Contestant->getScores($round_id);
             $places[] = $contestant['scores']['total'];
         }
+        $round['Contestant'] = $this->computeRanks($round['Contestant'], false);
 
         usort($round['Contestant'], function ($a, $b) {
             $aTotal = $a['scores']['total'];
@@ -175,7 +178,9 @@ class ResultsController extends AppController {
     private function startnr($round_id, $startnr) {
         $this->loadModel('Round');
         $this->loadModel('Contestant');
+
         if (!$this->Round->exists($round_id)) throw new NotFoundException();
+
         $round = $this->Round->find('first', array(
             'conditions' => array('Round.id'=>$round_id),
             'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
@@ -184,6 +189,14 @@ class ResultsController extends AppController {
             $this->Contestant->id = $contestant['id'];
             $contestant['scores'] = $this->Contestant->getScores($round_id);
         }
+        $round['Contestant'] = $this->computeRanks($round['Contestant'], false);
+
+        usort($round['Contestant'], function ($a, $b) {
+            $aOrder = $a['startnrorder'];
+            $bOrder = $b['startnrorder'];
+            return $aOrder - $bOrder;
+        });
+
         $this->set('round', $round);
         $this->set('startnr', $startnr);
 
@@ -333,7 +346,7 @@ class ResultsController extends AppController {
     }
 
 
-	private function computeRanks($contestants){
+	private function computeRanks($contestants, $useExAeqo = true){
 		if( count($contestants)==0 ) return;
 
 		uasort($contestants, 'cmpTotal');
@@ -347,8 +360,7 @@ class ResultsController extends AppController {
 				$rank++;
 				$contestant['scores']['rank'] = $rank;
 			} else {
-				//$contestant['scores']['rank'] = $rank;
-				$contestant['scores']['rank'] = 'ex-aequo';
+				$contestant['scores']['rank'] = $useExAeqo ? 'ex-aequo': $rank;
 			}
 		}
 		return $contestants;

@@ -9,7 +9,8 @@
 <table>
 	<thead>
 		<tr>
-			<th></th>
+			<th>Plaats</th>
+			<th>Startnr</th>
 			<th>Deelnemer</th>
 			<th>Club</th>
 			<th>Punten</th>
@@ -19,6 +20,7 @@
 	<?php foreach($round['Contestant'] as $contestant): ?>
 		<?php $place = $places[$contestant['scores']['total']]; ?>
 		<tr <?= $place>=$minplace ? "" : 'class="hidden"' ?>>
+			<td><?= h($contestant['scores']['rank']); ?></td>
 			<td><?= h($contestant['startnr']); ?></td>
 			<td><?= h($contestant['name']); ?></td>
 			<td><?= h($contestant['Club']['name']); ?></td>
