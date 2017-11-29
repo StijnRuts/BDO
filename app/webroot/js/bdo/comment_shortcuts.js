@@ -2,13 +2,21 @@ $(function() {
   $('.shortcut.button').on('click', function(e) {
     e.preventDefault();
     var comment = $(this).attr('data-comment');
-    addComment(comment);
+    toggleComment(comment);
     setButtonStates();
   });
   $('#CommentComment').on('change', setButtonStates);
   $('#CommentComment').on('keyup', setButtonStates);
   setButtonStates();
 });
+
+function toggleComment(comment) {
+  if (isCommentPresent(comment)) {
+    removeComment(comment);
+  } else {
+    addComment(comment);
+  }
+}
 
 function addComment(comment) {
   var field = $('#CommentComment');
@@ -20,13 +28,34 @@ function addComment(comment) {
   field.val(comments);
 }
 
+function removeComment(comment) {
+  var condition = getCommentRegexp(comment);
+  var field = $('#CommentComment');
+  var comments = splitLines(field.val());
+  comments = comments.filter(function(item) {
+    return !condition.test(item);
+  });
+  field.val(joinLines(comments));
+}
+
+function isCommentPresent(comment) {
+  var condition = getCommentRegexp(comment);
+  var comments = splitLines($('#CommentComment').val());
+  return comments.some(function(item) {
+    return condition.test(item);
+  })
+}
+
+function getCommentRegexp(comment) {
+  var conditionPart = escapeRegExp(comment).replace(new RegExp(' ', 'g'), ' +');
+  var condition = new RegExp('^\\s*' + conditionPart + '\\s*$', 'i');
+  return condition;
+}
+
 var setButtonStates = debounce(function() {
-  var comments = $('#CommentComment').val();
   $('.shortcut.button').each(function() {
     var comment = $(this).attr('data-comment');
-    var conditionPart = escapeRegExp(comment).replace(new RegExp(' ', 'g'), ' +');
-    var condition = new RegExp('^\\s*' + conditionPart + '\\s*$', 'mi');
-    if (condition.test(comments)) {
+    if (isCommentPresent(comment)) {
       $(this).addClass('primary').removeClass('secondary');
     } else {
       $(this).addClass('secondary').removeClass('primary');
@@ -56,4 +85,12 @@ function debounce(func, wait, immediate) {
 
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function splitLines(string) {
+  return string.split(/\r?\n/);
+}
+
+function joinLines(lines) {
+  return lines.join('\n');
 }
