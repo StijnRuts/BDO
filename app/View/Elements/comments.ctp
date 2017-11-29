@@ -3,7 +3,7 @@
     'SP' => 'Algemeen spanning',
     'KK' => 'Kromme knieen',
     'KAP' => 'Kapstokken',
-    'Rel' => 'Relivé',
+    'Rel' => 'Relevé',
     'A/H' => 'Arm/Hoofd',
     '...' => 'Op maat dansen',
     'OA' => 'Onderlinge afstanden',
