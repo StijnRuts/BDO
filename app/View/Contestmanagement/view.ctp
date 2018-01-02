@@ -119,30 +119,76 @@
 							<td>
 								<?= $this->Js->link(
 									'toon naam',
-									array('controller'=>'results', 'action'=>'showcontestantname', $contestant['id'], $round['Round']['id']),
-									array('title'=>'Toon naam van '.h($contestant['name']).' op scorebord',
-										   'class'=>'tiny secondary button')
+									array(
+										'controller' => 'results',
+										'action' => 'showcontestantname',
+										$contestant['id'],
+										$round['Round']['id'],
+									),
+									array(
+										'title' => 'Toon naam van '.h($contestant['name']).' op scorebord',
+										'class' => 'tiny secondary button',
+									)
 								); ?>
 								<?= $this->Js->link(
 									'toon',
-									array('controller'=>'results', 'action'=>'showcontestant', $contestant['id'], $round['Round']['id']),
-									array('title'=>'Toon resultaten van '.h($contestant['name'].' op scorebord'),
-										   'class'=>'tiny secondary button')
+									array(
+										'controller' => 'results',
+										'action' => 'showcontestant',
+										$contestant['id'],
+										$round['Round']['id'],
+									),
+									array(
+										'title' => 'Toon resultaten van '.h($contestant['name'].' op scorebord'),
+										'class' => 'tiny secondary button',
+									)
 								); ?>
 								<?= $this->Html->link(
-									'print',
-									array('controller'=>'results', 'action'=>'contestant_print', 'ext'=>'pdf',
-											$contestant['id'], $round['Round']['id'],
-											str_replace('/', '-', $contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name'])),
-									array('title'=>'Print resultaten van '.h($contestant['name']),
-										   'class'=>'tiny secondary button',
-										   'target'=>'_blank')
+									'print [-]',
+									array(
+										'controller' => 'results',
+										'action' => 'contestant_print',
+										'ext' => 'pdf',
+										$contestant['id'],
+										$round['Round']['id'],
+										0,
+										str_replace('/', '-', $contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name'])
+									),
+									array(
+										'title' => 'Print resultaten van '.h($contestant['name'].', zonder jurynamen'),
+										'class' => 'tiny secondary button',
+										'target' => '_blank'
+									)
+								); ?>
+								<?= $this->Html->link(
+									'print [+]',
+									array(
+										'controller' => 'results',
+										'action' => 'contestant_print',
+										'ext' => 'pdf',
+										$contestant['id'],
+										$round['Round']['id'],
+										1,
+										str_replace('/', '-', $contestant['startnr']." - ".$contestant['name']." - ".$contestant['Club']['name'])
+									),
+									array(
+										'title' => 'Print resultaten van '.h($contestant['name'].', met jurynamen'),
+										'class' => 'tiny secondary button',
+										'target' => '_blank'
+									)
 								); ?>
 								<?= $this->Html->link(
 									'beoordeling',
-									array('controller'=>'contestantmanagement', 'action'=>'view', $contestant['id'], $round['Round']['id']),
-									array('title'=>'Start beoordeling van '.h($contestant['name']),
-										   'class'=>'tiny button')
+									array(
+										'controller' => 'contestantmanagement',
+										'action' => 'view',
+										$contestant['id'],
+										$round['Round']['id'],
+									),
+									array(
+										'title' => 'Start beoordeling van '.h($contestant['name']),
+										'class' => 'tiny button',
+									)
 								); ?>
 							</td>
 						</tr>

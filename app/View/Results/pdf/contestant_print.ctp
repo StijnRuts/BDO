@@ -14,17 +14,17 @@
 </h2>
 
 <table>
-  <?php /*
-	<thead>
-		<tr>
-			<th></th>
-			<?php foreach($scores['users'] as $user): ?>
-				<th><?php echo h($user['username']); ?></th>
-			<?php endforeach; ?>
-			<th>Max</th>
-		</tr>
-	</thead>
- */ ?>
+	<?php if ($showJury): ?>
+		<thead>
+			<tr>
+				<th></th>
+				<?php foreach ($scores['users'] as $user): ?>
+					<th><?php echo h($user['username']); ?></th>
+				<?php endforeach; ?>
+				<th>Max</th>
+			</tr>
+		</thead>
+	<?php endif; ?>
 	<tbody>
 		<?php output_rows($scores['points'], 0, $scores['users'], $scores['scores'], $this); ?>
 

@@ -231,7 +231,7 @@ class ResultsController extends AppController {
 		$this->set('round', $round);
 	}
 
-    public function contestant_print($contestant_id = null, $round_id = null) {
+    public function contestant_print($contestant_id = null, $round_id = null, $showJury = true) {
         $this->loadModel('Contestant');
         $this->loadModel('Round');
         $this->loadModel('Comment');
@@ -245,7 +245,10 @@ class ResultsController extends AppController {
         $this->set('round', $this->Round->read());
 
         $scores = $this->Contestant->getScores($round_id);
-        $scores = $this->Contestant->sortScores($scores);
+        if (!$showJury) {
+        	$scores = $this->Contestant->sortScores($scores);
+        }
+        $this->set('showJury', $showJury);
         $this->set('scores', $scores);
 
         $comments = $this->Comment->find('all', array(
