@@ -13,6 +13,10 @@
     'TB' => 'Themaboog',
     '*' => 'Blunder',
     'VS' => 'Voeten sluiten',
+    'DT' => 'Danstechniek',
+    'AC' => 'Acrobatiek',
+    'EW' => 'Evenwicht',
+    'Sp' => 'Sprongen',
 ); ?>
 
 <?php if ($title): ?>
@@ -35,8 +39,8 @@
 </div>
 
 <?php echo $this->Form->input('Comment.comment', array(
-  'type'=>'textarea',
-  'label'=>false,
-  'rows'=>12,
+  'type' => 'textarea',
+  'label' => false,
+  'rows' => 12,
 )); ?>
 <?php echo $this->Form->hidden('Comment.id'); ?>
