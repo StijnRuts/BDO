@@ -37,14 +37,18 @@
 		</tr>
 
 		<tr>
-			<th class="important name">Commentaar</th>
-				<?php foreach($scores['users'] as $user): ?>
-					<td><?php
+			<th class="important name" style="border-right: 1px solid black;">
+				Commentaar
+			</th>
+			<?php foreach ($scores['users'] as $k => $user): ?>
+				<td style="border-right: 1px solid black;">
+					<?php
 						$comment = nl2br(h($comments[$user['id']]['comment']));
 						if (empty($comment)) { $comment = '/'; }
 						echo $comment;
-					?></td>
-				<?php endforeach; ?>
+					?>
+				</td>
+			<?php endforeach; ?>
 			<th></th>
 		</tr>
 	</tbody>
