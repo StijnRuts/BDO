@@ -45,17 +45,17 @@ class ResultsController extends AppController {
 		$contest = $this->Contest->find('first', array(
 			'conditions' => array('Contest.id'=>$id),
 			'contain' => array(
-				'Round'=>array('order'=>'order'),
+				'Round' => array('order'=>'order'),
 				'Round.Contestant' => array('order'=>'Contestant.startnrorder', 'Club'),
 				'Round.Category',
 				'Round.Discipline',
 				'Round.Division'
 			)
 		));
-		foreach($contest['Round'] as &$round){
-			foreach($round['Contestant'] as &$contestant){
+		foreach ($contest['Round'] as $i => $round) {
+			foreach ($round['Contestant'] as $j => $contestant) {
 				$this->Contestant->id = $contestant['id'];
-				$contestant['scores'] = $this->Contestant->getScores($round['id']);
+				$contest['Round'][$i]['Contestant'][$j]['scores'] = $this->Contestant->getScores($round['id']);
 			}
 		}
 		$this->set('contest', $contest);
@@ -72,9 +72,9 @@ class ResultsController extends AppController {
 			'conditions' => array('Round.id'=>$id),
 			'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
 		));
-		foreach($round['Contestant'] as &$contestant){
+		foreach ($round['Contestant'] as $k => $contestant) {
 			$this->Contestant->id = $contestant['id'];
-			$contestant['scores'] = $this->Contestant->getScores($id);
+			$round['Contestant'][$k]['scores'] = $this->Contestant->getScores($id);
 		}
 		$this->set('round', $round);
 
@@ -140,10 +140,9 @@ class ResultsController extends AppController {
             'conditions' => array('Round.id'=>$round_id),
             'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
         ));
-        foreach($round['Contestant'] as &$contestant){
+        foreach ($round['Contestant'] as $k => $contestant){
             $this->Contestant->id = $contestant['id'];
-            $contestant['scores'] = $this->Contestant->getScores($round_id);
-            $places[] = $contestant['scores']['total'];
+            $round['Contestant'][$k]['scores'] = $this->Contestant->getScores($round_id);
         }
         $round['Contestant'] = $this->computeRanks($round['Contestant'], false);
 
@@ -160,15 +159,6 @@ class ResultsController extends AppController {
         });
 
         $this->set('round', $round);
-
-        $places = array_unique($places);
-        rsort($places);
-        $keys = array_map(
-            function($a){ return $a+1; },
-            array_keys($places)
-        );
-        $places = array_combine($places, $keys);
-        $this->set('places', $places);
         $this->set('minplace', $minplace);
 
         $this->layout = 'ajax';
@@ -185,9 +175,9 @@ class ResultsController extends AppController {
             'conditions' => array('Round.id'=>$round_id),
             'contain' => array('Contestant'=>array('order'=>'startnrorder'), 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
         ));
-        foreach($round['Contestant'] as &$contestant){
+        foreach ($round['Contestant'] as $k => $contestant) {
             $this->Contestant->id = $contestant['id'];
-            $contestant['scores'] = $this->Contestant->getScores($round_id);
+            $round['Contestant'][$k]['scores'] = $this->Contestant->getScores($round_id);
         }
         $round['Contestant'] = $this->computeRanks($round['Contestant'], false);
 
@@ -215,12 +205,12 @@ class ResultsController extends AppController {
 				'Round.Category', 'Round.Discipline','Round.Division'
 			)
 		));
-		foreach($contest['Round'] as &$round){
-			foreach($round['Contestant'] as &$contestant){
+		foreach ($contest['Round'] as $i => $round) {
+			foreach ($round['Contestant'] as $j => $contestant) {
 				$this->Contestant->id = $contestant['id'];
-				$contestant['scores'] = $this->Contestant->getScores($round['id']);
+				$contest['Round'][$i]['Contestant'][$j]['scores'] = $this->Contestant->getScores($round['id']);
 			}
-			$round['Contestant'] = $this->computeRanks($round['Contestant']);
+			$contest['Round'][$i]['Contestant'] = $this->computeRanks($contest['Round'][$i]['Contestant']);
 		}
 		$this->set('contest', $contest);
 	}
@@ -233,9 +223,9 @@ class ResultsController extends AppController {
 			'conditions' => array('Round.id'=>$id),
 			'contain' => array('Contestant', 'Contestant.Club', 'Category', 'Discipline', 'Division', 'Contest')
 		));
-		foreach($round['Contestant'] as &$contestant){
+		foreach ($round['Contestant'] as $k => $contestant) {
 			$this->Contestant->id = $contestant['id'];
-			$contestant['scores'] = $this->Contestant->getScores($id);
+			$round['Contestant'][$k]['scores'] = $this->Contestant->getScores($id);
 		}
 		$round['Contestant'] = $this->computeRanks($round['Contestant']);
 		$this->set('round', $round);
@@ -346,28 +336,50 @@ class ResultsController extends AppController {
     }
 
 
-	private function computeRanks($contestants, $useExAeqo = true){
-		if( count($contestants)==0 ) return;
+	private function computeRanks($contestants, $useExAeqo = true)
+	{
+		if (count($contestants) == 0) {
+			return;
+		}
 
 		uasort($contestants, 'cmpTotal');
 
-		$rank = 0;
+		$rank = 1;
+		$currentRank = 1;
+
 		$first = reset($contestants);
 		$score = $first['scores']['total'] + 1;
-		foreach($contestants as &$contestant){
-			if( $contestant['scores']['total']<$score ){
+
+		foreach ($contestants as $k => $contestant) {
+			if ($contestant['scores']['total'] < $score) {
 				$score = $contestant['scores']['total'];
-				$rank++;
-				$contestant['scores']['rank'] = $rank;
-			} else {
-				$contestant['scores']['rank'] = $useExAeqo ? 'ex-aequo': $rank;
+				$currentRank = $rank;
 			}
+			$contestants[$k]['scores']['rank'] = $currentRank;
+			$rank++;
 		}
+
+		// count ranks, to split ex-aequo positions
+		$ranks = Set::classicExtract($contestants, '{n}.scores.rank');
+		$rankCounts = array_count_values($ranks);
+
+		$previousRank = null;
+		foreach ($contestants as $k => $contestant) {
+			$oldRank = $contestant['scores']['rank'];
+			$count = $rankCounts[$oldRank];
+			$newRank = $oldRank + floor(($count - 1) / 2);
+
+			if ($useExAeqo && $newRank == $previousRank) {
+				$contestants[$k]['scores']['rank'] = 'ex-aequo';
+			} else {
+				$contestants[$k]['scores']['rank'] = $newRank;
+			}
+			$previousRank = $newRank;
+		}
+
 		return $contestants;
 	}
-
 }
-
 
 function cmpTotal($contestant_a, $contestant_b) {
 	$a = $contestant_a['scores']['total'];

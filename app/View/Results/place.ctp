@@ -1,9 +1,9 @@
-<h2><?= h($round['Contest']['name']); ?></h2>
+<h2><?php echo h($round['Contest']['name']); ?></h2>
 
 <h3>
-	<span class="nowrap"><?= $round['Discipline']['name']; ?>,</span>
-	<span class="nowrap"><?= $round['Category']['name']; ?>,</span>
-	<span class="nowrap"><?= $round['Division']['name']; ?></span>
+	<span class="nowrap"><?php echo $round['Discipline']['name']; ?>,</span>
+	<span class="nowrap"><?php echo $round['Category']['name']; ?>,</span>
+	<span class="nowrap"><?php echo $round['Division']['name']; ?></span>
 </h3>
 
 <table>
@@ -17,14 +17,13 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php foreach($round['Contestant'] as $contestant): ?>
-		<?php $place = $places[$contestant['scores']['total']]; ?>
-		<tr <?= $place>=$minplace ? "" : 'class="hidden"' ?>>
-			<td><?= h($contestant['scores']['rank']); ?></td>
-			<td><?= h($contestant['startnr']); ?></td>
-			<td><?= h($contestant['name']); ?></td>
-			<td><?= h($contestant['Club']['name']); ?></td>
-			<td class="total score"><?= h($contestant['scores']['total']); ?></td>
+	<?php foreach ($round['Contestant'] as $contestant): ?>
+		<tr <?php echo $contestant['scores']['rank'] >= $minplace ? "" : 'class="hidden"' ?>>
+			<td><?php echo h($contestant['scores']['rank']); ?></td>
+			<td><?php echo h($contestant['startnr']); ?></td>
+			<td><?php echo h($contestant['name']); ?></td>
+			<td><?php echo h($contestant['Club']['name']); ?></td>
+			<td class="total score"><?php echo h($contestant['scores']['total']); ?></td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
