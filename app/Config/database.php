@@ -65,7 +65,7 @@ class DATABASE_CONFIG {
 		'host' => 'mysql',
 		'login' => 'dev',
 		'password' => 'dev',
-		'database' => 'bdo',
+		'database' => 'bdo_punten',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
