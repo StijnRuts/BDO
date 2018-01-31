@@ -90,7 +90,6 @@
 					</span>
 				</h2>
 
-				<?php /*
 				<div class="row" id="adminform">
 				<?= $this->Form->create('Adminscore'); ?>
 					<?= $this->Form->input('id', array('type'=>'hidden')); ?>
@@ -99,7 +98,6 @@
 					<?= $this->Form->submit('Opslaan', array('class'=>'small radius button')); ?>
 				<?= $this->Form->end(); ?>
 				</div>
-				*/ ?> <br/>
 
 				<div id="autorefresh"> <div class="load"></div> </div>
 

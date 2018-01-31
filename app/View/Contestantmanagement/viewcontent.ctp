@@ -17,7 +17,6 @@
 			<?php endforeach; ?>
 			<td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
 		</tr>
-		<?php /*
 		<tr>
 			<th class="important name">Strafpunten</th>
 			<td class="important score"><?= h($scores['strafpunten']) ?></td>
@@ -28,7 +27,6 @@
 			<td class="important score"><?= h($scores['total']) ?></td>
 			<td class="important" colspan="<?= count($scores['users']) ?>"></td>
 		</tr>
-		*/ ?>
 	</tbody>
 </table>
 

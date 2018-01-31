@@ -141,7 +141,6 @@ class Contestant extends AppModel {
 
 	private function add_verplichtelem($round_id, &$scores, &$users, &$points)
 	{
-		/*
 		$Adminscore = ClassRegistry::init('Adminscore');
 		$contestant = $this->read();
 
@@ -168,7 +167,7 @@ class Contestant extends AppModel {
 				$scores[$user['id']][-1] = $verplichtelem;
 			}
 		}
-		*/
+
 		return $scores;
 	}
 
