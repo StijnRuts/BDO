@@ -28,4 +28,4 @@ mysql:
         MYSQL_ROOT_PASSWORD: admin
         MYSQL_USER: dev
         MYSQL_PASSWORD: dev
-        MYSQL_DATABASE: bdo
+        MYSQL_DATABASE: bdo_majoriteit

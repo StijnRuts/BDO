@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="eight columns" style="margin: 20px 0">
-		<h2 style="font-size: 5em">BDO Scoresysteem</h2>
+		<h2 style="font-size: 5em">BDO Majoriteitsysteem</h2>
 	</div><div class="four columns"></div>
 	<div class="eight columns">
 		<h2><?= $this->Html->link('Ga naar de beheerders pagina', array('controller'=>'admin')); ?></h2>
