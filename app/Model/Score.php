@@ -36,20 +36,20 @@ class Score extends AppModel {
 		return true;
 	}
 
-	public function setEmptyScores($list, $round_id, $contestant_id, $user_id){
-		foreach($list as $point){
-			if($point['Point']['id'] == -1) continue;
-			$data = array(
-				'contestant_id' => $contestant_id,
-				'round_id' => $round_id,
-				'point_id' => $point['Point']['id'],
-				'user_id' => $user_id
-			);
-			if( !$this->hasAny($data) ) {
-				$this->create();
-				$this->save($data);
-			}
-			if( count($point['children'])>0 ) $this->setEmptyScores($point['children'], $round_id, $contestant_id, $user_id);
-		}
-	}
+  public function setEmptyScores($list, $round_id, $contestant_id, $user_id)
+  {
+    foreach ($list as $point) {
+      if ($point['Point']['id'] == -1) { continue; }
+      $this->query(sprintf(
+        "INSERT IGNORE INTO scores (contestant_id, round_id, point_id, user_id) VALUES (%d, %d, %d, %d)",
+        (int) $contestant_id,
+        (int) $round_id,
+        (int) $point['Point']['id'],
+        (int) $user_id
+      ));
+      if (count($point['children']) > 0) {
+        $this->setEmptyScores($point['children'], $round_id, $contestant_id, $user_id);
+      }
+    }
+  }
 }
