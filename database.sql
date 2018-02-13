@@ -176,7 +176,8 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `contestant_id` int(10) unsigned NOT NULL,
   `round_id` int(10) unsigned NOT NULL,
   `score` float unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `scores_index` (`point_id`,`user_id`,`contestant_id`,`round_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `adminscores` (
