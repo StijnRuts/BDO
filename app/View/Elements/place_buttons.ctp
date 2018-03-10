@@ -1,20 +1,14 @@
 <?php
-$places = array();
+$ranks = array();
 $startnrs = array();
 
 foreach ($contestants as $contestant) {
-    $places[] = $contestant['scores']['total'];
+    $ranks[] = $contestant['scores']['rank'];
     $startnrs[ $contestant['startnrorder'] ] = $contestant['startnr'];
 }
 
-$places = array_unique($places);
-rsort($places);
-$keys = array_map(
-    function($a){ return $a+1; },
-    array_keys($places)
-);
-$places = array_combine($places, $keys);
-
+$ranks = array_unique($ranks);
+sort($ranks);
 ksort($startnrs);
 ?>
 
@@ -26,14 +20,14 @@ ksort($startnrs);
             </span>
             <?php echo $this->Js->link(
                 "leeg",
-                array('controller'=>'results', 'action'=>'showplace', $round['Round']['id'], end($places)+1),
+                array('controller'=>'results', 'action'=>'showplace', $round['Round']['id'], end($ranks)+1),
                 array('title'=>"Toon geen enkel resultaat op het scorebord", 'class'=>'small secondary button nothingbutton')
             ); ?>
-            <?php foreach (array_reverse($places) as $place): ?>
+            <?php foreach (array_reverse($ranks) as $rank): ?>
                 <?php echo $this->Js->link(
-                    $place,
-                    array('controller'=>'results', 'action'=>'showplace', $round['Round']['id'], $place),
-                    array('title'=>"Toon de resultaten vanaf plaats $place op het scorebord", 'class'=>'small secondary button')
+                    $rank,
+                    array('controller'=>'results', 'action'=>'showplace', $round['Round']['id'], $rank),
+                    array('title'=>"Toon de resultaten vanaf plaats $rank op het scorebord", 'class'=>'small secondary button')
                 ); ?>
             <?php endforeach; ?>
         </div>

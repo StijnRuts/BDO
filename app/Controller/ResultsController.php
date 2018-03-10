@@ -339,7 +339,7 @@ class ResultsController extends AppController {
     }
 
 
-	private function computeRanks($contestants, $useExAeqo = true)
+	public function computeRanks($contestants, $useExAeqo = true)
 	{
 		if (count($contestants) == 0) {
 			return;
