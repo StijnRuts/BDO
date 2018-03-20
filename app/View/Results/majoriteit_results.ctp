@@ -23,6 +23,14 @@
 			<td><?= h($contestant['Club']['name']); ?></td>
 			<td><?= h($contestant['startnr']); ?></td>
 		</tr>
+		<tr <?= $contestant['place']>=$minplace ? "" : 'class="hidden"' ?>>
+			<td></td>
+			<td colspan="2">
+				&nbsp; &nbsp;
+				<?php echo implode('&nbsp; &nbsp;', $contestant['places']); ?>
+			</td>
+			<td></td>
+		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
