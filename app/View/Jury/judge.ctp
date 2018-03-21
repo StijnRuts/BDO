@@ -15,7 +15,7 @@
             <?php if ($c['score'] == 0): ?>
               <strong>-</strong>
             <?php else: ?>
-              <a href="" data-reveal-id="scoresModal-<?php echo $c['id'] ?>">
+              <a href="#" data-reveal-id="scoresModal-<?php echo $c['id'] ?>">
                 <strong><?= h($c['score']); ?></strong>
               </a>
             <?php endif; ?>
@@ -106,7 +106,7 @@
         <?php output_modal_rows($scores['points'], 0, $c['scores'], $this); ?>
         <tr>
           <th class="important name">Totaal</th>
-          <td class="important"><?= h($c['scores']['total']); ?></td>
+          <td class="important"><?= h($c['score']); ?></td>
           <td class="important subfield score"><?= h($scores['maxtotal']) ?></td>
         </tr>
       </tbody>

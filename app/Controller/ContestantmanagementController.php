@@ -103,6 +103,7 @@ class ContestantmanagementController extends AppController {
 			$juryscores = $score['scores'][$user_id];
 			$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
 			$contestant['score'] = $juryscores['total']-$juryscores[-1];
+			$contestant['scores'] = $juryscores;
 		} unset($contestant);
 		$this->set('round', $round);
 
