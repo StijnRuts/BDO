@@ -12,13 +12,11 @@
         <tr>
           <td><?= h($c['startnr']); ?>: <?= h($c['name']); ?></td>
           <td class="score">
-            <?php if ($c['scores']['total'] == 0): ?>
+            <?php if ($c['score'] == 0): ?>
               <strong>-</strong>
             <?php else: ?>
               <a href="" data-reveal-id="scoresModal-<?php echo $c['id'] ?>">
-                <?php $c['scores'][-1] = isset($c['scores'][-1]) ? $c['scores'][-1] : 0; ?>
-                <?php $score = $c['scores']['total'] - $c['scores'][-1]; ?>
-                <strong><?= h($score); ?></strong>
+                <strong><?= h($c['score']); ?></strong>
               </a>
             <?php endif; ?>
           </td>

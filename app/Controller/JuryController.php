@@ -131,7 +131,8 @@ class JuryController extends AppController {
       $this->Contestant->id = $contestant['id'];
       $score = $this->Contestant->getScores($round_id);
       $juryscores = $score['scores'][$current_user['id']];
-      $contestant['scores'] = $juryscores;
+      $juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
+      $contestant['score'] = $juryscores['total'] - $juryscores[-1];
     } unset($contestant);
     $this->set('round', $round);
 
@@ -152,9 +153,11 @@ class JuryController extends AppController {
 
         $this->Contestant->id = $contestant_id;
         $newscore = $this->Contestant->getScores($round_id);
-        $newscore = $newscore['scores'][$current_user['id']]['total'];
+        $newscore = $newscore['scores'][$current_user['id']];
+        $newscore[-1] = isset($newscore[-1]) ? $newscore[-1] : 0;
+        $newscore = $newscore['total'] - $newscore[-1];
 
-        if( in_array($newscore, $otherscores) ) {
+        if (in_array($newscore, $otherscores)) {
           $this->Session->setFlash("Deze score komt al voor", 'flash_error');
           $this->redirect('#');
         }

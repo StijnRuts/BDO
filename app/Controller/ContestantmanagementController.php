@@ -103,7 +103,7 @@ class ContestantmanagementController extends AppController {
 			$juryscores = $score['scores'][$user_id];
 			$juryscores[-1] = isset($juryscores[-1]) ? $juryscores[-1] : 0;
 			$contestant['score'] = $juryscores['total']-$juryscores[-1];
-		}
+		} unset($contestant);
 		$this->set('round', $round);
 
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -121,7 +121,9 @@ class ContestantmanagementController extends AppController {
 
 				$this->Contestant->id = $contestant_id;
 				$newscore = $this->Contestant->getScores($round_id);
-				$newscore = $newscore['scores'][$user_id]['total'];
+				$newscore = $newscore['scores'][$user_id];
+				$newscore[-1] = isset($newscore[-1]) ? $newscore[-1] : 0;
+				$newscore = $newscore['total'] - $newscore[-1];
 
 				if( in_array($newscore, $otherscores) ) {
 					$this->Session->setFlash("Deze score komt al voor", 'flash_error');
