@@ -1,3 +1,5 @@
+<div id="error"></div>
+
 <div class="row">
 
 	<div class="three columns">
@@ -15,7 +17,7 @@
 
 
 	<div class="nine columns">
-		<div class="row">
+		<div class="row" id="autorefresh">
 			<div class="twelve columns">
 
 				<h2>
@@ -93,7 +95,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($round['Contestant'] as $contestant): ?>
+						<?php $hasScoreconflict = false; ?>
+						<?php foreach ($round['Contestant'] as $contestant_key => $contestant): ?>
 						<tr>
 							<td class="startnr"><strong><?= h($contestant['startnr']); ?></strong></td>
 							<td>
@@ -104,14 +107,18 @@
 								); ?>
 							</td>
 							<td>
-								<?php foreach($contestant['scores']['users'] as $user): ?>
-								<span class="filler">
-									<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
-									<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
-								</span>
-								<span class="score <?= $user['id']==$contestant['scores']['min'] ? 'min' : '' ?> <?= $user['id']==$contestant['scores']['max'] ? 'max' : '' ?>">
-									<?= h($contestant['scores']['scores'][$user['id']]['total']); ?>
-								</span>
+								<?php foreach($contestant['scores']['users'] as $user_key => $user): ?>
+									<?php $scoreconflict = checkForConflict($round, $contestant_key, $user_key); ?>
+									<?php if ($scoreconflict) { $hasScoreconflict = true; } ?>
+									<span class="filler">
+										<?php for($i=0; $i<5-strlen(h($contestant['scores']['scores'][$user['id']]['total'])); $i++) echo "0"; ?>
+										<?= is_float($contestant['scores']['scores'][$user['id']]['total']) ? '0' : "." ?>
+									</span>
+									<span class="score
+									  <?= $user['id']==$contestant['scores']['min'] ? 'min' : '' ?>
+										<?= $user['id']==$contestant['scores']['max'] ? 'max' : '' ?>
+										<?= $scoreconflict ? 'alert radius label' : '' ?>
+									"><?= h($contestant['scores']['scores'][$user['id']]['total']); ?></span>
 								<?php endforeach; ?>
 							</td>
 							<td class="score"><?= h($contestant['scores']['verplichtelem']); ?></td>
@@ -201,7 +208,7 @@
 					'Bereken Majoriteit',
 					array('controller'=>'majoriteit', 'action'=>'view', $round['Round']['id']),
 					array('title'=>'Bereken de Majoriteit voor deze ronde',
-						   'class'=>'large button')
+						   'class'=>'large button '.($hasScoreconflict ? 'alert' : ''))
 				); ?>
 				</div>
 
@@ -242,3 +249,41 @@
 	</div>
 
 </div>
+
+<?php
+function checkForConflict($round, $contestant_key, $user_key)
+{
+	$scores = $round['Contestant'][$contestant_key]['scores'];
+	$user = $scores['users'][$user_key];
+  $score = $scores['scores'][$user['id']]['total'];
+
+	foreach ($round['Contestant'] as $k => $contestant) {
+		$user = $contestant['scores']['users'][$user_key];
+		$s = $contestant['scores']['scores'][$user['id']]['total'];
+		if ($s == $score && $k != $contestant_key) {
+			return true;
+		}
+	}
+
+	return false;
+}
+?>
+
+<script>
+	$(document).ready(refresh);
+	function refresh(){
+		$.get("<?= Router::url(array('action'=>'view', $round['Round']['id'])) ?>")
+		 .done(function(data){
+		 		$("#autorefresh").html($(data).find("#autorefresh"));
+		 		$("#error").html("");
+		 })
+		 .fail(function(){
+		 		$("#error").html('<div class="alert-box alert">Kan gegevens niet updaten</div>');
+		 });
+		setTimeout(refresh, 5000);
+	}
+
+	$(window).bind('beforeunload', function() {
+		$("#error").hide();
+	});
+</script>
