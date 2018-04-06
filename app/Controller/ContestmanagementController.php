@@ -66,7 +66,12 @@ class ContestmanagementController extends AppController {
 		App::import('Controller', 'Results');
 		$resultsController = new ResultsController();
 		$round['Contestant'] = $resultsController->computeRanks($round['Contestant'], false);
-		$this->set('round', $round);
+
+        usort($round['Contestant'], function ($a, $b) {
+            return $a['startnrorder'] - $b['startnrorder'];
+        });
+
+        $this->set('round', $round);
 
 		$this->set('contest', $this->Contest->find('first', array(
 			'conditions' => array('Contest.id'=>$round['Round']['contest_id']),
